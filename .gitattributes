@@ -1,0 +1,19 @@
+# 6台の Windows 端末で改行が揺れると PR 差分がファイル全体になりレビュー不能になる。
+# scope-guard の誤検知も防ぐため、リポジトリ内は LF に統一する。
+* text=auto eol=lf
+
+*.md   text eol=lf
+*.mjs  text eol=lf
+*.ts   text eol=lf
+*.tsx  text eol=lf
+*.json text eol=lf
+*.yml  text eol=lf
+*.css  text eol=lf
+
+*.png  binary
+*.jpg  binary
+*.jpeg binary
+*.gif  binary
+*.ico  binary
+*.woff binary
+*.woff2 binary

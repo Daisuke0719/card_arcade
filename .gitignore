@@ -1,0 +1,26 @@
+# 依存とビルド成果物
+node_modules/
+dist/
+coverage/
+.vite/
+
+# 環境設定
+*.local
+.env
+.env.*
+
+# Claude Code のローカル状態（共有しない）
+.claude/.state/
+.claude/settings.local.json
+
+# 一時ファイル
+.pr-body.md
+*.log
+npm-debug.log*
+
+# OS が勝手に作るファイル
+# git add . でこれらを巻き込むと scope-guard が赤くなるため必ず除外する
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+.DS_Store

@@ -1,0 +1,70 @@
+/*
+ * CARD ARCADE のデザイントークン。
+ * ゲーム側の CSS Modules では色や余白を直書きせず、必ずこの変数を使う。
+ * （6チームが別々に色を決めると、統合したときに1つのアーケードに見えなくなる）
+ */
+:root {
+  /* 面 */
+  --ca-bg: #10151f;
+  --ca-bg-felt: #14532d;
+  --ca-surface: #1b2333;
+  --ca-surface-raised: #232d40;
+  --ca-border: #33405a;
+
+  /* 文字 */
+  --ca-text: #eef2f8;
+  --ca-text-muted: #9aa8bf;
+  --ca-text-inverse: #10151f;
+
+  /* アクセント（アーケードのネオン） */
+  --ca-accent: #38bdf8;
+  --ca-accent-strong: #0ea5e9;
+  --ca-accent-soft: rgba(56, 189, 248, 0.14);
+  --ca-success: #34d399;
+  --ca-warning: #fbbf24;
+  --ca-danger: #f87171;
+
+  /* カード */
+  --ca-card-face: #fdfdfd;
+  --ca-card-back: linear-gradient(135deg, #1e3a8a 25%, #1e40af 25% 50%, #1e3a8a 50% 75%, #1e40af 75%);
+  --ca-card-red: #dc2626;
+  --ca-card-black: #111827;
+  --ca-card-width: 72px;
+  --ca-card-height: 100px;
+  --ca-card-radius: 8px;
+
+  /* 難易度バッジ */
+  --ca-difficulty-easy: #34d399;
+  --ca-difficulty-normal: #38bdf8;
+  --ca-difficulty-hard: #f472b6;
+
+  /* 余白 */
+  --ca-space-1: 4px;
+  --ca-space-2: 8px;
+  --ca-space-3: 12px;
+  --ca-space-4: 16px;
+  --ca-space-5: 24px;
+  --ca-space-6: 32px;
+  --ca-space-7: 48px;
+
+  /* 角丸・影 */
+  --ca-radius-sm: 6px;
+  --ca-radius-md: 10px;
+  --ca-radius-lg: 16px;
+  --ca-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --ca-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.35);
+  --ca-shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.45);
+
+  /* 文字サイズ */
+  --ca-font-sans: "Segoe UI", "Hiragino Sans", "Noto Sans JP", system-ui, sans-serif;
+  --ca-font-mono: "Cascadia Code", Consolas, "Courier New", monospace;
+  --ca-text-xs: 12px;
+  --ca-text-sm: 14px;
+  --ca-text-md: 16px;
+  --ca-text-lg: 20px;
+  --ca-text-xl: 28px;
+  --ca-text-2xl: 40px;
+
+  /* アニメーション */
+  --ca-transition: 160ms ease;
+}
