@@ -1,0 +1,36 @@
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ca-space-1);
+  padding: var(--ca-space-3);
+  border-radius: var(--ca-radius-md);
+  border: 1px solid var(--ca-border);
+  background: var(--ca-surface);
+  max-height: 200px;
+  overflow-y: auto;
+  min-width: 220px;
+}
+
+.title {
+  font-size: var(--ca-text-sm);
+  color: var(--ca-text-muted);
+  position: sticky;
+  top: 0;
+  background: var(--ca-surface);
+}
+
+.entry {
+  font-size: var(--ca-text-sm);
+  padding: 2px 0;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.06);
+}
+
+.latest {
+  color: var(--ca-accent);
+  font-weight: 600;
+}
+
+.empty {
+  font-size: var(--ca-text-sm);
+  color: var(--ca-text-muted);
+}

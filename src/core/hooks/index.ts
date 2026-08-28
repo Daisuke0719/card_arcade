@@ -61,7 +61,9 @@ export function useElapsedMs(running: boolean, tickMs = 100): number {
 
 /** 残り時間(ms)。0 になったら onExpire を1回だけ呼ぶ。 */
 export function useCountdown(durationMs: number, running: boolean, onExpire?: () => void): number {
-  const [remaining, setRemaining] = useState(durationMs);
+  const elapsed = useElapsedMs(running);
+  const remaining = Math.max(0, durationMs - elapsed);
+
   const expiredRef = useRef(false);
   const onExpireRef = useRef(onExpire);
 
@@ -70,27 +72,12 @@ export function useCountdown(durationMs: number, running: boolean, onExpire?: ()
   }, [onExpire]);
 
   useEffect(() => {
-    setRemaining(durationMs);
-    expiredRef.current = false;
-  }, [durationMs]);
-
-  useEffect(() => {
-    if (!running) return undefined;
-
-    const endsAt = Date.now() + remaining;
-    const timer = window.setInterval(() => {
-      const next = Math.max(0, endsAt - Date.now());
-      setRemaining(next);
-      if (next === 0 && !expiredRef.current) {
-        expiredRef.current = true;
-        onExpireRef.current?.();
-      }
-    }, 100);
-
-    return () => window.clearInterval(timer);
-    // remaining を依存に入れると毎tick再登録されるため意図的に除外する
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [running]);
+    if (!running) return;
+    if (remaining > 0) return;
+    if (expiredRef.current) return;
+    expiredRef.current = true;
+    onExpireRef.current?.();
+  }, [running, remaining]);
 
   return remaining;
 }

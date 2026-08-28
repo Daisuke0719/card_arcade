@@ -1,0 +1,17 @@
+.pile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--ca-space-2);
+}
+
+.label {
+  font-size: var(--ca-text-sm);
+  color: var(--ca-text-muted);
+}
+
+.count {
+  font-size: var(--ca-text-xs);
+  color: var(--ca-text-muted);
+  font-variant-numeric: tabular-nums;
+}

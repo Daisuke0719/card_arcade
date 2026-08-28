@@ -1,0 +1,58 @@
+.board {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ca-space-2);
+  padding: var(--ca-space-3);
+  border-radius: var(--ca-radius-md);
+  border: 1px solid var(--ca-border);
+  background: var(--ca-surface);
+  min-width: 200px;
+}
+
+.title {
+  font-size: var(--ca-text-sm);
+  color: var(--ca-text-muted);
+}
+
+.row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--ca-space-3);
+  padding: 4px 8px;
+  border-radius: var(--ca-radius-sm);
+}
+
+.current {
+  background: var(--ca-accent-soft);
+  outline: 1px solid var(--ca-accent);
+}
+
+.finished {
+  opacity: 0.6;
+}
+
+.name {
+  display: flex;
+  align-items: center;
+  gap: var(--ca-space-2);
+  font-weight: 600;
+}
+
+.rankLabel {
+  font-size: var(--ca-text-xs);
+  padding: 1px 6px;
+  border-radius: 999px;
+  background: var(--ca-accent);
+  color: var(--ca-text-inverse);
+}
+
+.detail {
+  font-size: var(--ca-text-sm);
+  color: var(--ca-text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.turnMark {
+  color: var(--ca-accent);
+}

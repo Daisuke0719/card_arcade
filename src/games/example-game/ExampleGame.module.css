@@ -1,0 +1,62 @@
+.table {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--ca-space-5);
+  flex: 1;
+  justify-content: center;
+}
+
+.round {
+  font-family: var(--ca-font-mono);
+  color: var(--ca-text-muted);
+  letter-spacing: 0.08em;
+}
+
+.cards {
+  display: flex;
+  align-items: center;
+  gap: var(--ca-space-5);
+}
+
+.slot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--ca-space-2);
+}
+
+.slotLabel {
+  font-size: var(--ca-text-sm);
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.arrow {
+  font-size: var(--ca-text-xl);
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.actions {
+  display: flex;
+  gap: var(--ca-space-3);
+}
+
+.message {
+  min-height: 1.6em;
+  font-weight: 600;
+}
+
+.hit {
+  color: var(--ca-success);
+}
+
+.miss {
+  color: var(--ca-warning);
+}
+
+.guesses {
+  display: flex;
+  gap: var(--ca-space-4);
+  font-size: var(--ca-text-sm);
+  color: rgba(255, 255, 255, 0.85);
+}

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import type { GameId, HighScore, HighScoreDirection, StorageKey } from "../types";
 
 /**
@@ -74,11 +74,8 @@ export function useHighScore(
   gameId: GameId,
   direction: HighScoreDirection,
 ): { highScore: HighScore | null; submit: (value: number) => boolean; clear: () => void } {
-  const [highScore, setHighScore] = useState<HighScore | null>(null);
-
-  useEffect(() => {
-    setHighScore(loadHighScore(gameId));
-  }, [gameId]);
+  // 初回レンダー時に1度だけ読む（effect の中で setState すると余計な再描画が起きる）
+  const [highScore, setHighScore] = useState<HighScore | null>(() => loadHighScore(gameId));
 
   const submit = useCallback(
     (value: number) => {

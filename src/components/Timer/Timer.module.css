@@ -1,0 +1,24 @@
+.timer {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--ca-space-2);
+  padding: var(--ca-space-2) var(--ca-space-3);
+  border-radius: var(--ca-radius-md);
+  border: 1px solid var(--ca-border);
+  background: var(--ca-surface);
+}
+
+.label {
+  font-size: var(--ca-text-sm);
+  color: var(--ca-text-muted);
+}
+
+.value {
+  font-family: var(--ca-font-mono);
+  font-size: var(--ca-text-lg);
+  font-variant-numeric: tabular-nums;
+}
+
+.warning {
+  color: var(--ca-warning);
+}
