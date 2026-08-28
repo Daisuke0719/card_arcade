@@ -322,7 +322,7 @@ export function chooseCard(moves: readonly PlayingCard[], rng: Rng): PlayingCard
 
 ## レビュアー向けミッション（このゲームの壊れやすい所）
 
-七並べを担当するのは Team D、レビューするのは **Team E** です。
+七並べをレビューするのは **Team C** です。
 仕様を知らなくても意味のある検証ができるよう、次の3つを実機（`npm run dev`）で試してください。
 
 ### 1. CPU の手番中に自分の手札を連打する

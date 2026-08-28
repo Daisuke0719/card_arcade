@@ -18,7 +18,8 @@
       "minPlayers": 4,
       "maxPlayers": 4,
       "stateType": "BabanukiState",
-      "actionType": "BabanukiAction"
+      "actionType": "BabanukiAction",
+      "reviewedBy": "team-f"
     },
     {
       "team": "team-b",
@@ -34,7 +35,8 @@
       "minPlayers": 1,
       "maxPlayers": 1,
       "stateType": "ShinkeisuijakuState",
-      "actionType": "ShinkeisuijakuAction"
+      "actionType": "ShinkeisuijakuAction",
+      "reviewedBy": "team-a"
     },
     {
       "team": "team-c",
@@ -50,7 +52,8 @@
       "minPlayers": 2,
       "maxPlayers": 2,
       "stateType": "SpeedState",
-      "actionType": "SpeedAction"
+      "actionType": "SpeedAction",
+      "reviewedBy": "team-b"
     },
     {
       "team": "team-d",
@@ -66,7 +69,8 @@
       "minPlayers": 4,
       "maxPlayers": 4,
       "stateType": "ShichinarabeState",
-      "actionType": "ShichinarabeAction"
+      "actionType": "ShichinarabeAction",
+      "reviewedBy": "team-c"
     },
     {
       "team": "team-e",
@@ -82,7 +86,8 @@
       "minPlayers": 4,
       "maxPlayers": 4,
       "stateType": "DoubtState",
-      "actionType": "DoubtAction"
+      "actionType": "DoubtAction",
+      "reviewedBy": "team-d"
     },
     {
       "team": "team-f",
@@ -98,7 +103,8 @@
       "minPlayers": 4,
       "maxPlayers": 4,
       "stateType": "DaifugoState",
-      "actionType": "DaifugoAction"
+      "actionType": "DaifugoAction",
+      "reviewedBy": "team-e"
     }
   ],
   "protectedPaths": [
