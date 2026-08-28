@@ -1,0 +1,37 @@
+name: 改善の提案
+description: こうするともっと良くなる、という提案
+title: "[improve] "
+labels: ["stretch-goal"]
+body:
+  - type: dropdown
+    id: scope
+    attributes:
+      label: 影響する範囲
+      options:
+        - 自分たちのゲームの中だけ
+        - 共通基盤（src/core / src/components）にも関わる
+    validations:
+      required: true
+
+  - type: input
+    id: game
+    attributes:
+      label: 対象のゲーム
+      placeholder: babanuki
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: 提案の内容
+    validations:
+      required: true
+
+  - type: textarea
+    id: why
+    attributes:
+      label: なぜそうしたほうがよいか
+      description: 「良くなるから」ではなく、誰のどんな困りごとが減るのかを書いてください
+    validations:
+      required: true

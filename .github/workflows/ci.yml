@@ -1,0 +1,113 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+# 必須チェックは verify の1本だけにしている。
+# チェック名を複数にすると、綴り違いやジョブ名の変更で
+# 全ての Pull Request が永久に pending になる事故が起きるため。
+jobs:
+  verify:
+    name: verify
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: リポジトリを取得
+        uses: actions/checkout@v4
+        with:
+          # 範囲チェックが origin/main との差分を計算するので全履歴が必要
+          fetch-depth: 0
+
+      - name: Node.js を用意
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - name: 依存をインストール
+        run: npm ci --prefer-offline --no-audit --fund=false
+
+      # 落ちやすく、いちばん速いものから並べる（40秒で分かる）
+      - name: 範囲チェック
+        id: scope
+        if: ${{ !cancelled() }}
+        env:
+          OVERRIDE: ${{ contains(github.event.pull_request.labels.*.name, 'harness:override') }}
+        run: |
+          BASE="origin/${{ github.base_ref || 'main' }}"
+          if [ "$OVERRIDE" = "true" ]; then
+            echo "harness:override ラベルが付いているため警告のみで続行します"
+            node scripts/scope-guard.mjs --base "$BASE" --warn-only
+          else
+            node scripts/scope-guard.mjs --base "$BASE"
+          fi
+
+      - name: 依存が変わっていないか
+        id: deps
+        if: ${{ !cancelled() }}
+        run: |
+          if ! git diff --exit-code -- package.json package-lock.json; then
+            echo "::error::package.json / package-lock.json が変更されています。依存の追加は運営が行います。"
+            exit 1
+          fi
+
+      - name: Lint
+        id: lint
+        if: ${{ !cancelled() }}
+        run: npm run lint
+
+      - name: 型チェック
+        id: typecheck
+        if: ${{ !cancelled() }}
+        run: npm run typecheck
+
+      - name: テスト
+        id: test
+        if: ${{ !cancelled() }}
+        run: npm run test -- --coverage
+
+      - name: ビルド
+        id: build
+        if: ${{ !cancelled() }}
+        run: npm run build
+
+      - name: 結果のまとめ
+        if: ${{ !cancelled() }}
+        run: node scripts/ci-summary.mjs >> "$GITHUB_STEP_SUMMARY"
+
+      # 1回の実行で全部の失敗を出したいので、最後にまとめて判定する
+      - name: 判定
+        if: ${{ !cancelled() }}
+        run: |
+          FAILED=""
+          [ "${{ steps.scope.outcome }}" = "failure" ] && FAILED="$FAILED 範囲チェック"
+          [ "${{ steps.deps.outcome }}" = "failure" ] && FAILED="$FAILED 依存の変更"
+          [ "${{ steps.lint.outcome }}" = "failure" ] && FAILED="$FAILED Lint"
+          [ "${{ steps.typecheck.outcome }}" = "failure" ] && FAILED="$FAILED 型チェック"
+          [ "${{ steps.test.outcome }}" = "failure" ] && FAILED="$FAILED テスト"
+          [ "${{ steps.build.outcome }}" = "failure" ] && FAILED="$FAILED ビルド"
+          if [ -n "$FAILED" ]; then
+            echo "::error::失敗しました:$FAILED  — 手元で npm run verify を実行すると同じ内容を確認できます"
+            exit 1
+          fi
+          echo "すべて通りました"
+
+  # 参考情報。必須チェックにはしない（Draft では動かさない）
+  pr-meta:
+    name: pr-meta (advisory)
+    if: github.event_name == 'pull_request' && github.event.pull_request.draft == false
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Pull Request の書き方を確認
+        env:
+          PR_BODY: ${{ github.event.pull_request.body }}
+        run: node scripts/check-pr-body.mjs

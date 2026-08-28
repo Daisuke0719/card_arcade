@@ -7,7 +7,7 @@
  *
  * 悪意ある回避への対策ではなく、うっかりへの対策と割り切っている。
  */
-import { loadConfig, repoRoot } from "../../scripts/lib/harness.mjs";
+import { currentBranch, gameIdFromBranch, loadConfig, repoRoot } from "../../scripts/lib/harness.mjs";
 import { deny, harnessDisabled, pass, readInput } from "./lib/io.mjs";
 
 const input = await readInput();
@@ -98,8 +98,13 @@ if (/\bvitest\b(?!\s+run)/.test(command) && !/npm\s+run\s+test:watch/.test(comma
 }
 
 // 5. シェル経由で保護領域に書き込む形
+//    作業ブランチ（feature/*）にいるときだけ見る。
+//    運営が main で共通基盤を整備するときに邪魔をしないため
+//    （参加者は必ず feature/* で作業するので、実害はない）。
+const root2 = repoRoot();
+const onFeatureBranch = gameIdFromBranch(currentBranch(root2)) !== null;
 const isRecovery = RECOVERY_PATTERNS.some((pattern) => pattern.test(command));
-if (!isRecovery) {
+if (onFeatureBranch && !isRecovery) {
   const writesSomething = WRITE_TOKENS.some((token) => command.includes(token));
   if (writesSomething) {
     const target = PROTECTED_PREFIXES.find((prefix) => command.includes(prefix));

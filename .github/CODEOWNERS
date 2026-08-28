@@ -1,0 +1,33 @@
+# 運営が管理する場所だけを講師の承認必須にする。
+#
+# ここに `*` の行を書かないこと。
+# 書くと6つの Pull Request が同時に来る115〜152分の時間帯に講師が完全なボトルネックになり、
+# 「チーム同士でレビューする」という研修の目的とも矛盾する。
+# src/games/<各チーム>/ は意図的に誰も所有していない。
+
+/src/core/            @Daisuke0719
+/src/components/      @Daisuke0719
+/src/app/             @Daisuke0719
+/src/pages/           @Daisuke0719
+/src/styles/          @Daisuke0719
+/src/test/            @Daisuke0719
+/src/games/CLAUDE.md  @Daisuke0719
+/src/games/example-game/ @Daisuke0719
+/tests/               @Daisuke0719
+/scripts/             @Daisuke0719
+/templates/           @Daisuke0719
+/harness/             @Daisuke0719
+/docs/                @Daisuke0719
+/.github/             @Daisuke0719
+/.claude/             @Daisuke0719
+/.githooks/           @Daisuke0719
+
+/package.json         @Daisuke0719
+/package-lock.json    @Daisuke0719
+/tsconfig.json        @Daisuke0719
+/vite.config.ts       @Daisuke0719
+/eslint.config.js     @Daisuke0719
+/index.html           @Daisuke0719
+/CLAUDE.md            @Daisuke0719
+/.gitattributes       @Daisuke0719
+/.gitignore           @Daisuke0719

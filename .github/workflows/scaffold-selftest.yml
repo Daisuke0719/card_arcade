@@ -1,0 +1,35 @@
+name: scaffold self test
+
+# 雛形そのものが規約違反になっていないことを保証する。
+# 参加者が npm run scaffold した直後に verify が赤い、という事故を防ぐ。
+on:
+  push:
+    branches: [main]
+    paths:
+      - "templates/**"
+      - "scripts/scaffold-game.mjs"
+      - "eslint.config.js"
+      - "tests/contract/**"
+  workflow_dispatch:
+
+jobs:
+  selftest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+      - run: npm ci --prefer-offline --no-audit --fund=false
+
+      - name: 6チーム分の雛形を作り直す
+        run: node scripts/scaffold-game.mjs --all --force
+
+      - name: 雛形の状態で lint / 型 / テスト / ビルドが通ること
+        run: |
+          npm run lint
+          npm run typecheck
+          npm run test
+          npm run build

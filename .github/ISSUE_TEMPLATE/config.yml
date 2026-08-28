@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 実装の進め方が分からない
+    url: https://github.com/Daisuke0719/card_arcade/blob/main/docs/handson-steps.md
+    about: 当日の手順書（Step 1〜18）を見てください
+  - name: エラーで詰まった
+    url: https://github.com/Daisuke0719/card_arcade/blob/main/docs/troubleshooting.md
+    about: よくあるトラブルと対処（T-01〜）を見てください
+  - name: ルールが分からない
+    url: https://github.com/Daisuke0719/card_arcade/tree/main/docs/games
+    about: 各ゲームのルールの正典はここにあります

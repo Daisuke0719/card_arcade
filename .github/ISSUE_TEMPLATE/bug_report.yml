@@ -1,0 +1,47 @@
+name: 不具合の報告
+description: CARD ARCADE 大会で見つけた不具合を登録します
+title: "[bug] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        遊んでいて見つけた不具合を教えてください。3分で書ける量で構いません。
+
+  - type: dropdown
+    id: game
+    attributes:
+      label: どのゲームですか
+      options:
+        - ババ抜き（babanuki）
+        - 神経衰弱（shinkeisuijaku）
+        - スピード（speed）
+        - 七並べ（shichinarabe）
+        - ダウト（doubt）
+        - 大富豪（daifugo）
+        - ハイ＆ロー（example-game）
+        - アーケード一覧・その他
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: 再現手順
+      description: どう操作したら起きましたか
+      placeholder: |
+        1. ゲームを開く
+        2. カードを2枚めくる
+        3. すぐにもう1枚めくる
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: どうなると思ったか / 実際どうなったか
+      placeholder: |
+        期待: 3枚目はめくれない
+        実際: 3枚目がめくれてしまう
+    validations:
+      required: true
