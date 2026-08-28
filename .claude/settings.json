@@ -1,0 +1,120 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "defaultMode": "acceptEdits",
+    "deny": [
+      "Edit(src/core/**)",
+      "Edit(src/components/**)",
+      "Edit(src/app/**)",
+      "Edit(src/pages/**)",
+      "Edit(src/styles/**)",
+      "Edit(src/test/**)",
+      "Edit(src/vite-env.d.ts)",
+      "Edit(src/games/example-game/**)",
+      "Edit(src/games/CLAUDE.md)",
+      "Edit(docs/**)",
+      "Edit(tests/**)",
+      "Edit(templates/**)",
+      "Edit(scripts/**)",
+      "Edit(harness/**)",
+      "Edit(.github/**)",
+      "Edit(.claude/**)",
+      "Edit(.githooks/**)",
+      "Edit(package.json)",
+      "Edit(package-lock.json)",
+      "Edit(tsconfig.json)",
+      "Edit(vite.config.ts)",
+      "Edit(eslint.config.js)",
+      "Edit(index.html)",
+      "Edit(CLAUDE.md)",
+      "Edit(README.md)",
+      "Edit(.gitignore)",
+      "Edit(.gitattributes)",
+      "Edit(.prettierrc)",
+      "Edit(.editorconfig)",
+      "Edit(card_arcade_training_design.md)",
+      "Bash(npm install *)",
+      "Bash(npm i *)",
+      "Bash(npm add *)",
+      "Bash(npm uninstall *)",
+      "Bash(npm remove *)",
+      "Bash(yarn add *)",
+      "Bash(pnpm add *)",
+      "Bash(bun add *)",
+      "Bash(git push --force *)",
+      "Bash(git push -f *)",
+      "Bash(git commit --no-verify *)",
+      "Bash(git config core.hooksPath *)"
+    ],
+    "ask": [
+      "Bash(git push *)",
+      "Bash(gh pr create *)",
+      "Bash(gh pr merge *)",
+      "Bash(gh pr close *)",
+      "Bash(git merge *)",
+      "Bash(git rebase *)",
+      "Bash(git reset --hard *)",
+      "Bash(git clean *)"
+    ],
+    "allow": [
+      "Bash(npm run *)",
+      "Bash(npm test *)",
+      "Bash(npm test)",
+      "Bash(npm ci)",
+      "Bash(npm ci *)",
+      "Bash(git status *)",
+      "Bash(git status)",
+      "Bash(git diff *)",
+      "Bash(git diff)",
+      "Bash(git add *)",
+      "Bash(git commit -m *)",
+      "Bash(git switch *)",
+      "Bash(git branch *)",
+      "Bash(git log *)",
+      "Bash(git show *)",
+      "Bash(git restore *)",
+      "Bash(git fetch *)",
+      "Bash(git pull *)",
+      "Bash(gh issue view *)",
+      "Bash(gh issue list *)",
+      "Bash(gh pr view *)",
+      "Bash(gh pr list *)",
+      "Bash(gh pr checkout *)",
+      "Bash(gh pr diff *)",
+      "Bash(gh pr checks *)",
+      "Bash(node scripts/*)"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Write|Edit|NotebookEdit",
+        "hooks": [{ "type": "command", "command": "node .claude/hooks/guard-scope.mjs" }]
+      },
+      {
+        "matcher": "Bash|PowerShell",
+        "hooks": [{ "type": "command", "command": "node .claude/hooks/guard-bash.mjs" }]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [{ "type": "command", "command": "node .claude/hooks/format-file.mjs" }]
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [{ "type": "command", "command": "node .claude/hooks/session-brief.mjs" }]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [{ "type": "command", "command": "node .claude/hooks/require-verify.mjs" }]
+      }
+    ]
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "node .claude/statusline.mjs"
+  }
+}
