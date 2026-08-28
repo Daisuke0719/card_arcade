@@ -1,0 +1,25 @@
+#!/bin/sh
+#
+# コミットしようとしている変更が担当範囲に収まっているかを調べる。
+# CI とまったく同じスクリプトを呼ぶので、判定がずれることがない。
+#
+# 作業ブランチ（feature/*）のときだけ動く。
+# 運営が main で共通基盤を整備しているときは邪魔をしない。
+
+branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
+
+case "$branch" in
+  feature/*) ;;
+  *) exit 0 ;;
+esac
+
+if [ "$CARD_ARCADE_HARNESS" = "off" ]; then
+  exit 0
+fi
+
+node scripts/scope-guard.mjs --staged || {
+  echo ""
+  echo "コミットを中止しました。"
+  echo "どうしてもこのままコミットする必要がある場合は講師に相談してください。"
+  exit 1
+}

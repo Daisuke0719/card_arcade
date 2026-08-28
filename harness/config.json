@@ -12,7 +12,13 @@
       "difficulty": "easy",
       "component": "BabanukiGame",
       "issue": 0,
-      "reviews": "team-b"
+      "reviews": "team-b",
+      "description": "ジョーカーを最後まで持っていた人が負け。CPU3人と対戦します",
+      "icon": "🃏",
+      "minPlayers": 4,
+      "maxPlayers": 4,
+      "stateType": "BabanukiState",
+      "actionType": "BabanukiAction"
     },
     {
       "team": "team-b",
@@ -22,7 +28,13 @@
       "difficulty": "easy",
       "component": "ShinkeisuijakuGame",
       "issue": 0,
-      "reviews": "team-c"
+      "reviews": "team-c",
+      "description": "裏向きのカードを2枚めくって、同じ数字のペアを全部そろえます",
+      "icon": "🧠",
+      "minPlayers": 1,
+      "maxPlayers": 1,
+      "stateType": "ShinkeisuijakuState",
+      "actionType": "ShinkeisuijakuAction"
     },
     {
       "team": "team-c",
@@ -32,7 +44,13 @@
       "difficulty": "normal",
       "component": "SpeedGame",
       "issue": 0,
-      "reviews": "team-d"
+      "reviews": "team-d",
+      "description": "CPUと同時進行で、1つ違いの数字のカードを出し合う早さ勝負",
+      "icon": "⚡",
+      "minPlayers": 2,
+      "maxPlayers": 2,
+      "stateType": "SpeedState",
+      "actionType": "SpeedAction"
     },
     {
       "team": "team-d",
@@ -42,7 +60,13 @@
       "difficulty": "normal",
       "component": "ShichinarabeGame",
       "issue": 0,
-      "reviews": "team-e"
+      "reviews": "team-e",
+      "description": "7の隣から順にカードを並べます。出せないときはパス",
+      "icon": "🎋",
+      "minPlayers": 4,
+      "maxPlayers": 4,
+      "stateType": "ShichinarabeState",
+      "actionType": "ShichinarabeAction"
     },
     {
       "team": "team-e",
@@ -52,7 +76,13 @@
       "difficulty": "normal",
       "component": "DoubtGame",
       "issue": 0,
-      "reviews": "team-f"
+      "reviews": "team-f",
+      "description": "宣言どおりに出しているか見抜く心理戦。うそも通れば勝ち",
+      "icon": "🤥",
+      "minPlayers": 4,
+      "maxPlayers": 4,
+      "stateType": "DoubtState",
+      "actionType": "DoubtAction"
     },
     {
       "team": "team-f",
@@ -62,7 +92,13 @@
       "difficulty": "hard",
       "component": "DaifugoGame",
       "issue": 0,
-      "reviews": "team-a"
+      "reviews": "team-a",
+      "description": "手札を早く出し切った人が勝ち。8切りと革命だけ入れます",
+      "icon": "👑",
+      "minPlayers": 4,
+      "maxPlayers": 4,
+      "stateType": "DaifugoState",
+      "actionType": "DaifugoAction"
     }
   ],
   "protectedPaths": [
@@ -100,7 +136,15 @@
     ".prettierrc",
     ".nvmrc"
   ],
-  "alwaysWritable": [".claude/.state/**", ".pr-body.md"],
-  "requiredGameFiles": ["index.ts", "logic.ts", "logic.test.ts", "README.md"],
+  "alwaysWritable": [
+    ".claude/.state/**",
+    ".pr-body.md"
+  ],
+  "requiredGameFiles": [
+    "index.ts",
+    "logic.ts",
+    "logic.test.ts",
+    "README.md"
+  ],
   "minTestsPerReadyGame": 3
 }
