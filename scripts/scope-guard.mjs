@@ -4,6 +4,9 @@
  *   node scripts/scope-guard.mjs                  作業ツリーの変更を見る（npm run scope）
  *   node scripts/scope-guard.mjs --staged         コミットしようとしている変更を見る（pre-commit）
  *   node scripts/scope-guard.mjs --base origin/main   ブランチ全体の変更を見る（CI）
+ *   node scripts/scope-guard.mjs --base origin/main --branch feature/speed
+ *                                                 CI は detached HEAD で動くので、
+ *                                                 ブランチ名を外から渡す
  *   node scripts/scope-guard.mjs --warn-only      違反しても成功扱いにする（講師の緊急用）
  *
  * pre-commit と CI がこの同じスクリプトを呼ぶので、
@@ -31,6 +34,20 @@ function git(params) {
 function baseRefOf() {
   const index = args.indexOf("--base");
   return index >= 0 ? args[index + 1] : null;
+}
+
+/**
+ * 判定に使うブランチ名。
+ * CI は detached HEAD で checkout するため、そのまま読むと "HEAD" になってしまう。
+ * その状態で「まだ作業ブランチを作っていません」と案内すると参加者が混乱するので、
+ * CI からは --branch で PR のブランチ名を渡す。
+ */
+function branchName() {
+  const index = args.indexOf("--branch");
+  if (index >= 0 && args[index + 1]) return args[index + 1];
+
+  const current = currentBranch(root);
+  return current === "HEAD" ? "" : current;
 }
 
 function changedFiles() {
@@ -68,7 +85,8 @@ function report(violations, touchedIds, branch) {
 
   const onFeatureBranch = gameIdFromBranch(branch) !== null;
 
-  if (violations.length > 0 && !onFeatureBranch) {
+  // ブランチ名が分からない場合（CI で --branch を渡していないなど）は案内を出さない
+  if (violations.length > 0 && !onFeatureBranch && branch) {
     console.log("! まだ作業ブランチを作っていません（今: " + (branch || "不明") + "）");
     console.log("");
     console.log("  git switch -c feature/<自分のゲームID>");
@@ -125,7 +143,7 @@ function report(violations, touchedIds, branch) {
 
 function main() {
   const files = changedFiles();
-  const branch = currentBranch(root);
+  const branch = branchName();
 
   if (files.length === 0) {
     console.log("");

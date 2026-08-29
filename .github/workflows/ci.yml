@@ -39,11 +39,13 @@ jobs:
           OVERRIDE: ${{ contains(github.event.pull_request.labels.*.name, 'harness:override') }}
         run: |
           BASE="origin/${{ github.base_ref || 'main' }}"
+          # CI は detached HEAD なので、PR のブランチ名を明示的に渡す
+          BRANCH="${{ github.head_ref }}"
           if [ "$OVERRIDE" = "true" ]; then
             echo "harness:override ラベルが付いているため警告のみで続行します"
-            node scripts/scope-guard.mjs --base "$BASE" --warn-only
+            node scripts/scope-guard.mjs --base "$BASE" --branch "$BRANCH" --warn-only
           else
-            node scripts/scope-guard.mjs --base "$BASE"
+            node scripts/scope-guard.mjs --base "$BASE" --branch "$BRANCH"
           fi
 
       - name: 依存が変わっていないか
