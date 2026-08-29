@@ -29,13 +29,13 @@ npm test
 git add src/games/daifugo
 git commit -m "chore: 大富豪の雛形を追加"
 git push -u origin HEAD
-gh pr create --draft --title "大富豪を実装" --body "Closes #<この Issue の番号>"
+gh pr create --draft --title "大富豪を実装" --body "Closes #6"
 ```
 
 CI が緑になったのを確認してから、Claude Code で計画を立てます。
 
 ```
-/kickoff <この Issue の番号>
+/kickoff 6
 ```
 
 `/kickoff` はコードを変更できないようになっています。計画が出たら、**人間が読んで合意してから** `/implement` へ進んでください。

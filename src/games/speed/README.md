@@ -1,7 +1,7 @@
 <!-- @scaffold:untouched -->
 # スピード（speed）
 
-担当: Team C / Issue #0
+担当: Team C / Issue #3
 
 ## 遊び方
 

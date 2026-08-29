@@ -29,13 +29,13 @@ npm test
 git add src/games/shichinarabe
 git commit -m "chore: 七並べの雛形を追加"
 git push -u origin HEAD
-gh pr create --draft --title "七並べを実装" --body "Closes #<この Issue の番号>"
+gh pr create --draft --title "七並べを実装" --body "Closes #4"
 ```
 
 CI が緑になったのを確認してから、Claude Code で計画を立てます。
 
 ```
-/kickoff <この Issue の番号>
+/kickoff 4
 ```
 
 `/kickoff` はコードを変更できないようになっています。計画が出たら、**人間が読んで合意してから** `/implement` へ進んでください。

@@ -1,7 +1,7 @@
 <!-- @scaffold:untouched -->
 # 七並べ（shichinarabe）
 
-担当: Team D / Issue #0
+担当: Team D / Issue #4
 
 ## 遊び方
 

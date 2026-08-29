@@ -32,6 +32,8 @@ function section(markdown, headingStartsWith) {
 }
 
 function buildBody(team) {
+  // Issue 作成前は番号が分からないのでプレースホルダのままにする
+  const issueRef = team.issue > 0 ? "#" + team.issue : "<この Issue の番号>";
   const docPath = path.join(root, "docs", "games", team.gameId + ".md");
   const doc = readFileSync(docPath, "utf8");
 
@@ -71,13 +73,13 @@ npm test
 git add src/games/${team.gameId}
 git commit -m "chore: ${team.name}の雛形を追加"
 git push -u origin HEAD
-gh pr create --draft --title "${team.name}を実装" --body "Closes #<この Issue の番号>"
+gh pr create --draft --title "${team.name}を実装" --body "Closes ${issueRef}"
 \`\`\`
 
 CI が緑になったのを確認してから、Claude Code で計画を立てます。
 
 \`\`\`
-/kickoff <この Issue の番号>
+/kickoff ${issueRef.replace("#", "")}
 \`\`\`
 
 \`/kickoff\` はコードを変更できないようになっています。計画が出たら、**人間が読んで合意してから** \`/implement\` へ進んでください。
@@ -148,5 +150,5 @@ for (const team of config.teams) {
 }
 
 console.log("");
-console.log("次: powershell -ExecutionPolicy Bypass -File scripts/setup-issues.ps1");
+console.log("次: node scripts/setup-github.mjs issues");
 console.log("");

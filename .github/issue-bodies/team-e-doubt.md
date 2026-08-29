@@ -29,13 +29,13 @@ npm test
 git add src/games/doubt
 git commit -m "chore: ダウトの雛形を追加"
 git push -u origin HEAD
-gh pr create --draft --title "ダウトを実装" --body "Closes #<この Issue の番号>"
+gh pr create --draft --title "ダウトを実装" --body "Closes #5"
 ```
 
 CI が緑になったのを確認してから、Claude Code で計画を立てます。
 
 ```
-/kickoff <この Issue の番号>
+/kickoff 5
 ```
 
 `/kickoff` はコードを変更できないようになっています。計画が出たら、**人間が読んで合意してから** `/implement` へ進んでください。

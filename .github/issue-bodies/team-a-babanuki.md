@@ -29,13 +29,13 @@ npm test
 git add src/games/babanuki
 git commit -m "chore: ババ抜きの雛形を追加"
 git push -u origin HEAD
-gh pr create --draft --title "ババ抜きを実装" --body "Closes #<この Issue の番号>"
+gh pr create --draft --title "ババ抜きを実装" --body "Closes #1"
 ```
 
 CI が緑になったのを確認してから、Claude Code で計画を立てます。
 
 ```
-/kickoff <この Issue の番号>
+/kickoff 1
 ```
 
 `/kickoff` はコードを変更できないようになっています。計画が出たら、**人間が読んで合意してから** `/implement` へ進んでください。

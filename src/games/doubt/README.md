@@ -1,7 +1,7 @@
 <!-- @scaffold:untouched -->
 # ダウト（doubt）
 
-担当: Team E / Issue #0
+担当: Team E / Issue #5
 
 ## 遊び方
 

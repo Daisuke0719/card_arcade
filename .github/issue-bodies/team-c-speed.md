@@ -29,13 +29,13 @@ npm test
 git add src/games/speed
 git commit -m "chore: スピードの雛形を追加"
 git push -u origin HEAD
-gh pr create --draft --title "スピードを実装" --body "Closes #<この Issue の番号>"
+gh pr create --draft --title "スピードを実装" --body "Closes #3"
 ```
 
 CI が緑になったのを確認してから、Claude Code で計画を立てます。
 
 ```
-/kickoff <この Issue の番号>
+/kickoff 3
 ```
 
 `/kickoff` はコードを変更できないようになっています。計画が出たら、**人間が読んで合意してから** `/implement` へ進んでください。
