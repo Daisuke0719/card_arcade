@@ -1,7 +1,7 @@
 <!-- @scaffold:untouched -->
 # ポーカー（poker）
 
-担当: 担当4 / Issue #0
+担当: 担当4 / Issue #8
 
 ## 遊び方
 

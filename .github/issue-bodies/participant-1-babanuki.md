@@ -6,7 +6,7 @@ CARD ARCADE に **ババ抜き** を追加してください。
 
 | 項目 | 値 |
 |---|---|
-| チーム | Team A |
+| 担当 | 担当1 |
 | 難易度 | 初級 |
 | ブランチ | `feature/babanuki` |
 | 編集してよい範囲 | `src/games/babanuki/` の中**だけ** |

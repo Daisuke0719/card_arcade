@@ -6,7 +6,7 @@ CARD ARCADE に **神経衰弱** を追加してください。
 
 | 項目 | 値 |
 |---|---|
-| チーム | Team B |
+| 担当 | 担当3 |
 | 難易度 | 初級 |
 | ブランチ | `feature/shinkeisuijaku` |
 | 編集してよい範囲 | `src/games/shinkeisuijaku/` の中**だけ** |

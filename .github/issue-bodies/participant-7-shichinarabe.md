@@ -6,7 +6,7 @@ CARD ARCADE に **七並べ** を追加してください。
 
 | 項目 | 値 |
 |---|---|
-| チーム | Team D |
+| 担当 | 担当7 |
 | 難易度 | 中級 |
 | ブランチ | `feature/shichinarabe` |
 | 編集してよい範囲 | `src/games/shichinarabe/` の中**だけ** |

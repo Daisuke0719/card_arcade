@@ -50,7 +50,7 @@ CARD ARCADE に **${item.name}** を追加してください。
 
 | 項目 | 値 |
 |---|---|
-| チーム | ${item.displayName} |
+| 担当 | ${item.displayName} |
 | 難易度 | ${DIFFICULTY_JA[item.difficulty] ?? item.difficulty} |
 | ブランチ | \`feature/${item.gameId}\` |
 | 編集してよい範囲 | \`src/games/${item.gameId}/\` の中**だけ** |

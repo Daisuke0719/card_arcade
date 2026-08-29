@@ -21,7 +21,7 @@ export const game: GameManifest = {
   minPlayers: 4,
   maxPlayers: 4,
   icon: "1️⃣",
-  issueNumber: 0,
+  issueNumber: 10,
   howToPlay: [
     "TODO: 遊び方を3〜6行で書いてください（画面の「遊び方」に表示されます）。",
   ],

@@ -145,6 +145,12 @@ function setupIssues() {
   const created = new Map();
 
   for (const item of config.participants) {
+    // 既に作ってある Issue は作り直さない（番号が変わると全部の参照がずれる）
+    if (item.issue > 0) {
+      console.log("  済み #" + item.issue + "  " + item.name + "（" + item.gameId + "）");
+      continue;
+    }
+
     const bodyFile = path.join(".github", "issue-bodies", item.participant + "-" + item.gameId + ".md");
     if (!existsSync(path.join(root, bodyFile))) {
       console.log("  スキップ " + item.displayName + " : " + bodyFile + " がありません");
@@ -191,6 +197,7 @@ function setupIssues() {
   for (const item of raw.participants) {
     if (created.has(item.gameId)) item.issue = created.get(item.gameId);
   }
+  // 既存の番号はそのまま残る（上書きしない）
   writeFileSync(configPath, JSON.stringify(raw, null, 2) + "\n", "utf8");
 
   console.log("");

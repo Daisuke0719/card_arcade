@@ -1,7 +1,7 @@
 <!-- @scaffold:untouched -->
 # ページワン（pageone）
 
-担当: 担当9 / Issue #0
+担当: 担当9 / Issue #10
 
 ## 遊び方
 

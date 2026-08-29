@@ -1,7 +1,7 @@
 <!-- @scaffold:untouched -->
 # ぶたのしっぽ（butanoshippo）
 
-担当: 担当5 / Issue #0
+担当: 担当5 / Issue #9
 
 ## 遊び方
 
