@@ -849,7 +849,7 @@ card_arcade/
 │  ├─ build-issue-bodies.mjs        config.json から Issue 本文を生成
 │  ├─ install-git-hooks.mjs         npm ci のときに .githooks を有効化（prepare）
 │  ├─ score.mjs                     採点補助
-│  └─ setup-*.ps1                   講師用。collaborators / issues / labels / milestone / branch-protection
+│  └─ setup-github.mjs             講師用。collaborators / labels / milestone / issues / protect
 ├─ src/
 │  ├─ app/                        アプリの骨格
 │  │  ├─ main.tsx / App.tsx         起動と画面切り替え
@@ -1578,7 +1578,7 @@ Issue は「当日いちばん読まれる文書」である。設計書も READ
 
 ### 10.1 ラベル15種
 
-`scripts/setup-labels.ps1` が `--force` 付きで作る（何度実行しても安全）。
+`node scripts/setup-github.mjs labels` が `--force` 付きで作る（何度実行しても安全）。
 
 | ラベル | 色 | 用途 |
 |---|---|---|
@@ -1661,13 +1661,13 @@ BOM や CRLF が混ざると GitHub 上の表示が崩れる。
 
 ### 10.4 Issue 番号が単一の真実源に戻ってくる
 
-`scripts/setup-issues.ps1` は、作成した Issue の番号を **`harness/config.json` に書き戻す。**
+`node scripts/setup-github.mjs issues` は、作成した Issue の番号を **`harness/config.json` に書き戻す。**
 
 ```
-setup-labels.ps1     ラベル15種を作る
-setup-milestone.ps1  マイルストーン "CARD ARCADE v1" を作る
+setup-github.mjs labels     ラベル15種を作る
+setup-github.mjs milestone  マイルストーン "CARD ARCADE v1" を作る
 build-issue-bodies.mjs  docs/games/*.md から本文を生成
-setup-issues.ps1     Issue を6本作り、番号を harness/config.json へ書き戻す
+setup-github.mjs issues     Issue を6本作り、番号を harness/config.json へ書き戻す
 npm run scaffold -- --all --force   雛形の manifest に issueNumber を反映
 ```
 
@@ -2168,7 +2168,7 @@ node scripts/scope-guard.mjs --warn-only           警告のみ（講師の緊�
 1往復5分として、6チームで30分が消える。**判定のズレを消すことは、そのまま時間の節約になる。**
 
 判定の材料も1箇所にある。`harness/config.json` の `protectedPaths` / `alwaysWritable` / `teams` である。
-`scope-guard` / `scaffold` / 契約テスト / `.claude` のフック / `doctor` / `status` / `score` / `setup-*.ps1` が
+`scope-guard` / `scaffold` / 契約テスト / `.claude` のフック / `doctor` / `status` / `score` / `setup-github.mjs` が
 すべて同じファイルを読む。**当日チーム構成を変える必要が出たら、ここだけを直せば全部が揃って変わる。**
 
 出力は「直すためのコマンドをそのままコピペできる形」にしてある。
@@ -2861,8 +2861,8 @@ concurrency:
 | # | 手順 | 逆にすると何が起きるか |
 |---|---|---|
 | 1 | 参加者を collaborator に招待し、**全員に承諾させる** | **当日 403 が出る原因の第1位。** 未承諾だと `git push` も `gh pr create` も落ちる |
-| 2 | ラベルを作る（`setup-labels.ps1`） | Issue 作成時にラベルが付かない |
-| 3 | マイルストーンと Issue を作る（`setup-milestone.ps1` / `setup-issues.ps1`） | Issue 番号が確定しないと `harness/config.json` の `issue` を埋められない |
+| 2 | ラベルを作る（`setup-github.mjs labels`） | Issue 作成時にラベルが付かない |
+| 3 | マイルストーンと Issue を作る（`setup-github.mjs milestone` / `setup-github.mjs issues`） | Issue 番号が確定しないと `harness/config.json` の `issue` を埋められない |
 | 4 | マージ方式を Squash のみにする | 後から変えても既存 PR には効かない |
 | 5 | **テスト PR を1本流して CI のチェック名を確定させる** | — |
 | 6 | ブランチ保護を適用する（**5 の確認後**） | **5 より先にやると、必須チェックの名前が確定しない状態で保護がかかり、全 PR が永久に pending になる** |
@@ -3199,8 +3199,8 @@ npm run score    数えられる評価項目だけを集める（研修後の採
 16.7 の適用順序をそのまま実行する。
 
 - [ ] 参加者を collaborator に招待し、**前日までに全員の承諾を確認する**（未承諾は当日403の第1位）
-- [ ] ラベルを作る（`scripts/setup-labels.ps1`）
-- [ ] マイルストーンと Issue を作る（`setup-milestone.ps1` / `setup-issues.ps1`）
+- [ ] ラベルを作る（`node scripts/setup-github.mjs labels`）
+- [ ] マイルストーンと Issue を作る（`setup-github.mjs milestone` / `setup-github.mjs issues`）
 - [ ] マージ方式を Squash のみにし、`delete_branch_on_merge` を有効にする
 - [ ] **テスト PR を1本流して CI のチェック名を確定させる**
 - [ ] ブランチ保護を適用する（`.github/branch-protection.json` をそのまま流す）

@@ -74,7 +74,7 @@
 ### 1-4. 単一の真実源
 
 チーム・ゲーム・保護対象パスは **`harness/config.json` の1箇所だけ**に書いてあります。
-`scope-guard` / `scaffold` / 契約テスト / `.claude` のフック / `doctor` / `status` / `score` / `setup-labels.ps1` が
+`scope-guard` / `scaffold` / 契約テスト / `.claude` のフック / `doctor` / `status` / `score` / `setup-github.mjs labels` が
 すべてこのファイルを読みます。**当日、チーム構成を変える必要が出たらここだけを直してください。**
 
 ### 1-5. チームとレビュー担当
@@ -128,7 +128,7 @@ gh api "repos/Daisuke0719/card_arcade/collaborators" --jq ".[].login"
 #### 2. ラベルを作る
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File scripts/setup-labels.ps1
+node scripts/setup-github.mjs labels
 ```
 
 `--force` 付きで作るので、何度実行しても安全です。
@@ -140,8 +140,8 @@ powershell -ExecutionPolicy Bypass -File scripts/setup-labels.ps1
 #### 3. マイルストーンと Issue を作る
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File scripts/setup-milestone.ps1
-powershell -ExecutionPolicy Bypass -File scripts/setup-issues.ps1
+node scripts/setup-github.mjs milestone
+node scripts/setup-github.mjs issues
 ```
 
 Issue は `docs/games/<ゲームID>.md` を正典として6本作られます。
