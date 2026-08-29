@@ -120,12 +120,11 @@ if (onFeatureBranch && !isRecovery) {
   }
 }
 
-// 6. 設定ファイル自体の無効化
-if (command.includes(".claude/settings.json") || command.includes("CARD_ARCADE_HARNESS=off")) {
-  violation(
-    "ハーネスの設定を変更・無効化することはできません。",
-    "止められた理由に心当たりがない場合は、講師に状況を伝えてください。",
-  );
-}
+// 設定ファイル自体の書き換えは 5 の判定（.claude/ が保護パスに入っている）で止まる。
+//
+// 環境変数 CARD_ARCADE_HARNESS=off はここでは止めない。
+// これは講師が緊急時に使う逃げ道として設計書に載せているもので、
+// 塞ぐと運営が共通基盤を直せなくなる。
+// 参加者が使うものではないことは docs/harness.md と instructor-guide.md に明記している。
 
 pass();
