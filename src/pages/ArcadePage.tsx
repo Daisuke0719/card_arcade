@@ -1,21 +1,21 @@
 import { GameTile } from "@ui";
 import { registry } from "../app/registry/loadGames";
-import { EXAMPLE_GAME_ID, issueUrl, teamLabel } from "../app/registry/harnessConfig";
+import { EXAMPLE_GAME_ID, issueUrl, ownerLabel } from "../app/registry/harnessConfig";
 import { gameHref } from "../app/router";
 import styles from "./ArcadePage.module.css";
 
 /** ゲーム選択画面。ゲームは src/games/<id>/index.ts から自動で集まる。 */
 export function ArcadePage() {
-  const teamGames = registry.games.filter((game) => game.manifest.id !== EXAMPLE_GAME_ID);
+  const participantGames = registry.games.filter((game) => game.manifest.id !== EXAMPLE_GAME_ID);
   const exampleGames = registry.games.filter((game) => game.manifest.id === EXAMPLE_GAME_ID);
-  const readyCount = teamGames.filter((game) => game.manifest.status === "ready").length;
+  const readyCount = participantGames.filter((game) => game.manifest.status === "ready").length;
 
   return (
     <div className={styles.page}>
       <header className={styles.header}>
         <h1 className={styles.logo}>CARD ARCADE</h1>
         <p className={styles.lead}>
-          みんなでつくるカードゲーム集 — 公開中 {readyCount} / {teamGames.length} ゲーム
+          みんなでつくるカードゲーム集 — 公開中 {readyCount} / {participantGames.length} ゲーム
         </p>
       </header>
 
@@ -36,15 +36,15 @@ export function ArcadePage() {
       ) : null}
 
       <section>
-        <h2 className={styles.sectionTitle}>チームのゲーム</h2>
+        <h2 className={styles.sectionTitle}>参加者のゲーム</h2>
         <div className={styles.grid}>
-          {teamGames.map(({ manifest }) => (
+          {participantGames.map(({ manifest }) => (
             <GameTile
               key={manifest.id}
               manifest={manifest}
               href={gameHref(manifest.id)}
               issueUrl={issueUrl(manifest.issueNumber)}
-              teamLabel={teamLabel(manifest.team)}
+              ownerLabel={ownerLabel(manifest.owner)}
             />
           ))}
         </div>
@@ -59,7 +59,7 @@ export function ArcadePage() {
                 key={manifest.id}
                 manifest={manifest}
                 href={gameHref(manifest.id)}
-                teamLabel={teamLabel(manifest.team)}
+                ownerLabel={ownerLabel(manifest.owner)}
               />
             ))}
           </div>

@@ -59,29 +59,29 @@ function coverageFor(gameId) {
 const lines = [];
 lines.push("## CARD ARCADE の状況");
 lines.push("");
-lines.push("| チーム | ゲーム | 状態 | logic のテスト | 行カバレッジ |");
+lines.push("| 担当 | ゲーム | 状態 | logic のテスト | 行カバレッジ |");
 lines.push("|---|---|---|---:|---:|");
 
-for (const team of config.teams) {
+for (const item of config.participants) {
   lines.push(
     "| " +
-      team.label +
+      item.displayName +
       " | " +
-      team.name +
+      item.name +
       " | " +
-      statusOf(team.gameId) +
+      statusOf(item.gameId) +
       " | " +
-      testCountOf(team.gameId) +
+      testCountOf(item.gameId) +
       "件 | " +
-      coverageFor(team.gameId) +
+      coverageFor(item.gameId) +
       " |",
   );
 }
 
-const readyCount = config.teams.filter((team) => statusOf(team.gameId) === "ready").length;
+const readyCount = config.participants.filter((item) => statusOf(item.gameId) === "ready").length;
 
 lines.push("");
-lines.push("公開中: **" + readyCount + " / " + config.teams.length + " ゲーム**");
+lines.push("公開中: **" + readyCount + " / " + config.participants.length + " ゲーム**");
 lines.push("");
 lines.push("---");
 lines.push("");

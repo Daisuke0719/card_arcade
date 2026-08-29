@@ -7,14 +7,14 @@ export type GameTileProps = {
   href: string;
   /** COMING SOON のときに表示する担当 Issue へのリンク。 */
   issueUrl?: string;
-  /** 例: "Team A" */
-  teamLabel?: string;
+  /** 例: "担当1" または GitHub のアカウント名 */
+  ownerLabel?: string;
 };
 
 const difficultyLabel = { easy: "初級", normal: "中級", hard: "上級" } as const;
 
 /** アーケード一覧の1枚。COMING SOON はグレースケールで表示する。 */
-export function GameTile({ manifest, href, issueUrl, teamLabel }: GameTileProps) {
+export function GameTile({ manifest, href, issueUrl, ownerLabel }: GameTileProps) {
   const isComingSoon = manifest.status === "coming-soon";
   const label = isComingSoon ? manifest.name + "（準備中）" : manifest.name;
 
@@ -41,7 +41,7 @@ export function GameTile({ manifest, href, issueUrl, teamLabel }: GameTileProps)
         <span className={styles.badge + " " + styles[manifest.difficulty]}>
           {difficultyLabel[manifest.difficulty]}
         </span>
-        {teamLabel ? <span className={styles.badge}>{teamLabel}</span> : null}
+        {ownerLabel ? <span className={styles.badge}>{ownerLabel}</span> : null}
         {isComingSoon && issueUrl && manifest.issueNumber ? (
           <span className={styles.issue}>Issue #{manifest.issueNumber}</span>
         ) : null}

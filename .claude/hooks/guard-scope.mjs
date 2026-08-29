@@ -7,7 +7,7 @@
 import {
   classifyPath,
   currentBranch,
-  findTeamByGameId,
+  findParticipantByGameId,
   gameIdFromBranch,
   loadConfig,
   repoRoot,
@@ -78,13 +78,16 @@ if (!branchGameId) {
 }
 
 if (result.gameId !== branchGameId) {
-  const team = findTeamByGameId(config, result.gameId);
+  const item = findParticipantByGameId(config, result.gameId);
   deny(
     [
-      relative + " は " + (team ? team.label + "（" + team.name + "）" : "他のチーム") + " の担当です。",
+      relative +
+        " は " +
+        (item ? item.displayName + "（" + item.name + "）" : "他の人") +
+        " の担当です。",
       "",
       "今のブランチ " + branch + " の担当は " + branchGameId + " です。",
-      "他のチームのゲームは変更しないでください。",
+      "他の人のゲームは変更しないでください。",
     ].join("\n"),
   );
 }

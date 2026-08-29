@@ -64,22 +64,19 @@ console.log("");
 console.log("CARD ARCADE 集計（数えられるものだけ）");
 console.log("");
 
-for (const team of config.teams) {
-  const pull = pulls.find((item) => item.headRefName === "feature/" + team.gameId);
+for (const item of config.participants) {
+  const pull = pulls.find((pr) => pr.headRefName === "feature/" + item.gameId);
   const reviewsGiven = pulls
-    .filter((item) => item.headRefName !== "feature/" + team.gameId)
-    .reduce((sum, item) => {
-      const reviews = item.reviews ?? [];
-      return sum + reviews.length;
-    }, 0);
+    .filter((pr) => pr.headRefName !== "feature/" + item.gameId)
+    .reduce((sum, pr) => sum + (pr.reviews ?? []).length, 0);
 
-  console.log("[" + team.label + "] " + team.name);
-  console.log("  完成宣言(status: ready) : " + (isReady(team.gameId) ? "あり" : "なし"));
-  console.log("  テスト件数              : " + testCountOf(team.gameId) + "件");
+  console.log("[" + item.displayName + "] " + item.name);
+  console.log("  完成宣言(status: ready) : " + (isReady(item.gameId) ? "あり" : "なし"));
+  console.log("  テスト件数              : " + testCountOf(item.gameId) + "件");
   console.log("  Pull Request            : " + (pull ? "#" + pull.number + " (" + pull.state + ")" : "なし"));
   console.log("  受けたレビュー          : " + (pull?.reviews?.length ?? 0) + "件");
   console.log("  PR 本文の文字数         : " + (pull?.body?.length ?? 0));
-  console.log("  他チームへのレビュー総数 : " + reviewsGiven + "件（リポジトリ全体の参考値）");
+  console.log("  他の人へのレビュー総数   : " + reviewsGiven + "件（リポジトリ全体の参考値）");
   console.log("");
 }
 

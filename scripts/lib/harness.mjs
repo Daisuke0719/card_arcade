@@ -112,10 +112,10 @@ export function gameIdFromBranch(branch) {
   return match ? match[1] : null;
 }
 
-export function findTeamByGameId(config, gameId) {
-  return config.teams.find((team) => team.gameId === gameId) ?? null;
+export function findParticipantByGameId(config, gameId) {
+  return config.participants.find((item) => item.gameId === gameId) ?? null;
 }
 
 export function gameIds(config) {
-  return config.teams.map((team) => team.gameId);
+  return config.participants.map((item) => item.gameId);
 }

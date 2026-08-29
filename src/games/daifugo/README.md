@@ -1,7 +1,7 @@
 <!-- @scaffold:untouched -->
 # 大富豪（daifugo）
 
-担当: Team F / Issue #6
+担当: 担当2 / Issue #0
 
 ## 遊び方
 

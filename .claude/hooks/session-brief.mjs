@@ -4,7 +4,7 @@
  * CLAUDE.md には書けない動的な情報（今のブランチ = 誰の担当か）を毎回渡すのが役目。
  * Driver が交代してもセッションの前提がずれない。
  */
-import { currentBranch, findTeamByGameId, gameIdFromBranch, loadConfig, repoRoot } from "../../scripts/lib/harness.mjs";
+import { currentBranch, findParticipantByGameId, gameIdFromBranch, loadConfig, repoRoot } from "../../scripts/lib/harness.mjs";
 import { readInput } from "./lib/io.mjs";
 
 await readInput();
@@ -13,17 +13,17 @@ const root = repoRoot();
 const config = loadConfig(root);
 const branch = currentBranch(root);
 const gameId = gameIdFromBranch(branch);
-const team = gameId ? findTeamByGameId(config, gameId) : null;
+const item = gameId ? findParticipantByGameId(config, gameId) : null;
 
 const lines = ["# 今のセッションの前提", ""];
 
-if (team) {
+if (item) {
   lines.push(
-    "- 担当: " + team.label + " / " + team.name + "（ゲームID: " + team.gameId + "）",
+    "- 担当: " + item.displayName + " / " + item.name + "（ゲームID: " + item.gameId + "）",
     "- ブランチ: " + branch,
-    "- 編集してよい場所: src/games/" + team.gameId + "/ の中だけ",
-    "- 担当 Issue: #" + (team.issue || "未設定"),
-    "- 難易度: " + team.difficulty,
+    "- 編集してよい場所: src/games/" + item.gameId + "/ の中だけ",
+    "- 担当 Issue: #" + (item.issue || "未設定"),
+    "- 難易度: " + item.difficulty,
   );
 } else {
   lines.push(
@@ -31,7 +31,7 @@ if (team) {
     "- **まだ作業ブランチを作っていません。**",
     "  実装を始める前に `git switch -c feature/<自分のゲームID>` を実行してください。",
     "",
-    "  ゲームID: " + config.teams.map((item) => item.gameId).join(" / "),
+    "  ゲームID: " + config.participants.map((item) => item.gameId).join(" / "),
   );
 }
 

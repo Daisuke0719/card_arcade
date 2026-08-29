@@ -1,5 +1,5 @@
-import type { GameManifest, TeamId } from "@core";
-import { teamRank } from "./teamOrder";
+import type { GameManifest, OwnerId } from "@core";
+import { ownerRank } from "./gameOrder";
 import { validateManifest } from "./validateManifest";
 
 export type LoadedGame = {
@@ -39,7 +39,7 @@ export function buildRegistry(entries: Record<string, unknown> = modules): Regis
   const problems: RegistryProblem[] = [];
 
   const seenIds = new Set<string>();
-  const seenTeams = new Set<string>();
+  const seenOwners = new Set<string>();
 
   for (const [path, value] of Object.entries(entries)) {
     const folder = folderNameOf(path);
@@ -52,16 +52,16 @@ export function buildRegistry(entries: Record<string, unknown> = modules): Regis
         problems.push({ folder, messages: ["id「" + manifest.id + "」が他のゲームと重複しています"] });
         continue;
       }
-      if (manifest.team !== "core" && seenTeams.has(manifest.team)) {
+      if (manifest.owner !== "core" && seenOwners.has(manifest.owner)) {
         problems.push({
           folder,
-          messages: ["team「" + manifest.team + "」が他のゲームと重複しています"],
+          messages: ["担当者「" + manifest.owner + "」が他のゲームと重複しています"],
         });
         continue;
       }
 
       seenIds.add(manifest.id);
-      seenTeams.add(manifest.team);
+      seenOwners.add(manifest.owner);
       games.push({ folder, manifest });
     } else {
       problems.push({ folder, messages });
@@ -69,7 +69,7 @@ export function buildRegistry(entries: Record<string, unknown> = modules): Regis
   }
 
   games.sort((a, b) => {
-    const rankDiff = teamRank(a.manifest.team as TeamId) - teamRank(b.manifest.team as TeamId);
+    const rankDiff = ownerRank(a.manifest.owner as OwnerId) - ownerRank(b.manifest.owner as OwnerId);
     if (rankDiff !== 0) return rankDiff;
     return a.manifest.id.localeCompare(b.manifest.id);
   });

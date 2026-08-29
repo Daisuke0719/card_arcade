@@ -1,7 +1,7 @@
 <!-- @scaffold:untouched -->
-# ダウト（doubt）
+# ページワン（pageone）
 
-担当: 担当8 / Issue #0
+担当: 担当9 / Issue #0
 
 ## 遊び方
 

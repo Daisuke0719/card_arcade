@@ -1,6 +1,6 @@
 // @scaffold:untouched
 import type { GameManifest } from "@core";
-import { ShichinarabeGame } from "./ShichinarabeGame";
+import { PageOneGame } from "./PageOneGame";
 
 /**
  * ゲームの公開情報。アーケードがこのファイルを自動で見つけて一覧に並べます。
@@ -12,18 +12,18 @@ import { ShichinarabeGame } from "./ShichinarabeGame";
  * 完成したら status を "ready" に変えてください。それが完成の宣言になります。
  */
 export const game: GameManifest = {
-  id: "shichinarabe",
-  name: "七並べ",
-  description: "7の隣から順にカードを並べます。出せないときはパス",
+  id: "pageone",
+  name: "ページワン",
+  description: "同じマークか同じ数字を出して、手札を先に出し切ります",
   difficulty: "normal",
-  owner: "participant-7",
+  owner: "participant-9",
   status: "coming-soon",
   minPlayers: 4,
   maxPlayers: 4,
-  icon: "🎋",
+  icon: "1️⃣",
   issueNumber: 0,
   howToPlay: [
     "TODO: 遊び方を3〜6行で書いてください（画面の「遊び方」に表示されます）。",
   ],
-  component: ShichinarabeGame,
+  component: PageOneGame,
 };

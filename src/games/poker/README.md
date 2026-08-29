@@ -1,7 +1,7 @@
 <!-- @scaffold:untouched -->
-# ダウト（doubt）
+# ポーカー（poker）
 
-担当: 担当8 / Issue #0
+担当: 担当4 / Issue #0
 
 ## 遊び方
 

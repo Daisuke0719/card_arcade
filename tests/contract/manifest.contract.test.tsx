@@ -1,7 +1,7 @@
 /**
  * ゲームフォルダの形の契約テスト。
  *
- * 「どのチームのフォルダを開いても同じ場所に同じものがある」状態を機械で守る。
+ * 「誰のフォルダを開いても同じ場所に同じものがある」状態を機械で守る。
  * レビューする側が構造を覚え直さなくて済むようにするための仕組み。
  */
 import { existsSync, readFileSync } from "node:fs";
@@ -15,8 +15,8 @@ const REQUIRED_HEADINGS = ["## 遊び方", "## ルール", "## 実装メモ"];
 
 function componentFileOf(gameId: string): string {
   if (gameId === config.exampleGameId) return "ExampleGame.tsx";
-  const team = config.teams.find((item) => item.gameId === gameId);
-  return (team?.component ?? "") + ".tsx";
+  const owner = config.participants.find((item) => item.gameId === gameId);
+  return (owner?.component ?? "") + ".tsx";
 }
 
 describe("ゲームフォルダの構成", () => {

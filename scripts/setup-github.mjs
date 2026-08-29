@@ -3,7 +3,7 @@
  *
  *   node scripts/setup-github.mjs labels        ラベル15種を作る
  *   node scripts/setup-github.mjs milestone     マイルストーンを作る
- *   node scripts/setup-github.mjs issues        Issue 6件を作り、番号を config.json へ書き戻す
+ *   node scripts/setup-github.mjs issues        Issue 9件を作り、番号を config.json へ書き戻す
  *   node scripts/setup-github.mjs collaborators [ユーザー名...]  招待と未承諾の確認
  *   node scripts/setup-github.mjs protect       マージ方式とブランチ保護を適用する
  *   node scripts/setup-github.mjs unprotect     ブランチ保護を外す（緊急用。研修後に必ず戻す）
@@ -62,13 +62,16 @@ function tryGh(params) {
 }
 
 const LABELS = [
-  { name: "game", color: "1d76db", description: "チームが担当するゲームの実装" },
-  { name: "team-a", color: "5319e7", description: "Team A / ババ抜き" },
-  { name: "team-b", color: "5319e7", description: "Team B / 神経衰弱" },
-  { name: "team-c", color: "5319e7", description: "Team C / スピード" },
-  { name: "team-d", color: "5319e7", description: "Team D / 七並べ" },
-  { name: "team-e", color: "5319e7", description: "Team E / ダウト" },
-  { name: "team-f", color: "5319e7", description: "Team F / 大富豪" },
+  { name: "game", color: "1d76db", description: "参加者が担当するゲームの実装" },
+  { name: "participant-1", color: "5319e7", description: "担当1 / ババ抜き" },
+  { name: "participant-2", color: "5319e7", description: "担当2 / 大富豪" },
+  { name: "participant-3", color: "5319e7", description: "担当3 / 神経衰弱" },
+  { name: "participant-4", color: "5319e7", description: "担当4 / ポーカー" },
+  { name: "participant-5", color: "5319e7", description: "担当5 / ぶたのしっぽ" },
+  { name: "participant-6", color: "5319e7", description: "担当6 / スピード" },
+  { name: "participant-7", color: "5319e7", description: "担当7 / 七並べ" },
+  { name: "participant-8", color: "5319e7", description: "担当8 / ダウト" },
+  { name: "participant-9", color: "5319e7", description: "担当9 / ページワン" },
   { name: "difficulty:easy", color: "0e8a16", description: "初級" },
   { name: "difficulty:normal", color: "0075ca", description: "中級" },
   { name: "difficulty:hard", color: "d93f0b", description: "上級" },
@@ -128,7 +131,7 @@ function setupMilestone() {
     "-f",
     "title=" + MILESTONE_TITLE,
     "-f",
-    "description=研修当日に6ゲームすべてを公開する",
+    "description=研修当日に9ゲームすべてを公開する",
   ]);
   console.log(result.ok ? "  作成しました。" : "  失敗: " + result.output.split("\n")[0]);
   console.log("");
@@ -141,16 +144,16 @@ function setupIssues() {
 
   const created = new Map();
 
-  for (const team of config.teams) {
-    const bodyFile = path.join(".github", "issue-bodies", team.team + "-" + team.gameId + ".md");
+  for (const item of config.participants) {
+    const bodyFile = path.join(".github", "issue-bodies", item.participant + "-" + item.gameId + ".md");
     if (!existsSync(path.join(root, bodyFile))) {
-      console.log("  スキップ " + team.label + " : " + bodyFile + " がありません");
+      console.log("  スキップ " + item.displayName + " : " + bodyFile + " がありません");
       console.log("           先に node scripts/build-issue-bodies.mjs を実行してください");
       continue;
     }
 
-    const title = team.name + "（" + team.gameId + "）を実装する";
-    const labels = ["game", team.team, "difficulty:" + team.difficulty].join(",");
+    const title = item.name + "（" + item.gameId + "）を実装する";
+    const labels = ["game", item.participant, "difficulty:" + item.difficulty].join(",");
 
     const result = tryGh([
       "issue",
@@ -169,7 +172,7 @@ function setupIssues() {
 
     if (result.ok) {
       const number = Number(result.output.trim().split("/").pop());
-      created.set(team.gameId, number);
+      created.set(item.gameId, number);
       console.log("  作成 #" + number + "  " + title);
     } else {
       console.log("  失敗 " + title);
@@ -185,8 +188,8 @@ function setupIssues() {
   // Issue 番号を単一の真実源へ書き戻す
   const configPath = path.join(root, "harness", "config.json");
   const raw = JSON.parse(readFileSync(configPath, "utf8"));
-  for (const team of raw.teams) {
-    if (created.has(team.gameId)) team.issue = created.get(team.gameId);
+  for (const item of raw.participants) {
+    if (created.has(item.gameId)) item.issue = created.get(item.gameId);
   }
   writeFileSync(configPath, JSON.stringify(raw, null, 2) + "\n", "utf8");
 

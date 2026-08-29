@@ -1,9 +1,8 @@
 import type { GameManifest } from "@core";
+import { isKnownOwner } from "./harnessConfig";
 
 const DIFFICULTIES = ["easy", "normal", "hard"];
 const STATUSES = ["coming-soon", "ready"];
-const TEAMS = ["core", "team-a", "team-b", "team-c", "team-d", "team-e", "team-f"];
-
 const ID_PATTERN = /^[a-z][a-z0-9-]*$/;
 
 /**
@@ -52,8 +51,10 @@ export function validateManifest(folder: string, value: unknown): string[] {
     problems.push("status は coming-soon / ready のいずれかにしてください");
   }
 
-  if (typeof manifest.team !== "string" || !TEAMS.includes(manifest.team)) {
-    problems.push("team は core / team-a 〜 team-f のいずれかにしてください");
+  if (typeof manifest.owner !== "string" || !isKnownOwner(manifest.owner)) {
+    problems.push(
+      "owner は harness/config.json に載っている担当者ID（または core）にしてください",
+    );
   }
 
   const min = manifest.minPlayers;

@@ -6,7 +6,7 @@
  * Issue 本文を手で書くと、正典と Issue でルールがずれます。
  * ここで機械的に転記することで、直す場所を docs/games/<id>.md の1つに保ちます。
  *
- * 出力先: .github/issue-bodies/<team>-<gameId>.md（UTF-8 BOM なし / LF）
+ * 出力先: .github/issue-bodies/<participant>-<gameId>.md（UTF-8 BOM なし / LF）
  */
 import { readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
@@ -31,10 +31,10 @@ function section(markdown, headingStartsWith) {
   return body;
 }
 
-function buildBody(team) {
+function buildBody(item) {
   // Issue 作成前は番号が分からないのでプレースホルダのままにする
-  const issueRef = team.issue > 0 ? "#" + team.issue : "<この Issue の番号>";
-  const docPath = path.join(root, "docs", "games", team.gameId + ".md");
+  const issueRef = item.issue > 0 ? "#" + item.issue : "<この Issue の番号>";
+  const docPath = path.join(root, "docs", "games", item.gameId + ".md");
   const doc = readFileSync(docPath, "utf8");
 
   const required = section(doc, "必須要件");
@@ -42,27 +42,27 @@ function buildBody(team) {
   const cutOrder = section(doc, "時間が足りないとき");
   const stretch = section(doc, "発展課題");
 
-  return `# ${team.name}（\`${team.gameId}\`）を実装する
+  return `# ${item.name}（\`${item.gameId}\`）を実装する
 
-CARD ARCADE に **${team.name}** を追加してください。
+CARD ARCADE に **${item.name}** を追加してください。
 
 ## 担当
 
 | 項目 | 値 |
 |---|---|
-| チーム | ${team.label} |
-| 難易度 | ${DIFFICULTY_JA[team.difficulty] ?? team.difficulty} |
-| ブランチ | \`feature/${team.gameId}\` |
-| 編集してよい範囲 | \`src/games/${team.gameId}/\` の中**だけ** |
-| ルールの正典 | [\`docs/games/${team.gameId}.md\`](../blob/main/docs/games/${team.gameId}.md) |
+| チーム | ${item.displayName} |
+| 難易度 | ${DIFFICULTY_JA[item.difficulty] ?? item.difficulty} |
+| ブランチ | \`feature/${item.gameId}\` |
+| 編集してよい範囲 | \`src/games/${item.gameId}/\` の中**だけ** |
+| ルールの正典 | [\`docs/games/${item.gameId}.md\`](../blob/main/docs/games/${item.gameId}.md) |
 
 **この Issue に書かれていないローカルルールは実装しません。** 迷ったら正典を見てください。
 
 ## 最初にやること（Step 5〜7）
 
 \`\`\`powershell
-git switch -c feature/${team.gameId}
-npm run scaffold -- --game ${team.gameId}
+git switch -c feature/${item.gameId}
+npm run scaffold -- --game ${item.gameId}
 npm test
 \`\`\`
 
@@ -70,10 +70,10 @@ npm test
 権限や CI の問題を早い段階で表に出すためです。
 
 \`\`\`powershell
-git add src/games/${team.gameId}
-git commit -m "chore: ${team.name}の雛形を追加"
+git add src/games/${item.gameId}
+git commit -m "chore: ${item.name}の雛形を追加"
 git push -u origin HEAD
-gh pr create --draft --title "${team.name}を実装" --body "Closes ${issueRef}"
+gh pr create --draft --title "${item.name}を実装" --body "Closes ${issueRef}"
 \`\`\`
 
 CI が緑になったのを確認してから、Claude Code で計画を立てます。
@@ -133,16 +133,16 @@ ${stretch}
 
 const outDir = path.join(root, ".github", "issue-bodies");
 
-for (const team of config.teams) {
-  const body = buildBody(team);
-  const outPath = path.join(outDir, team.team + "-" + team.gameId + ".md");
+for (const item of config.participants) {
+  const body = buildBody(item);
+  const outPath = path.join(outDir, item.participant + "-" + item.gameId + ".md");
   // BOM なし / LF で書く（gh issue create --body-file がそのまま渡すため）
   writeFileSync(outPath, body.replace(/\r\n/g, "\n"), { encoding: "utf8" });
   console.log(
     "  作成 .github/issue-bodies/" +
-      team.team +
+      item.participant +
       "-" +
-      team.gameId +
+      item.gameId +
       ".md  (" +
       body.split("\n").length +
       "行)",

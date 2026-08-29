@@ -146,7 +146,12 @@ export type GameDifficulty = "easy" | "normal" | "hard";
 /** "coming-soon" = スケルトン / "ready" = 完成して遊べる */
 export type GameStatus = "coming-soon" | "ready";
 
-export type TeamId = "core" | "team-a" | "team-b" | "team-c" | "team-d" | "team-e" | "team-f";
+/**
+ * ゲームの担当者。"core" は運営、それ以外は harness/config.json の participant。
+ * GitHub のアカウント名に差し替えられるよう string にしてあり、
+ * 実際に存在する担当者かどうかは契約テストと validateManifest が config と突き合わせて検証する。
+ */
+export type OwnerId = string;
 
 export type GameComponentProps = {
   readonly manifest: GameManifest;
@@ -162,7 +167,7 @@ export type GameManifest = {
   /** 一覧タイルの説明。60文字以内。 */
   readonly description: string;
   readonly difficulty: GameDifficulty;
-  readonly team: TeamId;
+  readonly owner: OwnerId;
   /** 完成したら "ready" にする。PR の差分に1行として現れる。 */
   readonly status: GameStatus;
   readonly minPlayers: number;

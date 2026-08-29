@@ -7,7 +7,7 @@ import { execFileSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
-import { currentBranch, findTeamByGameId, gameIdFromBranch, loadConfig, repoRoot } from "../scripts/lib/harness.mjs";
+import { currentBranch, findParticipantByGameId, gameIdFromBranch, loadConfig, repoRoot } from "../scripts/lib/harness.mjs";
 
 let raw = "";
 for await (const chunk of process.stdin) raw += chunk;
@@ -26,9 +26,9 @@ try {
   const config = loadConfig(root);
   const branch = currentBranch(root);
   const gameId = gameIdFromBranch(branch);
-  const team = gameId ? findTeamByGameId(config, gameId) : null;
+  const item = gameId ? findParticipantByGameId(config, gameId) : null;
 
-  parts.push(team ? team.label + " " + team.name : "担当未設定");
+  parts.push(item ? item.displayName + " " + item.name : "担当未設定");
   parts.push(branch || "?");
 
   const status = execFileSync("git", ["status", "--porcelain"], { cwd: root, encoding: "utf8" });

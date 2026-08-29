@@ -68,21 +68,21 @@ function reviewOf(pull) {
   }
 }
 
-const rows = config.teams.map((team) => {
-  const pull = pulls.find((item) => item.headRefName === "feature/" + team.gameId);
+const rows = config.participants.map((item) => {
+  const pull = pulls.find((pr) => pr.headRefName === "feature/" + item.gameId);
   return {
-    team: team.label,
-    game: team.name,
+    owner: item.displayName,
+    game: item.name,
     pr: pull ? "#" + pull.number + (pull.isDraft ? "(Draft)" : "") : "なし",
     ci: pull ? ciOf(pull) : "-",
     review: pull ? reviewOf(pull) : "-",
     merged: pull?.state === "MERGED" ? "マージ済み" : "-",
-    local: localStatusOf(team.gameId),
+    local: localStatusOf(item.gameId),
   };
 });
 
 const widths = {
-  team: 8,
+  owner: 10,
   game: 10,
   pr: 12,
   ci: 8,
@@ -101,7 +101,7 @@ console.log("CARD ARCADE の進み具合");
 console.log("");
 console.log(
   "  " +
-    pad("チーム", widths.team) +
+    pad("担当", widths.owner) +
     pad("ゲーム", widths.game) +
     pad("PR", widths.pr) +
     pad("CI", widths.ci) +
@@ -113,7 +113,7 @@ console.log("  " + "-".repeat(62));
 for (const row of rows) {
   console.log(
     "  " +
-      pad(row.team, widths.team) +
+      pad(row.owner, widths.owner) +
       pad(row.game, widths.game) +
       pad(row.pr, widths.pr) +
       pad(row.ci, widths.ci) +

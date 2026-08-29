@@ -11,7 +11,7 @@ export const game: GameManifest = {
   name: "ハイ＆ロー",
   description: "次のカードが高いか低いかを CPU と競う、運営のお手本ゲーム",
   difficulty: "easy",
-  team: "core",
+  owner: "core",
   status: "ready",
   minPlayers: 1,
   maxPlayers: 1,

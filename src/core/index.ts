@@ -31,7 +31,7 @@ export type {
   SessionState,
   StorageKey,
   Suit,
-  TeamId,
+  OwnerId,
   TurnState,
 } from "./types";
 

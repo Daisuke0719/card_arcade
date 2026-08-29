@@ -16,7 +16,7 @@ import { execFileSync } from "node:child_process";
 import {
   classifyPath,
   currentBranch,
-  findTeamByGameId,
+  findParticipantByGameId,
   gameIdFromBranch,
   loadConfig,
   repoRoot,
@@ -167,7 +167,7 @@ function main() {
     if (result.kind === "always-writable") continue;
 
     if (result.kind === "game") {
-      const known = findTeamByGameId(config, result.gameId);
+      const known = findParticipantByGameId(config, result.gameId);
       const isExample = result.gameId === config.exampleGameId;
 
       if (!known && !isExample) {
