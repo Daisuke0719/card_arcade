@@ -1,7 +1,7 @@
 <!-- @scaffold:untouched -->
 # 神経衰弱（shinkeisuijaku）
 
-担当: 担当3 / Issue #0
+担当: 担当3 / Issue #2
 
 ## 遊び方
 

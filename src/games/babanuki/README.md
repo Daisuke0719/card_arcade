@@ -1,7 +1,7 @@
 <!-- @scaffold:untouched -->
 # ババ抜き（babanuki）
 
-担当: 担当1 / Issue #0
+担当: 担当1 / Issue #1
 
 ## 遊び方
 

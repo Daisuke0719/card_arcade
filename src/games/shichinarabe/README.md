@@ -1,7 +1,7 @@
 <!-- @scaffold:untouched -->
 # 七並べ（shichinarabe）
 
-担当: 担当7 / Issue #0
+担当: 担当7 / Issue #4
 
 ## 遊び方
 

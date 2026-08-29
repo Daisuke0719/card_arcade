@@ -17,7 +17,7 @@
       "icon": "🃏",
       "minPlayers": 4,
       "maxPlayers": 4,
-      "issue": 0,
+      "issue": 1,
       "reviews": "participant-2"
     },
     {
@@ -33,7 +33,7 @@
       "icon": "👑",
       "minPlayers": 4,
       "maxPlayers": 4,
-      "issue": 0,
+      "issue": 6,
       "reviews": "participant-3"
     },
     {
@@ -49,7 +49,7 @@
       "icon": "🧠",
       "minPlayers": 1,
       "maxPlayers": 1,
-      "issue": 0,
+      "issue": 2,
       "reviews": "participant-4"
     },
     {
@@ -97,7 +97,7 @@
       "icon": "⚡",
       "minPlayers": 2,
       "maxPlayers": 2,
-      "issue": 0,
+      "issue": 3,
       "reviews": "participant-7"
     },
     {
@@ -113,7 +113,7 @@
       "icon": "🎋",
       "minPlayers": 4,
       "maxPlayers": 4,
-      "issue": 0,
+      "issue": 4,
       "reviews": "participant-8"
     },
     {
@@ -129,7 +129,7 @@
       "icon": "🤥",
       "minPlayers": 4,
       "maxPlayers": 4,
-      "issue": 0,
+      "issue": 5,
       "reviews": "participant-9"
     },
     {
@@ -184,7 +184,15 @@
     ".prettierrc",
     ".nvmrc"
   ],
-  "alwaysWritable": [".claude/.state/**", ".pr-body.md"],
-  "requiredGameFiles": ["index.ts", "logic.ts", "logic.test.ts", "README.md"],
+  "alwaysWritable": [
+    ".claude/.state/**",
+    ".pr-body.md"
+  ],
+  "requiredGameFiles": [
+    "index.ts",
+    "logic.ts",
+    "logic.test.ts",
+    "README.md"
+  ],
   "minTestsPerReadyGame": 3
 }

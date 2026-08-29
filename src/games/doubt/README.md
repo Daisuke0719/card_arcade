@@ -1,7 +1,7 @@
 <!-- @scaffold:untouched -->
 # ダウト（doubt）
 
-担当: 担当8 / Issue #0
+担当: 担当8 / Issue #5
 
 ## 遊び方
 

@@ -1,7 +1,7 @@
 <!-- @scaffold:untouched -->
 # スピード（speed）
 
-担当: 担当6 / Issue #0
+担当: 担当6 / Issue #3
 
 ## 遊び方
 
