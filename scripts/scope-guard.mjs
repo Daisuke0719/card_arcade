@@ -87,7 +87,12 @@ function report(violations, touchedIds, branch) {
 
   // ブランチ名が分からない場合（CI で --branch を渡していないなど）は案内を出さない
   if (violations.length > 0 && !onFeatureBranch && branch) {
-    console.log("! まだ作業ブランチを作っていません（今: " + (branch || "不明") + "）");
+    const onMain = branch === "main" || branch === "master";
+    console.log(
+      onMain
+        ? "! まだ作業ブランチを作っていません（今: " + branch + "）"
+        : "! ブランチ名が feature/<ゲームID> の形になっていません（今: " + branch + "）",
+    );
     console.log("");
     console.log("  git switch -c feature/<自分のゲームID>");
     console.log("");
