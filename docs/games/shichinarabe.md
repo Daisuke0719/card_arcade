@@ -1,6 +1,6 @@
 # 七並べ（shichinarabe）
 
-担当: **Team D** / 難易度: **中級** / ブランチ: `feature/shichinarabe` / フォルダ: `src/games/shichinarabe/`
+担当: **担当7** / 難易度: **中級** / ブランチ: `feature/shichinarabe` / フォルダ: `src/games/shichinarabe/`
 
 このページが七並べの**ルールの正典**です。研修中に「このルールはどうなってる？」と迷ったら、
 実装やレビューではなくこのページの記述に従ってください。GitHub Issue の本文もここから転記されています。
@@ -305,7 +305,7 @@ export function chooseCard(moves: readonly PlayingCard[], rng: Rng): PlayingCard
 
 ## 時間が足りないときに落とす順番
 
-**上から順に落とします。** 1〜3 はチームの判断で落としてかまいません。4 と 5 は必須要件が減るので、
+**上から順に落とします。** 1〜3 は自分の判断で落としてかまいません。4 と 5 は必須要件が減るので、
 落とす前に**講師に確認**してください。
 
 1. **進行ログと演出** — `LogPanel` と、置いたときのハイライト。動作には影響しません。
@@ -322,7 +322,7 @@ export function chooseCard(moves: readonly PlayingCard[], rng: Rng): PlayingCard
 
 ## レビュアー向けミッション（このゲームの壊れやすい所）
 
-七並べをレビューするのは **Team C** です。
+七並べをレビューするのは **担当6（スピード担当）** です。
 仕様を知らなくても意味のある検証ができるよう、次の3つを実機（`npm run dev`）で試してください。
 
 ### 1. CPU の手番中に自分の手札を連打する

@@ -6,8 +6,8 @@
 ## 3行でいうと
 
 - 共通基盤（`@core` = 仕組み / `@ui` = 画面部品）は運営が作ってあります。**読むだけ**です。
-- 6チームは `src/games/<自分のゲームID>/` に**ルールだけ**を書きます。
-- ゲームは自動で見つかるので、**6つの Pull Request が同じ行を取り合いません**。
+- 参加者9人が1人1ゲームずつ、`src/games/<自分のゲームID>/` に**ルールだけ**を書きます。
+- ゲームは自動で見つかるので、**9つの Pull Request が同じ行を取り合いません**。
 
 ## 全体像
 
@@ -18,7 +18,7 @@
         |
         |  import.meta.glob で自動的に集める（登録用の一覧ファイルは存在しない）
         v
-  src/games/<ゲームID>/            ルール。6チームが書くのはここだけ
+  src/games/<ゲームID>/            ルール。9人が書くのはここだけ
         |
         |  import { Card, GameShell } from "@ui"
         v
@@ -31,7 +31,7 @@
 
 この向きを守ると、次の3つが同時に手に入ります。
 
-- **ゲーム同士が完全に独立する** … 他チームの実装が遅れても自分の作業は止まらない
+- **ゲーム同士が完全に独立する** … 他の人の実装が遅れても自分の作業は止まらない
 - **共通基盤が壊れない** … `@core` は個別のゲームを知らないので、ゲームを足しても変わらない
 - **テストが速い** … `logic.ts` は React も時間も知らないので、関数を呼ぶだけでテストできる
 
@@ -56,27 +56,30 @@ card_arcade/
 │  │  ├─ game-shell/           始まる・終わる・やり直すの状態機械
 │  │  ├─ hooks/                useCpuTurn など「時間」を扱うフック
 │  │  ├─ testing/              テスト用のカードファクトリ
-│  │  ├─ types.ts              全チームが共有する型（GameManifest はここ）
+│  │  ├─ types.ts              9人全員が共有する型（GameManifest はここ）
 │  │  └─ index.ts              公開 API。ここに無いものは「無い」
 │  ├─ components/              @ui の実体。12個の画面部品
 │  │  └─ index.ts              公開 API
 │  ├─ games/
 │  │  ├─ example-game/         お手本（ハイ＆ロー・CPU 対戦・10ラウンド）
-│  │  ├─ babanuki/          <= Team A ここだけ書ける
-│  │  ├─ shinkeisuijaku/    <= Team B
-│  │  ├─ speed/             <= Team C
-│  │  ├─ shichinarabe/      <= Team D
-│  │  ├─ doubt/             <= Team E
-│  │  ├─ daifugo/           <= Team F
+│  │  ├─ babanuki/          <= 担当1（ババ抜き）ここだけ書ける
+│  │  ├─ daifugo/           <= 担当2（大富豪）
+│  │  ├─ shinkeisuijaku/    <= 担当3（神経衰弱）
+│  │  ├─ poker/             <= 担当4（ポーカー）
+│  │  ├─ butanoshippo/      <= 担当5（ぶたのしっぽ）
+│  │  ├─ speed/             <= 担当6（スピード）
+│  │  ├─ shichinarabe/      <= 担当7（七並べ）
+│  │  ├─ doubt/             <= 担当8（ダウト）
+│  │  ├─ pageone/           <= 担当9（ページワン）
 │  │  └─ CLAUDE.md             ゲーム実装の決まりと早見表
 │  ├─ app/                     ゲームの自動検出とルーティング
-│  │  └─ registry/             loadGames.ts / validateManifest.ts / teamOrder.ts
+│  │  └─ registry/             loadGames.ts / validateManifest.ts / gameOrder.ts / harnessConfig.ts
 │  ├─ pages/                   ArcadePage / GamePage / NotFoundPage
 │  ├─ styles/                  tokens.css（--ca-* の色と余白）/ global.css
 │  └─ test/                    Vitest のセットアップ
-├─ tests/contract/             契約テスト3本（全チーム共通の約束を機械で守る）
-├─ harness/config.json         チームとゲームの対応 = 単一の真実源
-├─ scripts/                    scope-guard / scaffold-game / doctor / status など
+├─ tests/contract/             契約テスト4本（9人共通の約束を機械で守る）
+├─ harness/config.json         担当者とゲームの対応 = 単一の真実源
+├─ scripts/                    scope-guard / scaffold-game / doctor / status / setup-github など
 ├─ templates/game/             scaffold が使う雛形
 ├─ .claude/                    commands（8本）/ hooks（5本）/ settings.json
 ├─ .github/                    CI / CODEOWNERS / Issue・PR テンプレート
@@ -88,8 +91,12 @@ card_arcade/
 自分のゲームフォルダ以外は、読むのは自由ですが変更できません。
 
 `harness/config.json` が単一の真実源です。
-`scripts/scope-guard.mjs`・`scripts/scaffold-game.mjs`・契約テスト・`.claude/` のフック・
-アーケードの画面が、すべて同じファイルを読んでいます。
+`scripts/scope-guard.mjs`・`scripts/scaffold-game.mjs`・`scripts/setup-github.mjs`・契約テスト・
+`.claude/` のフック・アーケードの画面が、すべて同じファイルを読んでいます。
+
+参加者ID（`participants[].participant`）は仮名の `participant-1`〜`participant-9` で置いてあります。
+当日ここを GitHub のアカウント名に書き換えると、Issue・ラベル・雛形・画面の表示が一斉に揃います
+（書き換えたら `node scripts/build-issue-bodies.mjs` と `npm run scaffold -- --all --force`）。
 
 ## ゲームが自動で見つかる仕組み
 
@@ -107,16 +114,16 @@ const modules = import.meta.glob<unknown>("../../games/*/index.ts", {
 ここが**競合ゼロの正体**です。
 
 - 登録用の配列も、`games.ts` のような一覧ファイルも**存在しません**
-- したがって6チームの Pull Request が同じ行を書き換えることがありません
+- したがって9人の Pull Request が同じ行を書き換えることがありません
 - ゲームを1つ足す変更は「新しいフォルダを足す」だけになり、git が競合しようがありません
 
 安全装置も入っています。
 
 | 仕組み | 場所 | 何をするか |
 |---|---|---|
-| `validateManifest` | `src/app/registry/validateManifest.ts` | 規約違反を見つけても例外を投げない。壊れたゲームは赤いタイルになり、他の5つは動き続ける |
-| `teamOrder.ts` | `src/app/registry/teamOrder.ts` | 表示順は Team A 〜 F の固定順。manifest に順番のフィールドが無いので、自分のタイルを先頭にできない |
-| 重複の検出 | `loadGames.ts` | `id` や担当チームが重複したゲームは登録されず、契約テストで落ちる |
+| `validateManifest` | `src/app/registry/validateManifest.ts` | 規約違反を見つけても例外を投げない。壊れたゲームは赤いタイルになり、他の8つは動き続ける |
+| `gameOrder.ts` | `src/app/registry/gameOrder.ts` | 表示順は `harness/config.json` の `participants` の並び（担当1 〜 担当9 の順、お手本の `core` は最後）で固定。manifest に順番のフィールドが無いので、自分のタイルを先頭にできない |
+| 重複の検出 | `loadGames.ts` | `id` や `owner`（担当者）が重複したゲームは登録されず、契約テストで落ちる |
 
 ## GameManifest の全フィールド
 
@@ -128,7 +135,7 @@ const modules = import.meta.glob<unknown>("../../games/*/index.ts", {
 | `name` | `string` | 必須 | 画面に出す名前。20文字以内 |
 | `description` | `string` | 必須 | 一覧タイルの説明。60文字以内 |
 | `difficulty` | `"easy"` / `"normal"` / `"hard"` | 必須 | 初級 / 中級 / 上級として表示される |
-| `team` | `TeamId` | 必須 | `core` / `team-a` 〜 `team-f` |
+| `owner` | `OwnerId`（`string`） | 必須 | 担当者。`core`（運営）または `harness/config.json` の `participant`（`participant-1`〜`participant-9`） |
 | `status` | `"coming-soon"` / `"ready"` | 必須 | 完成したら `"ready"` に変える。Pull Request の差分に1行として現れる |
 | `minPlayers` | `number` | 必須 | 1 以上。`minPlayers <= maxPlayers <= 6` |
 | `maxPlayers` | `number` | 必須 | 6 以下 |
@@ -137,6 +144,10 @@ const modules = import.meta.glob<unknown>("../../games/*/index.ts", {
 | `icon` | `string` | 任意 | 絵文字1文字。タイルのアイコンになる |
 | `issueNumber` | `number` | 任意 | 担当 Issue の番号。タイルから Issue へリンクする |
 | `component` | `ComponentType<GameComponentProps>` | 必須 | 画面本体。`<Xxx>Game.tsx` から import する |
+
+`id` `name` `difficulty` `owner` は運営が決めた値です（雛形にそう書いてあります）。
+変えると契約テストと CI が落ちます。参加者が触るのは
+`description` / `howToPlay` / `icon` / `status` の4つだけです。
 
 画面が受け取る props は2つだけです。
 
@@ -149,6 +160,37 @@ type GameComponentProps = {
 
 `status` を `"ready"` にすると、契約テストが**ロジックのテスト3件以上**と
 **例外を出さずに描画できること**を要求します。`npm run verify` が緑になってから変えてください。
+
+### owner の型が `OwnerId`（= `string`）である理由
+
+チーム制だったときは `TeamId = "core" | "team-a" | ... | "team-f"` という、
+候補を並べた型（ユニオン型）でした。1人1ゲームになったいまは、ただの `string` です。
+**緩くしたのではなく、意図してそうしてあります。**
+
+```ts
+/**
+ * ゲームの担当者。"core" は運営、それ以外は harness/config.json の participant。
+ * GitHub のアカウント名に差し替えられるよう string にしてあり、
+ * 実際に存在する担当者かどうかは契約テストと validateManifest が config と突き合わせて検証する。
+ */
+export type OwnerId = string;
+```
+
+理由は当日の差し替えです。`participant-1`〜`participant-9` は仮名で、
+研修当日に `harness/config.json` を GitHub のアカウント名へ書き換えます。
+もし型に9人分の名前を並べていたら、**名簿が変わるたびに `src/core/types.ts` を編集**することになります。
+そこは参加者が触れない運営管理の場所で、しかも全員のビルドに影響します。
+アカウント名を1つ直しただけで共通基盤が動くのは、依存の向きとして間違っています。
+
+そのかわり「実在しない担当者を書けてしまう」という穴が空きます。これは**2か所で塞いであります**。
+
+| どこで | 何を見るか | 落ちたときの見え方 |
+|---|---|---|
+| `src/app/registry/validateManifest.ts` | `isKnownOwner()` が `harness/config.json` に載っている担当者（または `core`）かを調べる | 例外は投げない。そのゲームだけ赤いタイルになり、他は動き続ける |
+| `tests/contract/registry.contract.test.ts` | 担当者が重複していないか（1人1ゲーム）/ 担当者・ゲーム名・難易度が config と一致するか | `npm test` と CI が赤くなる |
+
+**型で守れないことは、テストで守る。** どちらも読んでいるのは同じ `harness/config.json` です。
+「型を厳しくする」より「真実源を1つにする」ほうが、当日の運用に強いという判断です。
 
 ## @core の早見表
 
@@ -212,7 +254,7 @@ AnyCard, PlayingCard, JokerCard, CardId, Deck, Suit, Rank, RankOrder,
 Rng, Player, PlayerId, PlayerKind, TurnState,
 ScoreEntry, Ranking, RankingRow, HighScore, HighScoreDirection, StorageKey,
 GamePhase, GameOutcome, GameResult, SessionState, SessionAction,
-GameId, GameDifficulty, GameStatus, TeamId, GameManifest, GameComponentProps
+GameId, GameDifficulty, GameStatus, OwnerId, GameManifest, GameComponentProps
 ```
 
 | こういうときに | 開くグループ |
@@ -250,7 +292,7 @@ GameId, GameDifficulty, GameStatus, TeamId, GameManifest, GameComponentProps
 
 置き場所に迷ったときの**唯一の基準**です。
 
-> そのルールは6ゲーム全部に当てはまるか？
+> そのルールは9ゲーム全部に当てはまるか？
 > 当てはまらないなら、それは `games` に書くものです。
 
 例として、大富豪のカードの強さ（3 < 4 < ... < K < A < 2）を考えます。
@@ -277,12 +319,12 @@ export function isStronger(a: Rank, b: Rank): boolean {
 革命が起きたら、逆順の配列から作った関数に差し替えるだけです。
 `@core` は最後まで大富豪を知りません。
 （もし `@core` に `daifugoStrength` を足していたら、革命のたびに共通基盤を直すことになり、
-6チーム全員の Pull Request に影響が出ます。）
+9人全員の Pull Request に影響が出ます。）
 
 | 置き場所 | 例 |
 |---|---|
 | `@core`（仕組み） | 52枚を作る / seed 付きシャッフル / 手番を回す / 順序から強さの関数を作る |
-| `games`（ルール） | 3 < ... < A < 2 / 8切り / 革命 / ダウトの宣言 / 7の隣にしか置けない / ジョーカーは1枚 |
+| `games`（ルール） | 3 < ... < A < 2 / 8切り / 革命 / ダウトの宣言 / 7の隣にしか置けない / ポーカーの役の強さ / ジョーカーは1枚 |
 
 `@core` に機能が足りないと思ったときは、自分で足さずに手を止めてください。
 多くの場合は既存の関数の組み合わせで実現できます。報告の書き方は
@@ -292,18 +334,22 @@ export function isStronger(a: Rank, b: Rank): boolean {
 
 | 置き場所 | 中身 | 誰が書くか |
 |---|---|---|
-| `src/games/<ゲームID>/logic.test.ts` | ルールのテスト。**ここが評価対象** | 各チーム |
-| `src/games/<ゲームID>/<Xxx>Game.test.tsx` | 画面のテスト（任意） | 各チーム |
+| `src/games/<ゲームID>/logic.test.ts` | ルールのテスト。**ここが評価対象** | 担当者本人 |
+| `src/games/<ゲームID>/<Xxx>Game.test.tsx` | 画面のテスト（任意） | 担当者本人 |
 | `src/core/` と `src/components/` の `*.test.ts(x)` | 共通基盤のテスト | 運営 |
-| `tests/contract/` | 全チーム共通の約束を守る契約テスト | 運営 |
+| `tests/contract/` | 9人共通の約束を守る契約テスト | 運営 |
 
-契約テストは3本です。自分のコードが原因で落ちることがあるので、何を見ているか知っておくと得です。
+契約テストは4本です。自分のコードが原因で落ちることがあるので、何を見ているか知っておくと得です。
 
 | ファイル | 何を検査するか |
 |---|---|
-| `registry.contract.test.ts` | 6ゲームが全部見つかるか / `id` とフォルダ名が一致するか / `harness/config.json` の対応と合っているか |
-| `manifest.contract.test.tsx` | 必須ファイルが揃っているか / README に `## 遊び方` `## ルール` `## 実装メモ` があるか / `status` が `"ready"` ならテスト3件以上かつ描画できるか |
-| `boundaries.contract.test.ts` | 担当フォルダの外を相対パスで参照していないか / `@core/...` の深い import が無いか / `logic.ts` と `cpu.ts` に `Math.random` `Date.now` `setTimeout` や react が無いか / `eslint-disable` を書いていないか |
+| `registry.contract.test.ts` | 9ゲーム + お手本がすべて見つかるか / 読み込めないゲームが無いか / `id` とフォルダ名が一致するか / **担当者が重複していないか（1人1ゲーム）** / 担当者・ゲーム名・難易度が `harness/config.json` と一致するか |
+| `manifest.contract.test.tsx` | 必須ファイル（`index.ts` `logic.ts` `logic.test.ts` `README.md` と `<Xxx>Game.tsx`）が揃っているか / README に `## 遊び方` `## ルール` `## 実装メモ` があるか / name 20文字・description 60文字などの上限を守っているか / `status` が `"ready"` ならテスト3件以上（`skip` 無し）かつ `GameShell` を使って描画できるか |
+| `boundaries.contract.test.ts` | 担当フォルダの外を相対パスで参照していないか / 他の人のゲームを参照していないか / `@core/...` `@ui/...` の深い import が無いか / `logic.ts` `cpu.ts` `rules.ts` に `Math.random` `Date.now` `new Date()` `setTimeout` `setInterval` や react が無いか / `eslint-disable` を書いていないか |
+| `arcade.contract.test.tsx` | 9人全員のゲームがタイルとして並ぶか / 担当者の表示名がタイルに出るか / お手本が別枠で出るか / COMING SOON の数が実態と合うか / 「公開中 n / 9」の数が合っているか / 読み込めなかったゲームが画面に出るか（白画面にしない） |
+
+`arcade.contract.test.tsx` があるおかげで、**研修が始まる時点で9人分のタイルが並んでいること**が
+機械で保証されます。「初日に自分の場所が見つからない」という事故が起きません。
 
 実行はどれも `npm test`（= `vitest run`）でまとめて走ります。
 `npm run verify` はそこに範囲チェック・lint・型チェック・ビルドを足したもので、CI とまったく同じ列です。

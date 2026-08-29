@@ -2,7 +2,7 @@
 
 このフォルダの下で作業します。**編集してよいのは `src/games/<自分のゲームID>/` の中だけ**です。
 
-まず `src/games/example-game/` を読んでください。6ゲームすべてがこの形に落ちるように作ってあります。
+まず `src/games/example-game/` を読んでください。9ゲームすべてがこの形に落ちるように作ってあります。
 
 ## ファイルの役割（混ぜない）
 
@@ -25,7 +25,7 @@ export const game: GameManifest = {
   name: "ババ抜き",         // 20文字以内（変更禁止）
   description: "...",      // 60文字以内
   difficulty: "easy",      // 変更禁止
-  team: "team-a",          // 変更禁止
+  owner: "participant-1",  // 担当者。harness/config.json の値（変更禁止）
   status: "coming-soon",   // 完成したら "ready" に変える
   minPlayers: 4,
   maxPlayers: 4,
@@ -36,16 +36,19 @@ export const game: GameManifest = {
 };
 ```
 
+`owner` は担当者を表す文字列で、雛形を作った時点で `harness/config.json` の値が入っています。
+自分で書き換えないでください（画面の並び順と契約テストがこの値を見ています）。
+
 `status` を `"ready"` にすると、契約テストが**テスト3件以上**と**実際に描画できること**を要求します。
 必須要件が終わって `npm run verify` が緑になってから変えてください。
 
-## @core の早見表（ここに無いものは無い）
+## @core の早見表
 
 ```ts
 import {
   // カード
   SUITS, RANKS, SUIT_SYMBOL, SUIT_COLOR, SUIT_NAME_JA,
-  cardLabel, cardShortLabel, sameRank, sameSuit,
+  cardId, cardLabel, cardShortLabel, sameRank, sameSuit,
   isStandard, isJoker, partitionJokers,
   rankToNumber, numberToRank, cycleRank,          // cycleRank: K の次は A
   RANK_ORDER_ACE_LOW, RANK_ORDER_ACE_HIGH,
@@ -55,6 +58,7 @@ import {
   // 山札
   createDeck,              // 52枚
   createDeckWithJokers,    // 52枚 + ジョーカー（ババ抜き用）
+  createJokers,
   draw, drawMany, deal, returnToDeck,
   first, last, requireCard,
 
@@ -63,6 +67,7 @@ import {
 
   // プレイヤーとターン
   createSoloVsCpu,         // あなた + CPU n人
+  createPlayers, findPlayer,
   createTurnState, nextTurn, finishPlayer, reverseDirection,
   neighborId,              // 左隣の人（上がった人は自動で飛ばす）
   alivePlayers, isCurrent, isFinished, isOver,
@@ -83,6 +88,19 @@ import {
 } from "@core";
 ```
 
+型も同じ入口から取ります。
+
+```ts
+import type {
+  AnyCard, PlayingCard, JokerCard, Suit, Rank, CardId, Deck,
+  Rng, Player, PlayerId, TurnState, Ranking, GameResult,
+  GameManifest, GameComponentProps,
+} from "@core";
+```
+
+ここに無いものが必要になったら `src/core/index.ts` を見てください。そこにも無ければ「無い」です。
+自分で作らず、講師に相談します。
+
 ## @ui の早見表
 
 ```ts
@@ -96,7 +114,7 @@ import {
 } from "@ui";
 ```
 
-### 複数枚を選ぶ UI（大富豪・ダウト）
+### 複数枚を選ぶ UI（大富豪・ダウト・ポーカー）
 
 ```tsx
 const [selected, setSelected] = useState<string[]>([]);
@@ -136,8 +154,13 @@ CPU の手番は `pendingDelayMs()` が待ち時間を返すことで自然に�
 | テストが時々落ちる | `Math.random()` を使っている | `createRng(seed)` を引数で渡す |
 | lint が「@ui は使えません」と言う | `logic.ts` で画面のものを import した | 画面の処理は `.tsx` へ移す |
 | 範囲チェックで落ちる | 担当フォルダの外を触った | `npm run scope` が出す `git restore` をそのまま実行 |
+| 契約テストが owner で落ちる | `index.ts` の `owner` を書き換えた | `harness/config.json` の値に戻す |
 
 ## 進め方
 
 必須要件が全部終わるまで、発展課題に手を出さないでください。
 時間が足りないときは、発展課題ではなく**必須要件の削り方**を講師に相談します。
+
+1人で作っているので、詰まったことに気づけるのは自分だけです。
+15分手が止まったら `/stuck` で状況を整理して講師に見せてください。
+Issue のチェックリストを1つずつ埋めていくことが、外から見える唯一の進捗になります。

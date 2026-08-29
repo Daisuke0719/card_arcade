@@ -5,11 +5,11 @@
 
 ## 間違いは人の注意力ではなく仕組みで止める
 
-3時間で6チームが同じリポジトリを同時に触ります。
+3時間で9人が同じリポジトリを同時に触ります。
 このとき、いちばん高くつく失敗は「1人のうっかりが全員を止めること」です。
 
-- 誰かが `src/core/` を1行変える → 6チーム全員のテストが赤くなる
-- 誰かが `npm install` する → `package-lock.json` が変わり、6つの Pull Request が全部競合する
+- 誰かが `src/core/` を1行変える → 9人全員のテストが赤くなる
+- 誰かが `npm install` する → `package-lock.json` が変わり、9つの Pull Request が全部競合する
 - 誰かが `main` で作業する → その変更を誰も分離できなくなる
 
 だから、この研修では**気をつける**のではなく**気をつけなくても起きない形**にしてあります。
@@ -22,7 +22,7 @@
 | 書く前（フック） | 数秒 |
 | コミット前（pre-commit） | 数十秒 |
 | Pull Request（CI） | 数分 + レビュアーの待ち時間 |
-| マージ後 | 全チームが巻き込まれる |
+| マージ後 | 9人全員が巻き込まれる |
 
 ## 5層のハーネス
 
@@ -31,7 +31,7 @@
 | **1. 予防** | `npm run scaffold`（`scripts/scaffold-game.mjs`）と `templates/game/` | 書き始める前。構造を間違えられない雛形を作る | そもそも止めない（間違いが起きない形にする） |
 | **2. 伝える** | `CLAUDE.md` / `src/games/CLAUDE.md` / `src/core/CLAUDE.md` / SessionStart フック | Claude Code が考える前。前提と担当を毎回渡す | 強制力は無い（読ませるだけ） |
 | **3. その場で止める** | `.claude/settings.json` の `deny` と `.claude/hooks/` の5本 | ツールを実行する直前 | 講師用の環境変数で無効化できる |
-| **4. コミットさせない** | ESLint の境界ルール / `tests/contract/` の3本 / 型チェック / `.githooks/pre-commit` | `npm run verify` と `git commit` | **外せない** |
+| **4. コミットさせない** | ESLint の境界ルール / `tests/contract/` の4本 / 型チェック / `.githooks/pre-commit` | `npm run verify` と `git commit` | **外せない** |
 | **5. マージさせない** | CI の `verify` / CODEOWNERS / ブランチ保護 | Pull Request | 講師のみ（`harness:override` ラベル） |
 
 ### Layer 3 が止めるもの（.claude/）
@@ -42,7 +42,40 @@
 | `guard-bash.mjs` | コマンド経由の回り込みを止める（依存追加 / `--no-verify` / 強制 push / `main` への push / `vitest` の監視モード / リダイレクトでの上書き） |
 | `format-file.mjs` | 担当フォルダの中だけ prettier をかける（差分ノイズを消す） |
 | `require-verify.mjs` | `npm run verify` を通さずに終わろうとしたら1回だけ引き止める（Stop） |
-| `session-brief.mjs` | セッション開始時に「今どのチームの担当か」を伝える（SessionStart） |
+| `session-brief.mjs` | セッション開始時に「今どのゲームの担当か」を伝える（SessionStart） |
+
+`session-brief.mjs` は `harness/config.json` を読み、ブランチ名から
+「担当◯ / ゲーム名 / ゲームID / 担当 Issue」を毎回 Claude Code に渡します。
+だから新しいセッションを開いても、担当を説明し直す必要がありません。
+
+## 硬さの基準は「他の人に波及するか」
+
+止め方には**硬さの差**があります。全部を機械で止めると、違反を潰す作業に時間を使って
+ゲームを作る時間が無くなります。全部を警告にすると、機械が何も守りません。
+そこで基準を1つに絞ってあります。
+
+> **その違反が他の人に波及するかで決める。**
+
+| 波及する（機械で止める / error） | 自分のフォルダに閉じる（警告に留める / warn） |
+|---|---|
+| 担当範囲の外を変更する | `any` を使う |
+| 依存を追加する（`package-lock.json` が変わる） | 1ファイルが400行を超える |
+| 他の人のゲームを参照する | 1関数が150行を超える |
+| `@core/...` の深い import | 複雑度が15を超える |
+| `logic.ts` を非純粋にする（乱数・時間・react） | `console.log` を残す |
+| `localStorage` を直接使う（キーが衝突する） | — |
+| `eslint-disable` を書く | — |
+
+チーム制なら「他チームに波及するか」でしたが、いまは1人1ゲームなので**他の人に波及するか**です。
+基準は変わりません。左の列を1つ通すと、他の8人の Pull Request が落ちます。
+**個人の判断で通してよい範囲ではありません。**
+
+右の列は自分のフォルダの中だけの話なので、機械で止めずに**レビューの題材に回します**。
+警告として画面に出ているので、レビュアーは「ここに warn が出ていますが意図的ですか」と聞けます。
+すべてを error にすると、レビューで話すことが無くなります。
+
+（例外は `eqeqeq` と未使用変数の2つです。波及はしませんが、直すのが一瞬で、
+放置すると型チェックとビルドの失敗に化けるので error にしてあります。）
 
 ### なぜ Layer 4 だけが外せないのか
 
@@ -61,6 +94,32 @@
 
 つまり手元で何を消しても、Pull Request では必ず同じ結果が出ます。
 **回り込む方法を探す時間が、いちばんもったいない使い方です。**
+
+### GitHub 側のラベル
+
+Issue と Pull Request には、`node scripts/setup-github.mjs labels` が作ったラベルが付いています。
+
+| ラベル | 意味 |
+|---|---|
+| `participant-1` 〜 `participant-9` | 担当者。1人につき1つ（担当1 = `participant-1` … 担当9 = `participant-9`） |
+| `difficulty:easy` / `difficulty:normal` / `difficulty:hard` | 初級 / 中級 / 上級 |
+| `game` | 参加者が担当するゲームの実装 |
+| `stretch-goal` | 発展課題（必須ではない） |
+| `blocked` | 詰まっている・講師の判断待ち |
+| `bug` | 大会で見つかった不具合 |
+| `core-change` | 共通基盤の変更を含む（講師レビュー必須） |
+| `harness:override` | **講師のみ**。付いている Pull Request では範囲チェックが警告に降格する |
+
+担当ラベルは `harness/config.json` の `participant` と同じ名前です。
+自分の Issue と Pull Request はラベルで絞り込めます。
+
+```powershell
+gh issue list --label participant-1
+gh pr list --label participant-1
+```
+
+15分以上進まないときは、`blocked` を自分で付けてください。
+1人で作っているので、**黙っていると誰も気づけません**。ラベルは救難信号です。
 
 ## 止められたときの読み方
 
@@ -88,7 +147,7 @@ src/core/cards/index.ts は運営が管理している場所なので変更で�
 src/core/cards/index.ts は運営が管理している場所なので変更できません。
 ```
 
-6チーム全員が使う共通基盤です。ここを1行変えると、他の5チームの Pull Request が突然壊れます。
+9人全員が使う共通基盤です。ここを1行変えると、他の8人の Pull Request が突然壊れます。
 
 **やること**
 
@@ -117,7 +176,7 @@ src/core/cards/index.ts は運営が管理している場所なので変更で�
 ```
 
 依存を1つ入れると `package-lock.json` が変わります。
-すると6チーム全員の Pull Request が同じファイルで競合し、統合が止まります。
+すると9人全員の Pull Request が同じファイルで競合し、統合が止まります。
 CI にも「依存が変わっていないか」という専用のチェックがあります。
 
 **やること**
@@ -131,8 +190,10 @@ CI にも「依存が変わっていないか」という専用のチェック�
 ### 3. 担当外のゲームを触った
 
 ```
-src/games/daifugo/logic.ts は Team F（大富豪） の担当です。
+src/games/daifugo/logic.ts は 担当2（大富豪） の担当です。
+
 今のブランチ feature/babanuki の担当は babanuki です。
+他の人のゲームは変更しないでください。
 ```
 
 **やること** — 変更してしまったファイルを戻します。
@@ -148,6 +209,9 @@ git restore --source=HEAD --staged --worktree -- src/games/daifugo/logic.ts
 
 複数のファイルを触ってしまった場合も、`npm run scope` が全部まとめた1行を出します。
 表示されたコマンドをそのまま実行してください。
+
+（1つの Pull Request で扱うゲームは1つだけです。2つ以上のゲームフォルダに変更があると、
+ブランチ名と一致していても範囲チェックが落ちます。）
 
 ### 4. `main` ブランチのまま編集した
 
@@ -168,7 +232,8 @@ git switch -c feature/babanuki
 上のコマンドを実行してから、続きを進めてください。
 
 （`git switch -c` の後ろは自分のゲームIDです:
-`babanuki` / `shinkeisuijaku` / `speed` / `shichinarabe` / `doubt` / `daifugo`）
+`babanuki` / `daifugo` / `shinkeisuijaku` / `poker` / `butanoshippo` /
+`speed` / `shichinarabe` / `doubt` / `pageone`）
 
 ### 5. `npm run verify` を通さずに終わろうとした
 
@@ -198,45 +263,10 @@ npm run verify
 | 止められたこと | 理由 | どうするか |
 |---|---|---|
 | `git commit --no-verify` | チェックを飛ばすと、CI で同じことが起きるだけ | 落ちた理由を直してからコミットする |
-| `git push --force` | 履歴を書き換えると他チームの作業が壊れる | 講師に相談する |
+| `git push --force` | 履歴を書き換えると他の人の作業が壊れる | 講師に相談する |
 | `git push origin main` | `main` への直接 push は禁止 | `git push -u origin feature/<ゲームID>` して Pull Request を作る |
 | `npx vitest`（監視モード） | セッションが返ってこなくなる | `npm test`（= `vitest run`）を使う |
 | `.claude/settings.json` の変更 | ハーネス自体の無効化 | 止められた理由を講師に伝える |
 
 `docs/troubleshooting.md` には、エラーメッセージから引ける番号つきの対処集（T-01〜）があります。
 `/stuck` を使うと、Claude Code が現状を整理して次の一手を1つだけ出します。
-
-## 機械が見るもの、人が見るもの
-
-ハーネスが守っているのは「機械で測れること」だけです。
-**ゲームが面白いか、テストが意味を持っているかは機械には分かりません。**
-そこは相互レビューが担当します。
-
-| 機械（ハーネス）が見る | 人（レビュー担当チーム）が見る |
-|---|---|
-| 担当範囲からはみ出していないか | **テストの質** … 正常系だけになっていないか。境界値と異常系を見ているか。アサーションを1つ逆にしたら本当に落ちるか |
-| import の向き（`@core` / `@ui` の入口だけを使っているか） | **命名の分かりやすさ** … 変数名と関数名だけで意味が分かるか。ルール判定が `.tsx` に漏れていないか |
-| `logic.ts` が純粋か（乱数・時間・React が無いか） | **ルールの解釈** … Issue に書かれたルールと実装が一致しているか。曖昧な場面の扱いが妥当か |
-| 必須ファイルが揃っているか / README の見出し | **README** … 読んで遊び方が分かるか。採用したルールと捨てたルールが書いてあるか |
-| テストが3件以上あるか（`status: "ready"` のとき） | **実機で遊べるか** … 最初から最後まで1回プレイできるか。連打やリセットで壊れないか |
-| 型が通るか / ビルドできるか | **Pull Request の説明** … 自分の言葉で書かれているか |
-
-「テストが3件ある」は機械が数えられますが、「そのテストが仕様を確認している」は数えられません。
-だから**テストの件数は Layer 4 が、テストの中身はレビューが**見ます。役割が重なっていません。
-
-レビューのやり方は [docs/review-guide.md](review-guide.md) と `/review` にあります。
-レビューする側も、**必ず一度ブランチを取得して実際に遊んでから**指摘してください。
-
-## 覚えておくこと
-
-- 止められたら、メッセージの**最後の段落**（次にどうするか）を読む
-- `npm run scope` は、直すためのコマンドを**そのままコピペできる形**で出してくれる
-- 回り込む方法は探さない。共通基盤に触りたくなったら、そこが**講師に相談するタイミング**
-- `npm run verify` が緑になって初めて「できた」
-
-| 困ったら | 読むもの |
-|---|---|
-| エラーの直し方 | [docs/troubleshooting.md](troubleshooting.md) |
-| リポジトリの構造・`@core` に何があるか | [docs/architecture.md](architecture.md) |
-| Git / GitHub の操作、巻き戻し | [docs/github-workflow.md](github-workflow.md) |
-| 状況を整理したい | `/stuck` |
