@@ -4,6 +4,8 @@
  * settings.json の deny ルールでも同じ場所を塞いでいるが、
  * こちらは「なぜダメか」と「次にどうすべきか」を日本語で伝えるのが役目。
  */
+import { existsSync, readFileSync } from "node:fs";
+import path from "node:path";
 import {
   classifyPath,
   currentBranch,
@@ -44,6 +46,22 @@ const result = classifyPath(relative, config);
 const branch = currentBranch(root);
 const branchGameId = gameIdFromBranch(branch);
 
+/**
+ * scaffold が記録した「自分の担当」。
+ * gh pr checkout でブランチが相手のものになっている間も、これは変わらない。
+ */
+function ownedGameId() {
+  const file = path.join(root, ".claude", ".state", "owner.json");
+  if (!existsSync(file)) return null;
+  try {
+    return JSON.parse(readFileSync(file, "utf8")).gameId ?? null;
+  } catch {
+    return null;
+  }
+}
+
+const myGameId = ownedGameId();
+
 if (result.kind === "always-writable") pass();
 
 if (result.kind === "protected") {
@@ -73,6 +91,27 @@ if (!branchGameId) {
       "  git switch -c feature/" + result.gameId,
       "",
       "を実行してから編集するのが正しい進め方です。このまま続けますか？",
+    ].join("\n"),
+  );
+}
+
+// レビュー中（相手のブランチを checkout している）に相手のコードを触らせない。
+// ブランチ名は相手のものになっているので、記録した担当と突き合わせて判定する。
+if (myGameId && result.gameId !== myGameId) {
+  const owner = findParticipantByGameId(config, result.gameId);
+  deny(
+    [
+      relative +
+        " は " +
+        (owner ? owner.displayName + "（" + owner.name + "）" : "他の人") +
+        " の担当です。",
+      "",
+      "あなたの担当は " + myGameId + " です。",
+      "いま相手のブランチを取ってきている（レビュー中）だけなので、",
+      "相手のコードは変更できません。",
+      "",
+      "気づいたことは、直すのではなく Pull Request のコメントで伝えてください。",
+      "自分の作業に戻るときは git switch feature/" + myGameId + " です。",
     ].join("\n"),
   );
 }

@@ -99,6 +99,24 @@ function scaffoldOne(item) {
   return { created, skipped };
 }
 
+/**
+ * 「自分の担当はこれ」を記録する。
+ *
+ * レビューのときに gh pr checkout すると、ブランチ名が相手のものになる。
+ * ブランチ名だけで担当を判定していると、その状態で相手のフォルダを
+ * 編集できてしまうので、ここに書いた値と突き合わせて防ぐ。
+ */
+function rememberOwner(gameId) {
+  if (dryRun) return;
+  const stateDir = path.join(root, ".claude", ".state");
+  mkdirSync(stateDir, { recursive: true });
+  writeFileSync(
+    path.join(stateDir, "owner.json"),
+    JSON.stringify({ gameId }, null, 2) + "\n",
+    "utf8",
+  );
+}
+
 function printUsage() {
   console.log("");
   console.log("使い方:");
@@ -137,6 +155,9 @@ function main() {
 
   console.log("");
   if (dryRun) console.log("--dry-run: 実際にはファイルを作りません");
+
+  // 1つだけ作ったとき＝参加者が自分の担当を作ったときだけ記録する
+  if (!all && targets.length === 1) rememberOwner(targets[0].gameId);
 
   for (const item of targets) {
     const { created, skipped } = scaffoldOne(item);
