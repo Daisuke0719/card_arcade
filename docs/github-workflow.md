@@ -15,6 +15,42 @@ GitHub 側の操作は、このページを見ながらコピペしてくださ�
 
 ---
 
+## ターミナルは2本 — このページの読み方
+
+今日はターミナルを2本開いた状態で進みます。**このページのコマンドには、必ず「誰が打つか」が付いています。**
+
+| | ターミナルA（Claude Code） | ターミナルB（自分の手だけ） |
+|---|---|---|
+| 中身 | Claude Code のセッション | ふつうの PowerShell |
+| 常駐 | — | **`npm run dev`（研修中つけっぱなし）** |
+| やること | 調査 / 計画 / 実装 / 差分読み / 下書き | **実機で遊ぶ** / `npm test` の自分確認 / `git push` / `gh pr ready` / `gh pr checkout` / Approve |
+
+### コマンドブロックに付いている印
+
+| 印 | 意味 |
+|---|---|
+| **A: Claude に頼む** | ターミナルA に**プロンプト（日本語）を打ちます**。コマンドは Claude Code が実行します |
+| **B: 自分で打つ** | ターミナルB に**自分の手で PowerShell のコマンドを打ちます**。Claude Code には頼みません |
+| **手動** | Claude Code を起動する前の準備。自分で打ちます |
+
+**A のブロックには、そのままコピペできるプロンプトが書いてあります。**
+要約したり言い換えたりせずに、まずはそのまま打ってみてください。
+
+### なぜ B が残っているのか
+
+プロンプトで進めると、ほとんどの作業は Claude Code に頼めます。**頼めてしまいます。**
+だから、**頼めない場所を物理的に切り出しました。** それがターミナルB です。
+
+- `npm run dev` と監視モードのテストは、**ターミナルA では実行できません**（ハーネスが拒否します）
+- `gh pr review` / `gh pr comment` / `gh issue comment` も、**ターミナルA では実行できません**
+- `git push` / `gh pr create` / `gh pr ready` / `gh pr merge` は実行できますが、**承認を求められます**。
+  承認を押すだけの作業にしないために、**この4つは自分の手で打つ決まり**にしています
+
+**B でしかできないことは、あなたにしかできないことです。**
+詳しい理由は [docs/harness.md](harness.md) にあります。
+
+---
+
 ## この研修は「1人1ゲーム」です
 
 参加者は9名。**チームは組みません。1人が1つのゲームを最初から最後まで担当します。**
@@ -31,15 +67,22 @@ GitHub 側の操作は、このページを見ながらコピペしてくださ�
 
 `npm run status` は自分でも実行できます。9人ぶんの進み具合が1画面で出ます。
 
+**B: 自分で打つ**
+
 ```powershell
 npm run status
 ```
+
+**Issue のチェックボックスは、GitHub の Issue 画面で自分でクリックしてください。**
+`gh issue edit` はハーネスが止めます（Issue 本文は全員が同じ条件で進むための基準なので、講師が管理しています）。
 
 ---
 
 ## 0. 事前準備（研修が始まる前に済ませる）
 
-### 0-1. 必要なものが入っているか確認する
+**この節はすべて「手動」です。** Claude Code を起動する前に、自分の手で進めてください。
+
+### 0-1. 必要なものが入っているか確認する（**手動**）
 
 ```powershell
 node -v
@@ -50,7 +93,7 @@ gh --version
 `node -v` が `v22.` で始まらない場合は `docs/troubleshooting.md` の **T-01** を見てください。
 `gh` が見つからない場合は https://cli.github.com/ から GitHub CLI を入れます。
 
-### 0-2. GitHub にログインする
+### 0-2. GitHub にログインする（**手動**）
 
 ```powershell
 gh auth login
@@ -75,7 +118,7 @@ gh auth status
 `Token scopes:` に `repo` が含まれていることを必ず見てください。
 含まれていない場合は **T-24** です。
 
-### 0-3. リポジトリを clone する
+### 0-3. リポジトリを clone する（**手動**）
 
 **パスに日本語・スペース・OneDrive を含めないでください**（**T-05**）。
 
@@ -86,7 +129,7 @@ git clone https://github.com/Daisuke0719/card_arcade.git
 cd card_arcade
 ```
 
-### 0-4. 依存をインストールする
+### 0-4. 依存をインストールする（**手動**）
 
 **`npm install` ではなく `npm ci` を使ってください。**
 `npm install` は `package-lock.json` を書き換えることがあり、そうなると CI が落ちます（**T-22**）。
@@ -97,30 +140,53 @@ npm ci
 
 `npm ci` の最後に `prepare` が走り、コミット前チェック（`.githooks/pre-commit`）が自動で有効になります。
 
-### 0-5. 環境チェック
+**`npm ci` を打つのは、今日はこの1回だけです。**
+依存の追加は禁止されているので、9人のブランチはすべて `package-lock.json` が同一です。
+レビューで相手のブランチを取ってきたときも、入れ直す必要はありません（§6-1）。
+
+### 0-5. 環境チェックと、ターミナルB の起動（**手動**）
 
 ```powershell
 npm run doctor
+```
+
+すべて `✓` になれば準備完了です。`✗` が出たら、その行の `→` に書かれた指示に従ってください。
+直らなければその出力をそのまま講師に見せます。
+
+**ここでターミナルB を用意します。これが今日ずっと使う2本目です。**
+
+1. PowerShell を**もう1つ**開く（これを「ターミナルB」と呼びます）
+2. リポジトリのフォルダへ移動する
+3. 開発サーバーを起動する
+
+```powershell
+cd $HOME/dev/card_arcade
 npm run dev
 ```
 
-`npm run doctor` がすべて `✓` になり、`npm run dev` でアーケードの一覧画面がブラウザに出れば準備完了です。
-`✗` が出たら、その行の `→` に書かれた指示に従ってください。直らなければその出力をそのまま講師に見せます。
+ブラウザで http://localhost:5173/ を開き、アーケードの一覧画面が出れば準備完了です。
+**このターミナルB は、研修が終わるまで閉じません。`Ctrl + C` も押しません。**
 
-開発サーバーは `Ctrl + C` で止めます。
+コードを変えても再起動は要りません。**ブラウザを F5 で再読み込みするだけ**で最新のコードになります。
 
-### 0-6. 自分の Issue を開いておく
+> **`npm run dev` は、ターミナルA（Claude Code）では実行できません。**
+> 起動したままになるとセッションが返らず、ターミナルB の 5173 番ポートとも衝突するためです。
+> 頼んでも拒否メッセージが返ります。**別のコマンドで回り込む方法を探させないでください。**
+
+### 0-6. 自分の Issue を開いておく（**手動**）
 
 担当ごとに Issue が1つ立っています。**この Issue が当日の作業指示書です。**
 
 ```powershell
 gh issue list
-gh issue view 1
+gh issue view <自分のIssue番号>
 ```
 
 Issue には「必須要件」「必須テスト」「やらないこと」がチェックリストで書かれています。
 **1人開発では、このチェックリストが進捗を測る唯一の指標になります。**
 終わったものから GitHub の画面でチェックを付けていってください（Issue の画面で四角をクリックするだけです）。
+
+**チェックを付けるのは人間の仕事です。** `gh issue edit` はハーネスが止めます。
 
 Issue・ラベル（`participant-1` 〜 `participant-9`）・雛形・画面の担当表示は、
 すべて `harness/config.json` から作られています。
@@ -132,13 +198,13 @@ Issue・ラベル（`participant-1` 〜 `participant-9`）・雛形・画面の�
 
 **`main` のまま実装を始めてはいけません。** ブランチ名が「自分がどのゲームの担当か」を表します。
 
+**B: 自分で打つ**
+
 ```powershell
 git switch main
 git pull
-git switch -c feature/babanuki
+git switch -c feature/<自分のゲームID>
 ```
-
-`babanuki` の部分は自分のゲームIDに置き換えます。
 
 | 担当 | ゲームID | ゲーム | 難易度 | Issue | ブランチ |
 |---|---|---|---|---|---|
@@ -152,7 +218,24 @@ git switch -c feature/babanuki
 | 担当8 | `doubt` | ダウト | 中級 | #5 | `feature/doubt` |
 | 担当9 | `pageone` | ページワン | 中級 | #10 | `feature/pageone` |
 
+続けて、自分の担当フォルダの雛形を作ります。
+
+**A: Claude に頼む**
+
+```text
+npm run scaffold -- --game <自分のゲームID> を実行してください。
+作られたファイルの一覧と、それぞれの役割を1行ずつで教えてください。
+
+--all と --force は絶対に付けないでください（9人分を上書きしてしまいます）。
+```
+
+このコマンドは `.claude/.state/owner.json` に**あなたの担当ゲームIDを記録します。**
+あとでレビューのときに `gh pr checkout` で相手のブランチへ移っても、
+**この記録があるおかげで「自分の担当」を見失いません**（相手のコードを編集しようとすると止まります）。
+
 今どこにいるかは、いつでもこれで確認できます。
+
+**B: 自分で打つ**
 
 ```powershell
 git branch --show-current
@@ -169,10 +252,26 @@ git branch --show-current
 **30分ぶんの作業を1つのコミットにしないでください。**
 小さく刻んでおくと、後から「1つ前に戻す」が安全にできます。
 
+**A: Claude に頼む**
+
+```text
+今の変更を確認して、コミットしてください。
+
+git add は src/games/<自分のゲームID> だけを対象にしてください（git add . は使わないでください）。
+コミットメッセージは feat: / test: / fix: / docs: のどれかで始めて、
+「何ができるようになったか」が分かる日本語にしてください。
+
+push はしないでください。私がターミナルB で打ちます。
+```
+
+自分で打つ場合はこうです。
+
+**B: 自分で打つ**
+
 ```powershell
 git status
-git add src/games/babanuki
-git commit -m "feat: ババ抜きの手札配布とペア捨てを実装"
+git add src/games/<自分のゲームID>
+git commit -m "feat: 手札配布とペア捨てを実装"
 ```
 
 `git add .` ではなく **`git add src/games/<自分のゲームID>`** と書く癖をつけてください。
@@ -210,6 +309,23 @@ git commit -m "feat: ババ抜きの手札配布とペア捨てを実装"
 
 ### 3-1. 先に verify を通す
 
+**A: Claude に頼む**
+
+```text
+/verify <自分のIssue番号>
+```
+
+または、コマンドだけ実行させたいときはこう頼みます。
+
+```text
+npm run verify を実行して、結果をそのまま貼ってください。
+落ちていたら、最初に落ちたものだけを直してください。テストの期待値は緩めないでください。
+```
+
+自分で確かめたいときは、ターミナルB でも打てます。
+
+**B: 自分で打つ**
+
 ```powershell
 npm run verify
 ```
@@ -217,30 +333,61 @@ npm run verify
 `✓ npm run verify がすべて通りました。` が出るまで Pull Request を作らないでください。
 CI とまったく同じ内容（範囲チェック → lint → 型 → テスト → ビルド）です。
 
+**「緑になりました」という報告ではなく、緑の画面を自分で見てください。**
+
 ### 3-2. Pull Request の本文を用意する
 
-Claude Code の `/pr` を実行すると `.pr-body.md` が作られます。
-`.pr-body.md` は `.gitignore` に入っているのでコミットされません。
+**A: Claude に頼む**
 
-**「レビューしてほしい点」だけは自分の言葉で書いてください。** ここが具体的だとレビューの質が変わります。
-あなたの Pull Request を読む人は**1人だけ**です。
-その1人に何を見てほしいのかを書けるかどうかで、受け取れる指摘の量が変わります。
+```text
+/pr
+```
+
+`.pr-body.md` が作られます。`.pr-body.md` は `.gitignore` に入っているのでコミットされません。
+（このファイルだけは Claude Code が書いてよい場所です。`harness/config.json` の `alwaysWritable`）
+
+**「レビューしてほしい点」だけは自分の言葉で書いてください。** `/pr` はここを空欄のまま残します。
+
+**B: 自分で打つ**
 
 ```powershell
 notepad .pr-body.md
 ```
 
+ここが具体的だとレビューの質が変わります。
+あなたの Pull Request を読む人は**1人だけ**です。
+その1人に何を見てほしいのかを書けるかどうかで、受け取れる指摘の量が変わります。
+
+| | 「レビューしてほしい点」の例 |
+|---|---|
+| 良い | 「同じ数字が続いたときの引き分け処理が怪しいので、そこを重点的に見てください」 |
+| 悪い | 「勝敗判定を見てください」「全体的にお願いします」 |
+| 最悪 | テンプレートのコメントが消えていない / 空欄のまま |
+
+**ここはレビュアーが検問する場所です。** テンプレのままだと、それ自体が1件目の指摘になります
+（[docs/review-guide.md](review-guide.md) の「レビュアーは検問です」）。
+
+「動作確認」チェックリストは、**自分が本当にやった項目にだけ**チェックを入れてください。
+
 ### 3-3. push して Draft で出す
+
+**B: 自分で打つ**
 
 ```powershell
 git push -u origin HEAD
-gh pr create --draft --title "ババ抜きを実装" --body-file .pr-body.md
+gh pr create --draft --title "<ゲーム名>を実装" --body-file .pr-body.md
 ```
 
 `--draft` を付けるのは、**まだレビューを頼まないため**です。
 Draft のうちは CI（`verify`）だけが走り、レビュー依頼の通知は飛びません。
 
+> **この2つは、ターミナルA から打とうとすると承認を求められます。**
+> 承認を押すだけの作業にしないために、**自分の手で打つ決まり**にしています。
+> `git push` した瞬間から、あなたのコードは他の人から見える場所に置かれます。
+
 作った Pull Request の番号と URL は、次で確認できます。
+
+**B: 自分で打つ**
 
 ```powershell
 gh pr view
@@ -248,11 +395,13 @@ gh pr view
 
 以降、`git push` するたびに同じ Pull Request が自動で更新されます。**2つ目を作る必要はありません。**
 
+**B: 自分で打つ**
+
 ```powershell
-git add src/games/babanuki
-git commit -m "test: 全員パスになったときのテストを追加"
 git push
 ```
+
+（コミットまではターミナルA に頼んでかまいません。push だけ自分で打ちます）
 
 ---
 
@@ -261,7 +410,10 @@ git push
 **画像ファイルをリポジトリにコミットしないでください。**
 画像を追加すると範囲チェックで落ちますし、差分も重くなります。
 
-1. `npm run dev` でゲームを表示する
+**すべて B（自分の手）で行います。** 画面を見られるのは人間だけだからです。
+
+1. ターミナルB の開発サーバーのブラウザで、自分のゲームを表示する
+   （つけっぱなしなので、**F5 で再読み込みするだけ**です）
 2. `Win + Shift + S` で範囲を選んでスクリーンショットを撮る（クリップボードに入ります）
 3. Pull Request のページを開く
 
@@ -283,6 +435,15 @@ GitHub が画像を預かってくれるので、リポジトリは汚れませ�
 
 CI の状態を見ます。
 
+**A: Claude に頼む**
+
+```text
+gh pr checks で CI の状態を見て、落ちているジョブがあれば、
+そのログのうち最初のエラーだけを引用してください。まだ直さないでください。
+```
+
+**B: 自分で打つ**
+
 ```powershell
 gh pr checks
 ```
@@ -298,9 +459,16 @@ gh pr view --web
 
 緑になったら Draft を外します。ここで初めてレビュー依頼になります。
 
+**B: 自分で打つ**
+
 ```powershell
 gh pr ready
 ```
+
+> **`gh pr ready` は、必ず自分の手で打ってください。**
+> ターミナルA から打とうとすると承認を求められますが、承認を押すだけにしないための決まりです。
+> **この瞬間から、相手のレビュアーがあなたのコードを触り始めます。**
+> 遊んでいないもの、`verify` が緑でないものを ready にしないでください。
 
 Ready にすると、参考情報として `pr-meta (advisory)` も走ります。
 これは**必須チェックではありません**。赤くてもマージできます。Pull Request の書き方の助言が出るだけです。
@@ -338,18 +506,32 @@ Ready にしたら、**自分をレビューする人**に直接声をかけて�
 
 ## 6. レビューする（自分がレビューする人の Pull Request を読む）
 
-### 6-1. 手元に取ってきて、実際に遊ぶ
+### 6-1. 手元に取ってきて、実際に遊ぶ（**B: 自分で打つ**）
 
 **差分を眺めるだけのレビューはしないでください。** まず動かします。
 
 ```powershell
 gh pr list
-gh pr checkout 12
-npm ci
-npm run dev
+gh pr checkout <相手のPR番号>
 ```
 
-`12` はレビューする Pull Request の番号です。
+> ### **`npm ci` は打ちません**
+>
+> 以前の手順にはここに `npm ci` が入っていましたが、**削除しました。** 理由は2つあります。
+>
+> 1. **依存の追加はハーネスが禁止しているので、9つのブランチはすべて `package-lock.json` が同一です。**
+>    誰の Pull Request を取ってきても依存は変わらないので、入れ直すものがありません。
+> 2. **ターミナルB で `npm run dev` が動いている状態で `npm ci` を打つと、Windows では失敗します。**
+>    開発サーバーが `node_modules` を掴んだままなので、ファイル使用中のエラーになります。
+>    直すには `dev` を止めることになり、遊ぶ時間が削られます。
+>
+> ターミナルA の Claude が `npm ci` を実行しようとしたら、**`Esc` で止めてください。**
+> もし相手の Pull Request で依存が変わっていたら、入れ直すのではなく**それ自体が指摘対象**です。
+
+**開発サーバーはつけっぱなしのままです。**
+ブラウザ（http://localhost:5173/）を **F5 で再読み込み**すると、一覧が相手のゲームに切り替わっています。
+
+（切り替わらないときだけ、ターミナルB の `dev` を `Ctrl + C` で止めて `npm run dev` を打ち直します）
 
 遊びながら、次の3つを必ず試します。
 
@@ -360,28 +542,90 @@ npm run dev
 **この3つを飛ばすと、そのゲームは誰にも遊ばれないまま公開されます。**
 1対1のリングなので、代わりに気づいてくれる人はいません。
 
-### 6-2. Issue と差分を突き合わせる
+遊ぶ前に、相手のゲームの「壊れやすい所」を引き出しておきます。
 
-```powershell
-gh pr view 12
-gh issue view 6
-gh pr diff 12
+**A: Claude に頼む**
+
+```text
+docs/games/<相手のゲームID>.md を開いて、「レビュアー向けミッション」の見出しの中にある
+ミッション1・ミッション2・ミッション3 の本文を、そのまま引用して表示してください。
+
+解釈も補足も要約も足さないでください。原文のまま出してください。
 ```
 
-`6` は相手の Issue 番号です（担当1がレビューするのは担当2＝大富豪なので `#6`）。
+**出てきた3つを手で書き写してから、上の実機プレイに戻ってください。**
+相手のゲームのルールを知らなくても、書いてあるとおりに動かせば判定できます。
+
+**レビュー中、相手のコードは編集できません。**
+`npm run scaffold` が `.claude/.state/owner.json` に記録した担当と突き合わせているので、
+相手のブランチにいる間に相手のファイルを書こうとすると、ハーネスが止めます。
+**気づいたことは、直すのではなくコメントで伝えてください。**
+
+### 6-2. Issue と差分を突き合わせる
+
+**A: Claude に頼む**（実機で遊び終わってから）
+
+```text
+/review <相手のPR番号>
+```
+
+`/review` は最初に「何を実機で見たか」を聞いてきます。**遊んでいない人は答えられません。**
+
+差分だけを読ませたいときは、こう頼みます。
+
+```text
+gh pr view <相手のPR番号> と gh pr diff <相手のPR番号> を読んで、
+Issue の必須要件と実装・テストの対応を表にしてください。
+
+変更ファイルが src/games/<相手のゲームID>/ の外に出ていないかも確認してください。
+コメントの投稿はしないでください。
+```
+
+**B: 自分で打つ**（自分で確かめたいとき）
+
+```powershell
+gh pr view <相手のPR番号>
+gh issue view <相手のIssue番号>
+gh pr diff <相手のPR番号>
+```
+
 Issue の「必須要件」のチェックリストと、実際に遊んだ結果が合っているかを見ます。
 **チェックが付いているのに動かない項目**は、いちばん価値の高い指摘になります。
 
-Claude Code の `/review 12` を使うと、この手順を観点付きで整理してくれます。
-ただし **投稿するのは自分が実機で確認できた指摘だけ**にしてください。
+### 6-3. コメントを書く（**B: GitHub の画面から**）
 
-### 6-3. コメントを書く
+**コメントの投稿は、ターミナルA からはできません。**
+`gh pr review` / `gh pr comment` / `gh issue comment` はハーネスが止めます。
+レビューに書いてよいのは「自分が実機で確認したこと」だけ、という約束を守るためです。
 
-GitHub の画面で、該当する行に付けるのがいちばん伝わります。
+先に、投稿用の文章を作らせます。
+
+**A: Claude に頼む**
+
+```text
+私が実機で確認できたのは次の3つです。
+
+1. <自分が画面で見たこと>
+2. <自分が画面で見たこと>
+3. <自分が画面で見たこと>
+
+これ以外の指摘には「未確認」と明記した形にして、投稿用の文章を出してください。
+再現手順が書けない指摘は落としてください。
+
+投稿はしないでください。私が GitHub の画面から自分で投稿します。
+```
+
+そのうえで、自分で読み直してから投稿します。
+
+**B: 自分で打つ / GitHub の画面**
 
 ```powershell
-gh pr view 12 --web
+gh pr view <相手のPR番号> --web
 ```
+
+1. **Files changed** タブを開く
+2. 指摘したい行の左の `+` を押して、コメントを書く
+3. 右上の **Review changes** を押し、**Comment**（修正が必要なら **Request changes**）で送る
 
 指摘は必ずこの3点セットにします。
 
@@ -391,13 +635,25 @@ gh pr view 12 --web
 
 再現手順が書けない指摘は投稿しないでください。
 
-### 6-4. 終わったら自分のブランチに戻る
+**そしてもう1つ。相手の PR 本文の「レビューしてほしい点」を必ず読んでください。**
+テンプレのまま・空欄・抽象的だったら、**それ自体を1件目の指摘として出します。**
+
+```text
+本文の「レビューしてほしい点」がテンプレートのままなので、どこを重点的に見ればよいか分かりませんでした。
+実装していて一番自信がなかった箇所を1つ挙げてもらえますか。そこを見て、もう一度コメントします。
+```
+
+### 6-4. 終わったら自分のブランチに戻る（**B: 自分で打つ**）
 
 **これを忘れると、次のコミットが相手のブランチに入ります。**
 
 ```powershell
-git switch feature/babanuki
+git switch feature/<自分のゲームID>
+git branch --show-current
 ```
+
+戻ったらブラウザを F5 で再読み込みして、自分のゲームが表示されることを確認してください。
+**戻り忘れは、ターミナルA のステータスラインでも見分けられます**（相手の担当名が出たままなら戻れていません）。
 
 ---
 
@@ -405,25 +661,56 @@ git switch feature/babanuki
 
 ### 7-1. コメントを読む
 
-```powershell
-gh pr view 12 --comments
+**A: Claude に頼む**
+
+```text
+/fix-review <自分のPR番号>
 ```
 
-Claude Code の `/fix-review 12` を使うと、指摘を「直す / 相談 / 直さない」に分類した表を作ってくれます。
+指摘を「直す / 相談 / 直さない」に分類した表を作ってくれます。
 **「直さない」を選ぶこと自体は悪いことではありません。** 理由を説明できるかが大事です。
+
+**まだ直させないでください。** 表を見て、自分が納得してから合意します。
+
+```text
+分類には合意しました。「直す」に分類したものだけを実装してください。
+logic.ts と logic.test.ts だけを触ってください。画面は必要なときだけです。
+
+「相談」と「直さない」には手を付けないでください。
+```
+
+自分でコメントを読みたいときは、ターミナルB でも読めます。
+
+**B: 自分で打つ**
+
+```powershell
+gh pr view <自分のPR番号> --comments
+```
 
 ### 7-2. 直して push する
 
+**A: Claude に頼む**
+
+```text
+npm run verify を実行して、緑になったらコミットしてください。
+git add は src/games/<自分のゲームID> だけを対象にしてください。
+
+push はしないでください。私がターミナルB で打ちます。
+```
+
+**B: 自分で打つ**
+
 ```powershell
 npm run verify
-git add src/games/babanuki
-git commit -m "fix: 判定中のクリックを無視するようにした"
 git push
 ```
 
 `git push` するだけで Pull Request は更新され、CI も再実行されます。
 
-### 7-3. 必ず返信する
+**直したあと、ブラウザを F5 で再読み込みして、指摘された操作をもう一度やってください（B）。**
+**「テストが通ったから直った」は、この研修では直ったことになりません。**
+
+### 7-3. 必ず返信する（**B: GitHub の画面から**）
 
 **直しただけで終わらせないでください。** レビュアーは「自分の指摘がどうなったか」が分からないと承認できません。
 コメント1つずつに、この形で返します。
@@ -434,7 +721,16 @@ git push
 コミット: a1b2c3d
 ```
 
+返信文の下書きは `/fix-review` が作ります。**投稿は自分で行います**（`gh pr comment` は止まります）。
+
+1. GitHub で自分の Pull Request を開く
+2. 該当のコメントの **Reply** に返信文を貼る
+3. 直したものは **Resolve conversation** を押す
+4. 全部返し終わったら、レビュアーに「直しました」と一言伝える
+
 コミットの SHA は次で確認できます。
+
+**B: 自分で打つ**
 
 ```powershell
 git log --oneline -1
@@ -446,15 +742,21 @@ git log --oneline -1
 
 レビュアー側が、指摘への対応を確認したら承認します。
 
+**B: 自分で打つ / GitHub の画面**
+
 ```powershell
-gh pr review 12 --approve --body "実機で最後まで確認しました。ルールも Issue どおりです。"
+gh pr review <相手のPR番号> --approve --body "実機で最後まで確認しました。ルールも Issue どおりです。"
 ```
 
 直してほしいことが残っているときは、承認ではなく変更依頼を出します。
 
 ```powershell
-gh pr review 12 --request-changes --body "0枚のときに引けてしまう点だけ直してください。"
+gh pr review <相手のPR番号> --request-changes --body "0枚のときに引けてしまう点だけ直してください。"
 ```
+
+> **`gh pr review` は、ターミナルA では実行できません。** ハーネスが止めます。
+> Approve は「良い人ですね」ではなく「**この状態で `main` に入れてよい**」という技術的な判断です。
+> その判断ができるのは、**実機で確認した人間だけ**だからです。
 
 **自分の Pull Request を自分で Approve することはできません。** GitHub が拒否します。
 リングで決まっている**自分をレビューする人**に必ず頼んでください。
@@ -467,20 +769,27 @@ gh pr review 12 --request-changes --body "0枚のときに引けてしまう点�
 
 `main` へのマージには **`verify` が緑** と **Approve 1件** が必要です。
 
+**B: 自分で打つ**
+
 ```powershell
-gh pr merge 12 --squash --delete-branch
+gh pr merge <自分のPR番号> --squash --delete-branch
 ```
 
 GitHub の画面から押す場合は、**必ず `Squash and merge`** を選びます。
 `Create a merge commit` は使いません。1つの Pull Request が `main` に1つのコミットとして並ぶので、
 「どのゲームがいつ入ったか」が履歴で一目で分かります。
 
+（`gh pr merge` はターミナルA から打つと承認を求められます。**元に戻すのに手間がかかる操作**なので、
+これも自分の手で打つ決まりです）
+
 マージすると自動で次が起こります。
 
-- 本文に `Closes #1` と書いてあれば Issue が閉じる
+- 本文に `Closes #<Issue番号>` と書いてあれば Issue が閉じる
 - `Deploy to GitHub Pages` が走り、数分後に公開ページへ自分のゲームが出る
 
 デプロイの様子は次で見られます。
+
+**B: 自分で打つ**
 
 ```powershell
 gh run list --workflow "Deploy to GitHub Pages"
@@ -495,6 +804,8 @@ gh run list --workflow "Deploy to GitHub Pages"
 
 マージ後、次の作業に移る前に `main` を最新にします。
 
+**B: 自分で打つ**
+
 ```powershell
 git switch main
 git pull
@@ -503,7 +814,7 @@ git pull
 自分の作業を続ける場合は、自分のブランチに戻ります。
 
 ```powershell
-git switch feature/babanuki
+git switch feature/<自分のゲームID>
 ```
 
 `main` が進んで自分のブランチが古くなっても、**このリポジトリでは基本的に競合しません**。
@@ -515,12 +826,29 @@ git fetch origin
 git merge origin/main
 ```
 
+（`git merge` はターミナルA から打つと承認を求められます。履歴が変わる操作だからです）
+
 ---
 
 ## 巻き戻し集
 
 「やってしまった」の戻し方です。**焦って `git reset --hard` を打たないでください。**
 迷ったら、まず現状を記録します。
+
+**この節のコマンドは、すべて B（自分の手）で打つことをおすすめします。**
+戻す操作は「どこまで戻すか」を決めるのが本体で、それは今の状態を知っている人にしか決められません。
+どうなっているか分からないときは、先に A でこれを打ってください。
+
+**A: Claude に頼む**
+
+```text
+/handoff
+```
+
+出てきた10行のうち、**事実と違う行を1つ探してください。**
+1行も判定できないときは、まだ戻す操作をしないでください。**手を止めて講師に見せてください。**
+
+**B: 自分で打つ**
 
 ```powershell
 git branch --show-current
@@ -542,11 +870,15 @@ git log --oneline -5
 | 直前のコミットを取り消したい（未 push） | `git reset --soft HEAD~1`（変更は手元に残る） | H |
 | ファイルを消してしまった（未コミット） | `git restore <パス>` | I |
 
+（ここの A〜I は手順の見出しで、ターミナルA / B とは関係ありません）
+
 ---
 
 ### A. 担当外のファイルを変更した
 
 まず何が範囲外なのかを見ます。
+
+**B: 自分で打つ**
 
 ```powershell
 npm run scope
@@ -573,9 +905,11 @@ npm run scope
 
 変更を一時的に預けて、正しいブランチで取り出します。
 
+**B: 自分で打つ**
+
 ```powershell
 git stash
-git switch feature/babanuki
+git switch feature/<自分のゲームID>
 git stash pop
 ```
 
@@ -583,7 +917,9 @@ git stash pop
 
 ### C. 間違ったブランチでコミットしてしまった
 
-例: `feature/speed` にいるつもりが `main` にコミットしてしまった場合。
+例: 作業ブランチにいるつもりが `main` にコミットしてしまった場合。
+
+**B: 自分で打つ**
 
 ```powershell
 git log --oneline -3
@@ -592,7 +928,7 @@ git log --oneline -3
 移したいコミットの SHA（例 `a1b2c3d`）を控えます。
 
 ```powershell
-git switch feature/speed
+git switch feature/<自分のゲームID>
 git cherry-pick a1b2c3d
 git log --oneline -2
 ```
@@ -607,19 +943,22 @@ git reset --hard origin/main
 
 `git reset --hard` は**手元の変更を消します**。`git status` が空であることを確認してから実行してください。
 不安なら、この操作だけは講師に見てもらってください。
+（ターミナルA から打つと承認を求められます。**押す前に、何が消えるかを自分で確かめてください。**）
 
 ### D. コミットメッセージを間違えた（直前のコミットのみ）
 
 **まだ push していない場合だけ**使えます。
 
+**B: 自分で打つ**
+
 ```powershell
-git commit --amend -m "feat: ババ抜きのペア捨てを実装"
+git commit --amend -m "feat: ペア捨てを実装"
 ```
 
 ファイルを1つ入れ忘れていた場合も、同じ方法で足せます。
 
 ```powershell
-git add src/games/babanuki/logic.test.ts
+git add src/games/<自分のゲームID>/logic.test.ts
 git commit --amend --no-edit
 ```
 
@@ -631,9 +970,19 @@ git commit --amend --no-edit
 レビュー中の人が見ている差分を壊します。
 直しを**新しいコミット**として重ねます。
 
+**A: Claude に頼む**
+
+```text
+<何が間違っていたか> を直してください。
+直したら npm run verify を実行して、緑になったらコミットしてください。
+
+git push はしないでください。私がターミナルB で打ちます。
+履歴の書き換え（amend / rebase / force push）は絶対にしないでください。
+```
+
+**B: 自分で打つ**
+
 ```powershell
-git add src/games/babanuki
-git commit -m "fix: ジョーカーを2枚配っていたのを1枚に修正"
 git push
 ```
 
@@ -649,9 +998,11 @@ git push
 
 いちばんよくある事故です。まだコミットしていなければ、そのまま持って行けます。
 
+**B: 自分で打つ**
+
 ```powershell
 git stash
-git switch -c feature/babanuki
+git switch -c feature/<自分のゲームID>
 git stash pop
 npm run scope
 ```
@@ -663,6 +1014,8 @@ npm run scope
 このリポジトリは9人が共通で書き換えるファイルを持たない設計なので、
 **コンフリクトが起きたら「担当外を触っている」サイン**です。まず何が競合しているかを見ます。
 
+**B: 自分で打つ**
+
 ```powershell
 git status
 ```
@@ -672,8 +1025,19 @@ git status
 競合が `src/games/<自分のゲームID>/` の中だけなら、ファイルを開いて
 `<<<<<<<` `=======` `>>>>>>>` の行を消し、正しい内容に直します。
 
+**A: Claude に頼む**（自分のゲームフォルダの中だけのとき）
+
+```text
+src/games/<自分のゲームID>/ の中の競合マーカーを解消してください。
+どちらの側を採用したかを、ファイルごとに1行で説明してください。
+
+自分のゲームフォルダの外は触らないでください。
+```
+
+**B: 自分で打つ**
+
 ```powershell
-git add src/games/babanuki
+git add src/games/<自分のゲームID>
 git commit
 npm run verify
 ```
@@ -683,8 +1047,11 @@ npm run verify
 ```powershell
 git restore --source=origin/main -- package.json package-lock.json
 git add package.json package-lock.json
-npm ci
 ```
+
+**ここで `npm ci` を打つ必要があるときは、先にターミナルB の開発サーバーを `Ctrl + C` で止めてください。**
+`dev` が動いたままだと `node_modules` が使用中になり、Windows では失敗します。
+`npm ci` が終わったら、`npm run dev` を打ち直します。
 
 途中でやめて元に戻したいときは、こうします。
 
@@ -695,6 +1062,8 @@ git merge --abort
 ### H. 直前のコミットを取り消したい（未 push）
 
 コミットだけを取り消し、**変更内容は手元に残します**。
+
+**B: 自分で打つ**
 
 ```powershell
 git reset --soft HEAD~1
@@ -707,88 +1076,117 @@ git status
 
 まだコミットしていなければ、直前のコミットの状態に戻せます。
 
+**B: 自分で打つ**
+
 ```powershell
-git restore src/games/babanuki/logic.ts
+git restore src/games/<自分のゲームID>/logic.ts
 ```
 
 フォルダごと戻す場合はこうします。
 
 ```powershell
-git restore src/games/babanuki
+git restore src/games/<自分のゲームID>
 ```
 
 ---
 
 ## コマンド早見表
 
+「誰が打つか」の列を見てください。
+**B** は自分の手で打つもの、**A/B** はどちらでもよいもの、**A 不可** はターミナルA では実行できないものです。
+
 ### 毎日使う
 
-| やりたいこと | コマンド |
-|---|---|
-| 今のブランチを見る | `git branch --show-current` |
-| 変更を見る | `git status` |
-| 差分を見る | `git diff` |
-| 担当範囲を確認する | `npm run scope` |
-| 提出前の全部入りチェック | `npm run verify` |
-| 開発サーバー | `npm run dev` |
-| テスト | `npm test` |
-| 環境チェック | `npm run doctor` |
-| 9人の進み具合を見る | `npm run status` |
+| やりたいこと | コマンド | 誰が打つか |
+|---|---|---|
+| 今のブランチを見る | `git branch --show-current` | A/B |
+| 変更を見る | `git status` | A/B |
+| 差分を見る | `git diff` | A/B |
+| 担当範囲を確認する | `npm run scope` | A/B |
+| 提出前の全部入りチェック | `npm run verify` | A/B（結果は**自分で**見る） |
+| **開発サーバー** | `npm run dev` | **B のみ（A 不可）** |
+| テスト | `npm test` | A/B |
+| **テストの監視モード** | `npm run test:watch` | **B のみ（A 不可）** |
+| 環境チェック | `npm run doctor` | A/B |
+| 9人の進み具合を見る | `npm run status` | A/B |
+| 担当フォルダの雛形を作る | `npm run scaffold -- --game <ゲームID>` | A/B（`--all` と `--force` は A 不可） |
 
 ### ブランチとコミット
 
-| やりたいこと | コマンド |
-|---|---|
-| 作業ブランチを作る | `git switch -c feature/babanuki` |
-| ブランチを移動する | `git switch feature/babanuki` |
-| 1つ前のブランチに戻る | `git switch -` |
-| 変更を選んで載せる | `git add src/games/babanuki` |
-| コミットする | `git commit -m "feat: ..."` |
-| 直前のメッセージを直す（未 push） | `git commit --amend -m "..."` |
-| 履歴を見る | `git log --oneline -5` |
-| 変更を捨てる | `git restore <パス>` |
-| 一時的に預ける / 取り出す | `git stash` / `git stash pop` |
-| 最新の main を取り込む | `git fetch origin` → `git merge origin/main` |
+| やりたいこと | コマンド | 誰が打つか |
+|---|---|---|
+| 作業ブランチを作る | `git switch -c feature/<ゲームID>` | A/B |
+| ブランチを移動する | `git switch feature/<ゲームID>` | A/B |
+| 1つ前のブランチに戻る | `git switch -` | A/B |
+| 変更を選んで載せる | `git add src/games/<ゲームID>` | A/B |
+| コミットする | `git commit -m "feat: ..."` | A/B |
+| 直前のメッセージを直す（未 push） | `git commit --amend -m "..."` | B |
+| 履歴を見る | `git log --oneline -5` | A/B |
+| 変更を捨てる | `git restore <パス>` | B |
+| 一時的に預ける / 取り出す | `git stash` / `git stash pop` | B |
+| 最新の main を取り込む | `git fetch origin` → `git merge origin/main` | B（A は承認を求める） |
+| **強制 push** | `git push --force` | **禁止（A 不可）** |
+| **チェックを飛ばすコミット** | `git commit --no-verify` | **禁止（A 不可）** |
 
 ### GitHub（gh）
 
-| やりたいこと | コマンド |
-|---|---|
-| ログイン状態を見る | `gh auth status` |
-| Issue の一覧を見る | `gh issue list` |
-| 自分の Issue を見る | `gh issue view 1` |
-| 初回の push | `git push -u origin HEAD` |
-| 2回目以降の push | `git push` |
-| Draft の Pull Request を作る | `gh pr create --draft --title "..." --body-file .pr-body.md` |
-| 自分の Pull Request を見る | `gh pr view` |
-| ブラウザで開く | `gh pr view --web` |
-| CI の状態を見る | `gh pr checks` |
-| Draft を外す | `gh pr ready` |
-| 一覧を見る | `gh pr list` |
-| レビュー用に取ってくる | `gh pr checkout 12` |
-| 差分を見る | `gh pr diff 12` |
-| コメントを読む | `gh pr view 12 --comments` |
-| 承認する | `gh pr review 12 --approve --body "..."` |
-| 変更を依頼する | `gh pr review 12 --request-changes --body "..."` |
-| マージする（Squash） | `gh pr merge 12 --squash --delete-branch` |
+| やりたいこと | コマンド | 誰が打つか |
+|---|---|---|
+| ログイン状態を見る | `gh auth status` | A/B |
+| Issue の一覧を見る | `gh issue list` | A/B |
+| 自分の Issue を見る | `gh issue view <Issue番号>` | A/B |
+| **Issue の本文を書き換える** | `gh issue edit` | **講師のみ（A 不可）**。チェックは画面でクリック |
+| **初回の push** | `git push -u origin HEAD` | **B**（A は承認を求める） |
+| **2回目以降の push** | `git push` | **B**（A は承認を求める） |
+| **Draft の Pull Request を作る** | `gh pr create --draft --title "..." --body-file .pr-body.md` | **B**（A は承認を求める） |
+| 自分の Pull Request を見る | `gh pr view` | A/B |
+| ブラウザで開く | `gh pr view --web` | A/B |
+| CI の状態を見る | `gh pr checks` | A/B |
+| **Draft を外す** | `gh pr ready` | **B**（A は承認を求める） |
+| **本文を差し替える** | `gh pr edit <PR番号> --body-file .pr-body.md` | **B**（A は承認を求める） |
+| 一覧を見る | `gh pr list` | A/B |
+| レビュー用に取ってくる | `gh pr checkout <相手のPR番号>` | A/B（**遊ぶのは B**） |
+| 差分を見る | `gh pr diff <相手のPR番号>` | A/B |
+| コメントを読む | `gh pr view <PR番号> --comments` | A/B |
+| **承認する** | `gh pr review <PR番号> --approve --body "..."` | **B のみ（A 不可）** |
+| **変更を依頼する** | `gh pr review <PR番号> --request-changes --body "..."` | **B のみ（A 不可）** |
+| **コメントを投稿する** | `gh pr comment` / `gh issue comment` | **B のみ（A 不可）**。GitHub の画面が確実 |
+| **マージする（Squash）** | `gh pr merge <PR番号> --squash --delete-branch` | **B**（A は承認を求める） |
+| **API を直接叩く** | `gh api` | **禁止（A 不可）** |
 
-### Claude Code のスラッシュコマンド
+**A 不可**のものは、頼んでも拒否メッセージが返ります。
+理由は [docs/harness.md](harness.md) の「`guard-bash.mjs` が止めるコマンド」にまとまっています。
+
+### Claude Code のスラッシュコマンド（すべて A）
 
 | コマンド | すること |
 |---|---|
 | `/kickoff <Issue番号>` | Issue を読んで実装計画を立てる（コードは変更しない） |
-| `/implement` | 合意した計画に沿って実装する |
-| `/verify` | `npm run verify` と Issue の完了条件を突き合わせる |
-| `/pr` | `.pr-body.md` に Pull Request の本文を作る |
-| `/review <PR番号>` | 自分がレビューする人の Pull Request を観点に沿って読む |
-| `/fix-review <PR番号>` | 付いた指摘を分類して対応方針を出す |
-| `/handoff` | 今の状況を10行のメモにまとめる（休憩・中断の前、講師に相談する前） |
+| `/implement [Step番号]` | 合意した計画に沿って実装する |
+| `/verify [Issue番号]` | `npm run verify` と Issue の完了条件を突き合わせる |
+| `/pr` | `.pr-body.md` に Pull Request の本文を作る（push も `gh pr create` もしない） |
+| `/review <相手のPR番号>` | 相手の Pull Request を観点に沿って読む（**実機で遊んだあとに打つ**。投稿はしない） |
+| `/fix-review <自分のPR番号>` | 付いた指摘を分類して対応方針を出す（投稿はしない） |
+| `/handoff` | 今の状況を10行のメモにまとめる（**出てきた10行から、事実と違う行を1つ自分で探す**） |
 | `/stuck <困りごと>` | 状況を整理して次の一手を1つ出す |
 
 **1人で進めるので、`/stuck` を使うタイミングを先に決めておいてください。**
 「15分やって1歩も進まなかったら `/stuck`、それでも動かなければ講師」がおすすめです。
 `/stuck` はコードを変更しません。詰まったときに大きな作り直しを始めるのが、
 この研修でいちばん時間を失う失敗だからです。
+
+### 範囲を切るプロンプトの型（A で使う）
+
+コマンドと同じくらい、**範囲を切る言い方**を覚えてください。
+
+| 切り方 | 言い方 |
+|---|---|
+| **ファイルで切る** | 「`logic.ts` と `logic.test.ts` だけ触ってください」 |
+| **やらないことを言う** | 「画面（`.tsx`）は触らないでください」「実装は変えないでください」 |
+| **止める場所を言う** | 「まだ直さないでください」「計画だけ出して止まってください」 |
+| **投稿させない** | 「投稿はしないでください」「push はしないでください」 |
+
+**範囲を切るのは、AI を疑っているからではありません。あなたが読める大きさに保つためです。**
 
 ### 困ったとき
 
@@ -797,6 +1195,7 @@ git restore src/games/babanuki
 | 環境がおかしい | `npm run doctor` |
 | 範囲チェックが赤い | `npm run scope` の出力（troubleshooting T-09） |
 | CI が赤い | 手元で `npm run verify`（troubleshooting T-21） |
+| 「実行できません」と言われた | [docs/harness.md](harness.md) |
 | その他のエラー | `docs/troubleshooting.md`（T-01〜T-32） |
 | 当日の進め方が分からない | `docs/handson-steps.md` |
 | 自分と全体が今どこにいるか | `npm run status` |
