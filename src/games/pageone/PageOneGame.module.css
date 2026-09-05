@@ -1,0 +1,47 @@
+/*
+ * ページワン のレイアウトだけを持つスタイル。
+ * 色と余白は src/styles/tokens.css の --ca-* を参照し、直書きしない。
+ */
+
+.table {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ca-space-5);
+}
+
+/* 他プレイヤー3人。枚数だけを横に並べる */
+.opponents {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--ca-space-4);
+}
+
+/* 場札と山札 */
+.center {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: var(--ca-space-6);
+}
+
+.pile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--ca-space-2);
+}
+
+.message {
+  margin: 0;
+  text-align: center;
+  color: var(--ca-text-muted);
+  font-size: var(--ca-text-sm);
+}
+
+.mine {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--ca-space-3);
+}
