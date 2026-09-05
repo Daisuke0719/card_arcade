@@ -110,3 +110,6 @@ export { assertNever, initialSession, sessionReducer, useGameSession } from "./g
 export { useCountdown, useCpuTurn, useElapsedMs } from "./hooks";
 
 export { card, hand, joker } from "./testing";
+
+// 講師デモ用: 共通基盤を勝手に変更した例
+export const DEMO = true;
