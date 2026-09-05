@@ -1,8 +1,12 @@
 /**
  * 担当範囲の外にファイルを書こうとしたら止める（PreToolUse: Write / Edit）。
  *
- * settings.json の deny ルールでも同じ場所を塞いでいるが、
- * こちらは「なぜダメか」と「次にどうすべきか」を日本語で伝えるのが役目。
+ * 保護領域の判定はここが一手に引き受ける。
+ * settings.json の permissions.deny では、講師と参加者で振る舞いを変えられない
+ * （deny は全設定ファイルの和集合で、上位のファイルからも打ち消せない）ため、
+ * 「なぜダメか」「次にどうすべきか」を日本語で伝える役目と合わせてフックに寄せている。
+ *
+ * 保護されている場所の正本は harness/config.json の protectedPaths。
  */
 import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
@@ -15,6 +19,7 @@ import {
   repoRoot,
   toRepoPath,
 } from "../../scripts/lib/harness.mjs";
+import { currentRole } from "../../scripts/lib/role.mjs";
 import { ask, deny, harnessDisabled, pass, readInput } from "./lib/io.mjs";
 
 const REPORT_TEMPLATE = [
@@ -61,8 +66,32 @@ function ownedGameId() {
 }
 
 const myGameId = ownedGameId();
+const role = currentRole(root);
 
 if (result.kind === "always-writable") pass();
+
+/**
+ * 講師モードは「止める」ではなく「1回聞く」。
+ *
+ * 共通基盤を直すのは講師の仕事なので、deny だと作業そのものができない。
+ * かといって素通しにすると、講師モードのままなのを忘れたときに
+ * 気づかず共通基盤を書き換えてしまう。だから確認だけは必ず出す。
+ *
+ * ロールの既定は participant なので、参加者の端末は今までと同じ厳しさのまま。
+ */
+if (role === "instructor") {
+  if (result.kind === "protected") {
+    ask(
+      [
+        relative + " は運営が管理している場所です。",
+        "",
+        "講師モードなので変更できます。意図した変更かどうかを確認してください。",
+        "参加者モードに戻すには: npm run role -- participant",
+      ].join("\n"),
+    );
+  }
+  pass();
+}
 
 if (result.kind === "protected") {
   deny(

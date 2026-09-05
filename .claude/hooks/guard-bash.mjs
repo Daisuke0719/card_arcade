@@ -8,6 +8,7 @@
  * 悪意ある回避への対策ではなく、うっかりへの対策と割り切っている。
  */
 import { currentBranch, gameIdFromBranch, repoRoot } from "../../scripts/lib/harness.mjs";
+import { currentRole } from "../../scripts/lib/role.mjs";
 import { deny, harnessDisabled, pass, readInput } from "./lib/io.mjs";
 
 const input = await readInput();
@@ -91,6 +92,8 @@ if (/git\s+push\b.*\bmain\b/.test(command)) {
 //
 //    以前は vitest という語だけを見ていたが、
 //    "npm run test:watch" にはその語が含まれないので素通りしていた。
+//
+//    ここはロールで緩めない。講師の端末でもセッションが返ってこなくなるのは同じ。
 const DEV_SERVER =
   /\b(npm\s+run\s+(dev|preview)\b|npx\s+vite(?!st)\b|^\s*vite\b(?!\s+build))/;
 const WATCH_MODE =
@@ -129,15 +132,21 @@ if (WATCH_MODE.test(command)) {
   );
 }
 
-// 作業ブランチ（feature/*）にいるかどうか。
-// 運営が main で共通基盤を整えるときに邪魔をしないため、
-// 講師も使うコマンドは作業ブランチのときだけ止める。
+// ここから下は「参加者だから止める」判定。
+//
+// 以前は「作業ブランチ（feature/*）にいるかどうか」で代用していた。
+// 運営が main で共通基盤を整えるときに邪魔をしないためだが、
+// 講師が誰かのブランチを取ってきているときは止まってしまう。
+// ロールを見るようにして、意図をそのまま書けるようにした。
+//
+// ロールの既定は participant なので、参加者の端末は今までと同じ。
 const root2 = repoRoot();
 const onFeatureBranch = gameIdFromBranch(currentBranch(root2)) !== null;
+const isParticipant = currentRole(root2) !== "instructor";
 
 // 6. Pull Request / Issue への投稿
 //    レビューに書いてよいのは「自分が実機で確認したこと」だけ、という約束なので、
-//    確認したかどうかを知っている人間が投稿する。
+//    確認したかどうかを知っている人間が投稿する。これはロールで緩めない。
 if (/\bgh\s+(pr\s+(review|comment)|issue\s+comment)\b/.test(command)) {
   violation(
     "Pull Request や Issue への投稿は、Claude Code からは行いません。",
@@ -154,8 +163,7 @@ if (/\bgh\s+(pr\s+(review|comment)|issue\s+comment)\b/.test(command)) {
 }
 
 // 7. 講師専用のコマンド（9人分をまとめて壊せる）
-//    運営は main で作業するので、作業ブランチにいるときだけ止める。
-if (onFeatureBranch) {
+if (isParticipant && onFeatureBranch) {
   const INSTRUCTOR_ONLY =
     /(node\s+scripts\/(setup-github|build-issue-bodies)\.mjs|npm\s+run\s+scaffold\b[^|;&]*--(all|force)\b)/;
   if (INSTRUCTOR_ONLY.test(command)) {
@@ -200,11 +208,11 @@ if (onFeatureBranch) {
 }
 
 // 5. シェル経由で保護領域に書き込む形
-//    作業ブランチ（feature/*）にいるときだけ見る。
-//    運営が main で共通基盤を整備するときに邪魔をしないため
+//    参加者が作業ブランチにいるときだけ見る。
+//    運営が共通基盤を整備するときに邪魔をしないため
 //    （参加者は必ず feature/* で作業するので、実害はない）。
 const isRecovery = RECOVERY_PATTERNS.some((pattern) => pattern.test(command));
-if (onFeatureBranch && !isRecovery) {
+if (isParticipant && onFeatureBranch && !isRecovery) {
   const writesSomething = WRITE_TOKENS.some((token) => command.includes(token));
   if (writesSomething) {
     const target = PROTECTED_PREFIXES.find((prefix) => command.includes(prefix));

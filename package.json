@@ -20,6 +20,7 @@
     "scope": "node scripts/scope-guard.mjs",
     "verify": "npm run scope && npm run lint && npm run typecheck && npm run test && npm run build && node scripts/mark-verified.mjs",
     "scaffold": "node scripts/scaffold-game.mjs",
+    "role": "node scripts/role.mjs",
     "doctor": "node scripts/doctor.mjs",
     "status": "node scripts/status.mjs",
     "prepare": "node scripts/install-git-hooks.mjs"
