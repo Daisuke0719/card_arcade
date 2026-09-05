@@ -1,20 +1,29 @@
 /**
  * アーケード画面の契約テスト。
  *
- * 「研修が始まる時点で、参加者全員のタイルが並んでいて、
- *   お手本だけが遊べる」という状態を機械で保証する。
- * ここが崩れると、参加者は初日に自分の場所を見つけられない。
+ * 「一覧に並ぶのは harness/config.json に登録された担当のゲームだけで、
+ *   お手本は別枠に出る」という状態を機械で保証する。
+ *
+ * 研修開始時点では参加者のゲームフォルダが1つも無い。
+ * 各担当が自分の作業ブランチで scaffold して作り、Pull Request が
+ * マージされるたびに1枚ずつ増えるので、ここでは「今 main にあるゲーム」だけを照合する。
+ * 「9人分あるか」は registry.contract.test.ts が harness/config.json と突き合わせる。
  */
 import { render, screen, within } from "@testing-library/react";
 import config from "../../harness/config.json";
 import { ArcadePage } from "../../src/pages/ArcadePage";
 import { registry } from "../../src/app/registry/loadGames";
 
+/** 今 main に存在する（＝マージ済みの）担当ゲームだけを取り出す。 */
+const mergedParticipants = config.participants.filter((item) =>
+  registry.games.some((game) => game.manifest.id === item.gameId),
+);
+
 describe("アーケード一覧", () => {
-  it("参加者全員のゲームがタイルとして並ぶ", () => {
+  it("マージ済みのゲームがタイルとして並ぶ", () => {
     render(<ArcadePage />);
 
-    for (const item of config.participants) {
+    for (const item of mergedParticipants) {
       expect(
         screen.getByText(item.name),
         item.displayName + " の " + item.name + " が一覧にありません",
@@ -25,7 +34,7 @@ describe("アーケード一覧", () => {
   it("担当者の表示名がタイルに出る", () => {
     render(<ArcadePage />);
 
-    for (const item of config.participants) {
+    for (const item of mergedParticipants) {
       expect(screen.getAllByText(item.displayName).length).toBeGreaterThan(0);
     }
   });
@@ -50,6 +59,7 @@ describe("アーケード一覧", () => {
       (game) => game.manifest.status === "ready" && game.manifest.id !== config.exampleGameId,
     ).length;
 
+    // 分母は harness/config.json の人数。まだ作られていないゲームも「これから増える枠」として数える。
     expect(
       screen.getByText(new RegExp("公開中 " + ready + " / " + config.participants.length)),
     ).toBeInTheDocument();

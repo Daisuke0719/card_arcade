@@ -1,6 +1,11 @@
 import { GameTile } from "@ui";
 import { registry } from "../app/registry/loadGames";
-import { EXAMPLE_GAME_ID, issueUrl, ownerLabel } from "../app/registry/harnessConfig";
+import {
+  EXAMPLE_GAME_ID,
+  PARTICIPANTS,
+  issueUrl,
+  ownerLabel,
+} from "../app/registry/harnessConfig";
 import { gameHref } from "../app/router";
 import styles from "./ArcadePage.module.css";
 
@@ -14,8 +19,12 @@ export function ArcadePage() {
     <div className={styles.page}>
       <header className={styles.header}>
         <h1 className={styles.logo}>CARD ARCADE</h1>
+        {/*
+          分母は harness/config.json の人数。研修開始時点はゲームフォルダが1つも無いので、
+          見つかった数を分母にすると「公開中 0 / 0」になってしまう。
+        */}
         <p className={styles.lead}>
-          みんなでつくるカードゲーム集 — 公開中 {readyCount} / {participantGames.length} ゲーム
+          みんなでつくるカードゲーム集 — 公開中 {readyCount} / {PARTICIPANTS.length} ゲーム
         </p>
       </header>
 
@@ -37,6 +46,11 @@ export function ArcadePage() {
 
       <section>
         <h2 className={styles.sectionTitle}>参加者のゲーム</h2>
+        {participantGames.length === 0 ? (
+          <p className={styles.lead}>
+            まだ1つもありません。Pull Request がマージされると、ここに並びます。
+          </p>
+        ) : null}
         <div className={styles.grid}>
           {participantGames.map(({ manifest }) => (
             <GameTile
