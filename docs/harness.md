@@ -1,85 +1,78 @@
-# 止められたときに読むページ
+# 操作が拒否された場合の対処
 
-作業中に「それはできません」と止められることがあります。
+作業中に、ハーネスによって操作が拒否されることがあります。
 このページでは、操作が拒否される理由と、その後の対処を説明します。
 
-## 間違いは人の注意力ではなく仕組みで止める
+## ハーネスを設ける理由
 
-3時間で9人が同じリポジトリを同時に触ります。
-特に影響が大きいのは、1人の誤操作によって全員の作業が止まることです。
+この研修では、9名が3時間のなかで同じリポジトリを変更します。共通ファイルの変更は、ほかの参加者の作業にも影響します。
 
-- 誰かが `src/core/` を1行変える → 9人全員のテストが失敗する
-- 誰かが `npm install` する → `package-lock.json` が変わり、9つの Pull Request が全部競合する
-- 誰かが `main` で作業する → その変更を誰も分離できなくなる
+- `src/core/` を変更すると、共通処理を利用するゲームのテストに影響する
+- `npm install` で `package-lock.json` が変わると、複数のPull Requestで競合する可能性がある
+- `main` で作業すると、担当ゲームの変更を作業ブランチとして管理できない
 
 この研修では、注意だけに頼らず、誤操作を仕組みで防ぎます。
 操作を早い段階で止めることで、修正の範囲と所要時間を抑えられます。
 
-| どこで止まるか | 直すのにかかる時間 |
-|---|---|
-| 書く前（フック） | 数秒 |
-| コミット前（pre-commit） | 数十秒 |
-| Pull Request（CI） | 数分 + 講師がマージするまでの待ち時間 |
-| マージ後 | 9人全員が巻き込まれる |
+| 検出する段階             | 修正時間の目安           |
+| ------------------------ | ------------------------ |
+| 書く前（フック）         | 数秒                     |
+| コミット前（pre-commit） | 数十秒                   |
+| Pull Request（CI）       | 数分と、再検証を待つ時間 |
+| マージ後                 | 影響範囲の調査が必要     |
 
 ## 5層のハーネス
 
-| 層 | 何が止めるか | いつ止めるか | 外せるか |
-|---|---|---|---|
-| **1. 予防** | `npm run scaffold`（`scripts/scaffold-game.mjs`）と `templates/game/` | 書き始める前。構造を間違えられない雛形を作る | そもそも止めない（間違いが起きない形にする） |
-| **2. 伝える** | `CLAUDE.md` / `src/games/CLAUDE.md` / `src/core/CLAUDE.md` / SessionStart フック | Claude Codeの作業開始前に、前提と担当を毎回伝える | 強制力はない（文書による指示のみ） |
-| **3. その場で止める** | `.claude/settings.json` の `deny` と `.claude/hooks/` の5本 | ツールを実行する直前 | 講師用の環境変数で無効化できる |
-| **4. コミットさせない** | ESLint の境界ルール / `tests/contract/` の4本 / 型チェック / `.githooks/pre-commit` | `npm run verify` と `git commit` | **外せない** |
-| **5. マージさせない** | CI の `verify` / CODEOWNERS / ブランチ保護 | Pull Request | 講師のみ（`harness:override` ラベル） |
+| 層                  | 機能                                                                               | 検査する時点                                 | 無効化できるか                        |
+| ------------------- | ---------------------------------------------------------------------------------- | -------------------------------------------- | ------------------------------------- |
+| **1. 予防**         | `npm run scaffold`（`scripts/scaffold-game.mjs`）と `templates/game/`              | 実装前に、必要な構造の雛形を生成する         | 該当しない                            |
+| **2. 指示**         | `CLAUDE.md` / `src/games/CLAUDE.md` / `src/core/CLAUDE.md` / SessionStart フック   | Claude Code の作業開始前に、前提と担当を示す | 強制力はない（文書による指示のみ）    |
+| **3. 操作制限**     | `.claude/settings.json` の `deny` と `.claude/hooks/` の5本                        | ツールを実行する直前                         | 講師用の環境変数で無効化できる        |
+| **4. ローカル検証** | ESLintの境界ルール / `tests/contract/` の4本 / 型チェック / `.githooks/pre-commit` | `npm run verify` と `git commit`             | 無効化できない                        |
+| **5. CI**           | CI の `verify` / CODEOWNERS / ブランチ保護                                         | Pull Request                                 | 講師のみ（`harness:override` ラベル） |
 
-### Layer 3 が止めるもの（.claude/）
+### Layer 3の操作制限（`.claude/`）
 
-| フック | 役割 |
-|---|---|
-| `guard-scope.mjs` | 担当フォルダの外に書こうとしたら止める（PreToolUse: Write / Edit） |
-| `guard-bash.mjs` | コマンド経由の回り込みを止める（下の表がその全部です） |
-| `format-file.mjs` | 担当フォルダの中だけ prettier をかける（差分ノイズを消す） |
-| `require-verify.mjs` | `npm run verify` を通さずに終わろうとしたら1回だけ引き止める（Stop） |
-| `session-brief.mjs` | セッション開始時に「今どのゲームの担当か」を伝える（SessionStart） |
+| フック               | 役割                                                                            |
+| -------------------- | ------------------------------------------------------------------------------- |
+| `guard-scope.mjs`    | 担当フォルダの外への書き込みを拒否する（PreToolUse: Write / Edit）              |
+| `guard-bash.mjs`     | シェルコマンドによる制限対象の操作を拒否する                                    |
+| `format-file.mjs`    | 担当フォルダ内のファイルにPrettierを実行する                                    |
+| `require-verify.mjs` | `npm run verify` を実行せずに終了しようとした場合、初回の終了を拒否する（Stop） |
+| `session-brief.mjs`  | セッション開始時に担当ゲームを表示する（SessionStart）                          |
 
 `session-brief.mjs` は `harness/config.json` を読み、ブランチ名から
-「担当◯ / ゲーム名 / ゲームID / 担当 Issue」を毎回 Claude Code に渡します。
-だから新しいセッションを開いても、担当を説明し直す必要がありません。
+「担当◯ / ゲーム名 / ゲーム ID / 担当 Issue」を Claude Code へ渡します。新しいセッションでも、この情報が起動時に表示されます。
 
-## `guard-bash.mjs` が止めるコマンド
+## `guard-bash.mjs` が拒否するコマンド
 
 Claude Codeから実行すると拒否されるコマンドの一覧です。
 
-| 止まるコマンド | なぜ止めるか |
-|---|---|
-| `npm install` / `npm i` / `yarn add` / `pnpm add` などの依存追加 | `package-lock.json` が変わると9人全員の Pull Request が競合する |
-| `git commit --no-verify` | チェックを飛ばしても、CI で同じことが起きるだけ |
-| `git push --force` / `git push -f` | 履歴を書き換えると他の人の作業が壊れる |
-| `git push ... main` | `main` への直接 push。作業を分離できなくなる |
-| **`npm run dev` / `npm run preview` / `npx vite`** | **起動したままになり、セッションが返ってこない。** さらにターミナルB の 5173 番とポートが衝突する |
-| **`npm run test:watch` / `npm test -- --watch` / `npx vitest`（`run` なし）** | **監視モードは終わらない。** セッションが返ってこない |
-| **`gh pr review` / `gh pr comment` / `gh issue comment`** | **他人の Pull Request と Issue に文字を投稿する操作。** 投稿してよいのは「自分が実機で確認したこと」だけなので、確認した本人が投稿する |
-| **`gh api`**（作業ブランチのときだけ） | 上の判定をすべて回避できる操作。この操作を許可すると、他の制限が機能しなくなる |
-| **`node scripts/setup-github.mjs` / `node scripts/build-issue-bodies.mjs`**（作業ブランチのときだけ） | **講師専用。** 9人分の Issue をまとめて作り直してしまう |
-| **`npm run scaffold -- --all` / `--force`**（作業ブランチのときだけ） | **講師専用。** 9人分の雛形をまとめて上書きしてしまう |
-| **`gh issue edit`**（作業ブランチのときだけ） | Issue 本文は全員が同じ条件で進むための基準なので、講師が管理する |
-| リダイレクト（`>`）・`sed -i`・`cp`・`tee` で保護領域に書く | `deny` はコマンドの先頭しか見ないため、シェル経由の書き込みもここで拒否する |
+| コマンド                                                                                              | 拒否する理由                                                                |
+| ----------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
+| `npm install` / `npm i` / `yarn add` / `pnpm add` などの依存追加                                      | `package-lock.json` が変わると9人全員の Pull Request が競合する             |
+| `git commit --no-verify`                                                                              | コミット前の検査を省略する                                                  |
+| `git push --force` / `git push -f`                                                                    | リモートの履歴を書き換える                                                  |
+| `git push ... main`                                                                                   | `main` への直接 push。作業を分離できなくなる                                |
+| **`npm run dev` / `npm run preview` / `npx vite`**                                                    | 処理が終了せず、ターミナルBの開発サーバーと5173番ポートが競合する           |
+| **`npm run test:watch` / `npm test -- --watch` / `npx vitest`（`run` なし）**                         | 監視モードが終了しない                                                      |
+| **`gh pr review` / `gh pr comment` / `gh issue comment`**                                             | Pull RequestやIssueへ投稿する操作である                                     |
+| **`gh api`**（作業ブランチのときだけ）                                                                | 操作内容を事前に判定できず、ほかの制限を経由せずに変更できる                |
+| **`node scripts/setup-github.mjs` / `node scripts/build-issue-bodies.mjs`**（作業ブランチのときだけ） | 9名分のIssueをまとめて変更する講師用の操作である                            |
+| **`npm run scaffold -- --all` / `--force`**（作業ブランチのときだけ）                                 | 9名分の雛形をまとめて上書きする講師用の操作である                           |
+| **`gh issue edit`**（作業ブランチのときだけ）                                                         | Issue 本文は全員が同じ条件で進むための基準なので、講師が管理する            |
+| リダイレクト（`>`）・`sed -i`・`cp`・`tee` で保護領域に書く                                           | `deny` はコマンドの先頭しか見ないため、シェル経由の書き込みもここで拒否する |
 
-**講師専用の4行に「作業ブランチのときだけ」と書いてあるのは、運営が `main` で共通基盤を整えるため**です。
-参加者は必ず `feature/<ゲームID>` で作業するので、実質的にはいつでも止まります。
+講師用の操作を `main` で実行できるよう、該当する4項目は作業ブランチの場合だけ拒否します。参加者は `feature/<ゲームID>` で作業するため、これらの操作を実行できません。
 
-### 開発サーバーと監視モードだけ、扱いが違う理由
+### 開発サーバーと監視モードを拒否する理由
 
-上の表の多くは「**他の人に波及するから**」止めています。
-`npm run dev` と `npm run test:watch` は、各参加者が自分の端末で継続して動かすコマンドです。
-それでも止めているのは、理由が2つあるからです。
+`npm run dev` と `npm run test:watch` は、参加者がターミナルBで継続して実行するコマンドです。ターミナルAからの実行を拒否する理由は2つあります。
 
-1. **技術的な理由。** どちらも終わらないコマンドなので、Claude Code のセッションが返ってきません。
-   さらに `npm run dev` は、ターミナルB ですでに使っている 5173 番ポートと衝突します。
-2. **設計上の理由。** 開発サーバーは**遊ぶための道具**です。
-   実機でのプレイは参加者が行うため、開発サーバーは参加者が操作するターミナルBで起動します。
+1. どちらも継続して動作するため、ターミナルAの処理が完了しません。さらに `npm run dev` は、ターミナルBで使用している5173番ポートと競合します。
+2. ゲームの動作確認は参加者がブラウザで行うため、開発サーバーもターミナルBで管理します。
 
-拒否メッセージには、ターミナルB での起動手順がそのまま書いてあります。
+拒否メッセージには、ターミナルBでの起動手順が記載されています。
 
 ```text
 npm run dev は Claude Code からは実行できません。
@@ -96,11 +89,11 @@ npm run dev は Claude Code からは実行できません。
 ### Pull Request と Issue への投稿を参加者が行う理由
 
 `gh pr review` / `gh pr comment` / `gh issue comment` は、GitHub上の情報を更新するコマンドです。
-投稿内容には実機で確認した結果を含めるため、Claude Codeには下書きの作成までを依頼し、投稿は確認を行った参加者が担当します。
+投稿内容にはブラウザで確認した結果を含めるため、Claude Codeには下書きの作成までを依頼し、投稿は確認を行った参加者が担当します。
 
-投稿はGitHubの画面から行います。コマンドを使う場合は、ターミナルBで参加者が実行します。
+投稿は GitHub の画面から行います。コマンドを使う場合は、ターミナルBで参加者が実行します。
 
-## `owner.json` — 自分の担当を記録しておく仕組み
+## `owner.json` による担当範囲の記録
 
 `npm run scaffold -- --game <ゲームID>` を実行すると、次のファイルが作られます。
 
@@ -108,18 +101,17 @@ npm run dev は Claude Code からは実行できません。
 .claude/.state/owner.json
 ```
 
-中身は1行だけです。
+ファイルには、ゲームIDを記録します。
 
 ```json
 { "gameId": "babanuki" }
 ```
 
-**これは「自分の担当はこれ」という記録**です。研修中に一度だけ書かれ、あとは変わりません。
+この値は研修中に一度だけ書き込まれ、その後は変更されません。
 
-### 何のためにあるか
+### 記録する目的
 
-`guard-scope.mjs` は、書き込み先のゲームIDを **ブランチ名だけでなく `owner.json` とも突き合わせます。**
-何かの拍子に他の人のブランチへ移っていても、そのフォルダを編集しようとするとこう止まります。
+`guard-scope.mjs` は、書き込み先のゲームIDをブランチ名と `owner.json` の両方に照合します。ほかの参加者のブランチへ切り替わっている状態で担当外のフォルダを編集すると、次のメッセージが表示されます。
 
 ```text
 src/games/daifugo/logic.ts は 担当2（大富豪） の担当です。
@@ -130,104 +122,90 @@ src/games/daifugo/logic.ts は 担当2（大富豪） の担当です。
 自分の作業に戻るときは git switch feature/babanuki です。
 ```
 
-ブランチ名だけで判定していると、この状態では「あなたは大富豪の担当だ」と見えてしまい、
-**他人のコードを編集できてしまいます。** `owner.json` はそれを防ぎます。
+ブランチ名だけで判定すると、切り替え先のブランチを担当範囲として扱ってしまいます。`owner.json` も照合することで、担当外のコードへの書き込みを拒否します。
 
-なお、`owner.json` は `harness/config.json` の `alwaysWritable` に入っているので、
-`.claude/.state/` の中への書き込みだけは保護領域の例外として許可されています。
+`owner.json` は `harness/config.json` の `alwaysWritable` に指定されています。そのため、`.claude/.state/` への書き込みは保護領域の例外として許可されます。
 
-## なぜ無害なコマンドは確認なしで通るのか
+## 承認なしで実行できるコマンド
 
 `.claude/settings.json` には3つの段階があります。
 
-| 段階 | 何が起きるか | 入っているもの |
-|---|---|---|
-| **deny** | 実行されない。拒否メッセージが返る | 上の「`guard-bash.mjs` が止めるコマンド」 |
-| **ask** | 参加者に確認を求める（Yes / No） | `git push` / `gh pr create` / `gh pr merge` / `gh pr ready` / `gh pr edit` / `gh issue create` / `git merge` / `git rebase` / `git reset --hard` |
-| **allow** | 確認なしで実行される | `npm test` / `npm run verify` / `npm run build` / `npm run scaffold -- --game <ゲームID>` / `git switch` `add` `commit` `status` `diff` `pull` / `gh pr checkout` `view` `checks` `diff` / `node -v` / `gh auth status` |
+| 段階      | 動作                               | 対象                                                                                                                                                                                                                    |
+| --------- | ---------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **deny**  | 実行されない。拒否メッセージが返る | 上の「`guard-bash.mjs` が拒否するコマンド」                                                                                                                                                                             |
+| **ask**   | 参加者に確認を求める（Yes / No）   | `git push` / `gh pr create` / `gh pr merge` / `gh pr ready` / `gh pr edit` / `gh issue create` / `git merge` / `git rebase` / `git reset --hard`                                                                        |
+| **allow** | 確認なしで実行される               | `npm test` / `npm run verify` / `npm run build` / `npm run scaffold -- --game <ゲームID>` / `git switch` `add` `commit` `status` `diff` `pull` / `gh pr checkout` `view` `checks` `diff` / `node -v` / `gh auth status` |
 
-**allowに含まれるコマンドは、確認なしで実行されます。** 影響の小さい操作で確認が繰り返されないようにするためです。
+`allow` に含まれるコマンドは、承認なしで実行されます。外部の状態や履歴を変更しない操作を、承認の対象から除外するためです。
 
-> ### 承認疲れを防ぐため
+> ### 承認対象を限定する理由
 >
-> 確認の回数が多すぎると、各確認の内容を読まずに承認する可能性が高まります。
+> 承認画面では、実行するコマンドと影響を確認する必要があります。確認回数を増やしすぎないよう、承認を求める対象を、外部へ反映される操作や履歴を変更する操作に限定しています。
 >
-> `npm test` のたびに確認が表示されると、確認内容を読まずに承認する習慣につながります。
-> その状態では、`git push` など影響の大きい操作も同様に承認されるおそれがあります。
->
-> そのため、確認を求める対象を、外部へ反映される操作や履歴を変更する操作に絞っています。
->
-> - **他の人に見える**（`git push` / `gh pr create` / `gh pr ready`）
-> - **履歴が変わる**（`git merge` / `git rebase` / `git reset --hard`）
-> - **元に戻すのに手間がかかる**（`gh pr merge`）
+> - リモートに変更を反映する（`git push` / `gh pr create` / `gh pr ready`）
+> - 履歴を変更する（`git merge` / `git rebase` / `git reset --hard`）
+> - Pull Request をマージする（`gh pr merge`）
 >
 > `npm test` や `git status` は外部の状態や履歴を変更しないため、確認なしで実行できます。
 
-`ask` の6つ（`git push` / `gh pr create` / `gh pr merge` / `gh pr ready` / `gh pr edit` / `gh issue create`）は、
-**もともとターミナルBから参加者が実行する決まり**になっています。
-Claude Codeから実行しようとすると承認を求められますが、この6つはターミナルBで参加者が実行してください。
+`ask` のうち、`git push`、`gh pr create`、`gh pr merge`、`gh pr ready`、`gh pr edit`、`gh issue create` は、参加者がターミナルBで実行します。ターミナルAから実行した場合は、承認を求める画面が表示されます。
 
-## 硬さの基準は「他の人に波及するか」
+## エラーと警告の使い分け
 
 検査には、警告だけを表示するものと、操作を拒否するものがあります。すべての違反で操作を拒否すると修正に時間がかかり、すべてを警告だけにすると重要な違反を防げないためです。
 
-> **違反がほかの参加者へ影響するかどうかで判断する。**
+ほかの参加者へ影響する違反はエラーとし、担当フォルダ内に限られる問題は警告として扱います。
 
-| 波及する（機械で止める / error） | 自分のフォルダに閉じる（警告に留める / warn） |
-|---|---|
-| 担当範囲の外を変更する | `any` を使う |
-| 依存を追加する（`package-lock.json` が変わる） | 1ファイルが400行を超える |
-| 他の人のゲームを参照する | 1関数が150行を超える |
-| `@core/...` の深い import | 複雑度が15を超える |
-| `logic.ts` を非純粋にする（乱数・時間・react） | `console.log` を残す |
-| `localStorage` を直接使う（キーが衝突する） | — |
-| `eslint-disable` を書く | — |
+| ほかの参加者へ影響する（error）                | 担当フォルダ内に限られる（warn） |
+| ---------------------------------------------- | -------------------------------- |
+| 担当範囲の外を変更する                         | `any` を使う                     |
+| 依存を追加する（`package-lock.json` が変わる） | 1ファイルが400行を超える         |
+| 他の人のゲームを参照する                       | 1関数が150行を超える             |
+| `@core/...` の深い import                      | 複雑度が15を超える               |
+| `logic.ts` を非純粋にする（乱数・時間・react） | `console.log` を残す             |
+| `localStorage` を直接使う（キーが衝突する）    | —                                |
+| `eslint-disable` を書く                        | —                                |
 
-チーム制なら「他チームに波及するか」でしたが、いまは1人1ゲームなので**他の人に波及するか**です。
-基準は変わりません。左の列の変更を1つ許可すると、他の8人のPull Requestが失敗します。
-**個人の判断で通してよい範囲ではありません。**
+左の列にある変更は、共通基盤やほかの参加者のゲームに影響するため、エラーとして処理します。
 
-右の列は自分のフォルダの中だけの話なので、機械では止めずに**警告として画面に出します**。
-意図的にそうしている場合もあるため、直すかどうかは実装者が判断します。
+右の列にある問題は担当フォルダ内に限られるため、操作を拒否せず警告を表示します。修正するかどうかは、内容を確認して実装者が判断します。
 
-（例外は `eqeqeq` と未使用変数の2つです。波及はしませんが、直すのが一瞬で、
-放置すると型チェックとビルドの失敗に化けるので error にしてあります。）
+`eqeqeq` と未使用変数は例外としてエラーにしています。型チェックやビルドの失敗につながるためです。
 
-### なぜ Layer 4 だけが外せないのか
+### Layer 4を無効化できない理由
 
-`npm run verify` と CI が**まったく同じコマンド**を実行するからです。
+`npm run verify` とCIでは、同じ検証を実行します。
 
 ```
 範囲チェック → lint → 型チェック → テスト → ビルド
 ```
 
-さらに、別のコマンドを使った回避も拒否します。
+検証を無効化する変更も、次の方法で検出します。
 
 - ESLint の検査は `eslint-disable` で無効化できますが、**契約テストが `eslint-disable` の存在そのものを検査**します
 - `@core/deck` のような深い import は、エイリアスが完全一致の正規表現なので**モジュール解決の時点で失敗**します
 - `logic.ts` の `Math.random()` は ESLint と契約テストの**両方**が見ています
 - Layer 3 を無効化する環境変数は、**Layer 4 には効きません**
 
-つまり手元で何を消しても、Pull Request では必ず同じ結果が出ます。
-**別の方法で回避しようとせず、決められた手順に戻ってください。**
+ローカルのフックを無効化しても、Pull Request の CI では同じ検証が実行されます。エラーの原因を修正し、`npm run verify` が成功することを確認してください。
 
 ### GitHub 側のラベル
 
 Issue と Pull Request には、`node scripts/setup-github.mjs labels` が作ったラベルが付いています。
 
-| ラベル | 意味 |
-|---|---|
-| `participant-1` 〜 `participant-9` | 担当者。1人につき1つ（担当1 = `participant-1` … 担当9 = `participant-9`） |
-| `difficulty:easy` / `difficulty:normal` / `difficulty:hard` | 初級 / 中級 / 上級 |
-| `game` | 参加者が担当するゲームの実装 |
-| `stretch-goal` | 発展課題（必須ではない） |
-| `blocked` | 詰まっている・講師の判断待ち |
-| `bug` | 公開後に見つかった不具合 |
-| `core-change` | 共通基盤の変更を含む（講師の確認が必要） |
-| `harness:override` | **講師のみ**。付いている Pull Request では範囲チェックが警告に降格する |
+| ラベル                                                      | 意味                                                                      |
+| ----------------------------------------------------------- | ------------------------------------------------------------------------- |
+| `participant-1` 〜 `participant-9`                          | 担当者。1人につき1つ（担当1 = `participant-1` … 担当9 = `participant-9`） |
+| `difficulty:easy` / `difficulty:normal` / `difficulty:hard` | 初級 / 中級 / 上級                                                        |
+| `game`                                                      | 参加者が担当するゲームの実装                                              |
+| `stretch-goal`                                              | 発展課題（必須ではない）                                                  |
+| `blocked`                                                   | 作業を続けられない、または講師の判断待ち                                  |
+| `bug`                                                       | 公開後に見つかった不具合                                                  |
+| `core-change`                                               | 共通基盤の変更を含む（講師の確認が必要）                                  |
+| `harness:override`                                          | **講師のみ**。付いている Pull Request では範囲チェックが警告に降格する    |
 
 担当ラベルは `harness/config.json` の `participant` と同じ名前です。
-自分の Issue と Pull Request はラベルで絞り込めます。
+担当のIssueとPull Requestは、ラベルで絞り込めます。
 
 ```powershell
 gh issue list --label participant-1
@@ -237,9 +215,9 @@ gh pr list --label participant-1
 作業を続けられないときは、`blocked` ラベルを付けてください。
 講師はこのラベルを確認し、対応が必要な参加者を把握します。
 
-## 止められたときの読み方
+## 拒否メッセージの読み方
 
-フックのメッセージは、いつも同じ3つの部分でできています。
+フックのメッセージは、次の3つの部分で構成されています。
 
 ```
 src/core/cards/index.ts は運営が管理している場所なので変更できません。   ← 1. 何が起きたか
@@ -252,8 +230,7 @@ src/core/cards/index.ts は運営が管理している場所なので変更で�
   - ゲーム側だけで実現する案（あれば）:
 ```
 
-まず3番目の「次にどうするか」を確認してください。
-書いてある通りにすれば進めます。同じ操作を言い方を変えて試す必要はありません。
+3番目の「次にどうするか」を確認し、記載された手順に従ってください。同じ操作を別のコマンドで実行する必要はありません。
 
 操作が拒否されたあと、Claude Codeが別の方法を提案することがあります。その場合は、次のように伝えてください。
 
@@ -263,7 +240,7 @@ src/core/cards/index.ts は運営が管理している場所なので変更で�
 別のコマンドで同じことをやり直すのはやめてください。
 ```
 
-## よく止まるケースと対処
+## よくある拒否と対処方法
 
 ### 1. `src/core/` や `src/components/` を編集しようとした
 
@@ -273,12 +250,10 @@ src/core/cards/index.ts は運営が管理している場所なので変更で�
 
 共通基盤は9人全員が利用するため、変更するとほかの参加者のPull Requestにも影響します。
 
-**やること**
+**対処方法**
 
-1. まず `src/core/index.ts`（または `src/components/index.ts`）をもう一度読む。
-   足りないと思った機能は、既存の関数の組み合わせで作れることがほとんどです。
-   早見表は [docs/architecture.md](architecture.md) にもあります。
-2. それでも必要なら、**自分で直さずに**次の形で報告して講師に相談します。
+1. `src/core/index.ts` または `src/components/index.ts` を確認し、既存の API を組み合わせて実現できないか検討する。早見表は [docs/architecture.md](architecture.md) にもあります。
+2. 共通基盤の変更が必要な場合は、変更せずに次の形式で講師へ相談する。
 
 ```text
 共通基盤への変更が必要かもしれません。
@@ -299,22 +274,19 @@ src/core/cards/index.ts は運営が管理している場所なので変更で�
 依存パッケージの追加・更新はできません: npm install lodash
 ```
 
-依存を1つ入れると `package-lock.json` が変わります。
-すると9人全員の Pull Request が同じファイルで競合し、統合が止まります。
-CI にも「依存が変わっていないか」という専用のチェックがあります。
+依存関係を追加すると `package-lock.json` が変わり、ほかの参加者のPull Requestと競合する可能性があります。CIでも、依存関係が変更されていないか検査します。
 
-**やること**
+**対処方法**
 
-- `@core` と `@ui` にあるもので作ります（一覧: `src/games/CLAUDE.md` / [docs/architecture.md](architecture.md)）
-- 乱数は `createRng`、保存は `useHighScore`、時間は `useCpuTurn` です。外部ライブラリは要りません
-- どうしても必要だと思ったら、入れずに講師へ相談します
+- `@core` と `@ui` の既存 API を確認する（一覧: `src/games/CLAUDE.md` / [docs/architecture.md](architecture.md)）
+- 乱数には `createRng`、保存には `useHighScore`、時間処理には `useCpuTurn` を使用する
+- 既存APIで実現できない場合は、依存関係を追加せずに講師へ相談する
 
 なお、環境を作り直すときの `npm ci` は使えます（`npm install` ではなく `npm ci`）。
 ただし、**ターミナルBで `npm run dev` が動いている間は実行しないでください。**
-Windowsでは `node_modules` が使用中になり、処理が失敗します。実行前に `Ctrl + C` で開発サーバーを停止します。
+Windows では `node_modules` が使用中になり、処理が失敗します。実行前に `Ctrl + C` で開発サーバーを停止します。
 
-（`gh pr checkout` で他のブランチに移ったあとも `npm ci` は要りません。
-依存の追加が禁止されているので、**9人のブランチはすべて `package-lock.json` が同一**だからです。）
+`gh pr checkout` でほかのブランチへ切り替えた場合も、`npm ci` の再実行は不要です。各作業ブランチでは、`package-lock.json` を変更しません。
 
 ### 3. 担当外のゲームを触った
 
@@ -325,8 +297,9 @@ src/games/daifugo/logic.ts は 担当2（大富豪） の担当です。
 他の人のゲームは変更しないでください。
 ```
 
-**やること** — 変更してしまったファイルを戻します。
-`npm run scope` を実行すると、**そのままコピペできる `git restore`** が表示されます。
+**対処方法**
+
+変更してしまったファイルを戻します。`npm run scope` を実行すると、対象ファイルを指定した `git restore` コマンドが表示されます。
 
 ```powershell
 npm run scope
@@ -339,11 +312,9 @@ git restore --source=HEAD --staged --worktree -- src/games/daifugo/logic.ts
 複数のファイルを変更した場合も、`npm run scope` が対象をまとめた復元コマンドを1行で表示します。
 表示されたコマンドをそのまま実行してください。
 
-（1つの Pull Request で扱うゲームは1つだけです。2つ以上のゲームフォルダに変更があると、
-ブランチ名と一致していても範囲チェックは失敗します。）
+1つのPull Requestで扱うゲームは1つだけです。2つ以上のゲームフォルダに変更がある場合は、ブランチ名と一致していても範囲チェックが失敗します。
 
-**他の人のブランチにいるときにこれが出た場合は、正常です。** `owner.json` が効いています。
-相手のコードは直さず、指摘としてコメントに書いてください（上の「`owner.json`」の節）。
+ほかの参加者のブランチでこのメッセージが表示された場合は、`owner.json` に記録された担当範囲へ戻ってください。相手のコードは変更せず、必要な指摘はコメントとして共有します。
 
 ### 4. `main` ブランチのまま編集した
 
@@ -353,21 +324,19 @@ git restore --source=HEAD --staged --worktree -- src/games/daifugo/logic.ts
   git switch -c feature/babanuki
 ```
 
-**やること** — 作業ブランチを作ります。
+**対処方法**
+
+作業ブランチを作成します。
 
 ```powershell
 git switch -c feature/babanuki
 ```
 
-すでに `main` で編集してしまっていても大丈夫です。
-コミットしていない変更は、そのまま新しいブランチへ付いてきます。
-上のコマンドを実行してから、続きを進めてください。
+`main` にコミットしていない変更がある場合も、`git switch -c` で作成したブランチへ引き継がれます。上のコマンドを実行してから作業を続けてください。
 
-（`git switch -c` の後ろは自分のゲームIDです:
-`babanuki` / `daifugo` / `shinkeisuijaku` / `poker` / `butanoshippo` /
-`speed` / `shichinarabe` / `doubt` / `pageone`）
+`git switch -c` の後ろには、担当するゲームIDを指定します（`babanuki` / `daifugo` / `shinkeisuijaku` / `poker` / `butanoshippo` / `speed` / `shichinarabe` / `doubt` / `pageone`）。
 
-### 5. `npm run verify` を通さずに終わろうとした
+### 5. `npm run verify` を実行せずに終了しようとした
 
 ```
 まだ npm run verify を通していない変更があります。
@@ -375,17 +344,15 @@ git switch -c feature/babanuki
   npm run verify
 ```
 
-研修では、手元での確認が不足したままPull Requestを作成し、CIが失敗するケースが多くあります。
-Stop フックが**1回だけ**引き止めます。
+`npm run verify` が未実行の場合、Stopフックが初回の終了を拒否します。
 
-**やること**
+**対処方法**
 
 ```powershell
 npm run verify
 ```
 
-範囲チェック・lint・型チェック・テスト・ビルドが順に走ります。
-失敗したときは、**最初に失敗した項目から**修正してください。
+範囲チェック、lint、型チェック、テスト、ビルドが順に実行されます。失敗した場合は、最初に失敗した項目から修正してください。
 
 このフックは、作業を繰り返し止めないよう、同じセッションでは1回だけ通知します。
 ただし、CIでは同じ検証が実行されます。`verify` が成功したことを確認してから完了と判断してください。
@@ -397,21 +364,24 @@ npm run dev は Claude Code からは実行できません。
 起動したままになるので、このセッションが返ってこなくなります。
 ```
 
-**やること** — ターミナルB を見てください。たいていは、そこですでに動いています。
+**対処方法**
 
-- 動いている → ブラウザ（http://localhost:5173/）を **F5 で再読み込み**するだけです
-- 止まっている → ターミナルBで `npm run dev` を再実行します
+ターミナルBで開発サーバーの状態を確認します。
 
-**Claude Code に「開発サーバーを起動して」と頼まないでください。** 何度頼んでも拒否されます。
-画面を見て「遊べるかどうか」を判断するのは参加者の役割です。
+- 起動している場合: ブラウザ（`http://localhost:5173/`）を `F5` で再読み込みする
+- 停止している場合: ターミナルBで `npm run dev` を再実行する
 
-### 7. Pull Request にコメントを投稿させようとした
+開発サーバーはターミナルBで管理し、画面の表示と操作結果は参加者が確認します。
+
+### 7. Pull Requestへコメントを投稿しようとした
 
 ```
 Pull Request や Issue への投稿は、Claude Code からは行いません。
 ```
 
-**やること** — 下書きは Claude Code に作成を依頼し、投稿は参加者が行います。
+**対処方法**
+
+Claude Codeには下書きの作成だけを依頼し、投稿は参加者が行います。
 
 ```text
 投稿はしないでください。下書きだけ出してください。
@@ -422,19 +392,17 @@ Pull Request や Issue への投稿は、Claude Code からは行いません。
 
 ### そのほか
 
-| 止められたこと | 理由 | どうするか |
-|---|---|---|
-| `git commit --no-verify` | チェックを省略しても、CIで同じ検証が実行される | 失敗した原因を修正してからコミットする |
-| `git push --force` | 履歴を書き換えると他の人の作業が壊れる | 講師に相談する |
-| `git push origin main` | `main` への直接 push は禁止 | `git push -u origin feature/<ゲームID>` して Pull Request を作る |
-| `npx vitest`（監視モード） | セッションが返ってこなくなる | `npm test`（= `vitest run`）を使う |
-| `npm run dev` / `npm run preview` | セッションが返ってこない / 5173 番が衝突する | ターミナルB で自分で起動する |
-| `gh pr review` / `gh pr comment` | 他人の画面に文字が出る操作 | GitHub の画面から自分で投稿する |
-| `gh api` | 上の判定をすべて回避できる操作 | やりたいことを説明し、必要なら講師に相談する |
-| `gh issue edit` | Issue 本文は講師が管理している | チェックボックスは GitHub の画面で自分でクリックする |
-| `npm run scaffold -- --all` | 9人分の雛形を上書きしてしまう | `npm run scaffold -- --game <自分のゲームID>` を使う |
-| `.claude/settings.json` の変更 | ハーネス自体の無効化 | 止められた理由を講師に伝える |
+| 拒否された操作                    | 理由                                           | 対処方法                                                         |
+| --------------------------------- | ---------------------------------------------- | ---------------------------------------------------------------- |
+| `git commit --no-verify`          | チェックを省略しても、CIで同じ検証が実行される | 失敗した原因を修正してからコミットする                           |
+| `git push --force`                | リモートの履歴を書き換える                     | 講師に相談する                                                   |
+| `git push origin main`            | `main` への直接 push は禁止                    | `git push -u origin feature/<ゲームID>` して Pull Request を作る |
+| `npx vitest`（監視モード）        | 処理が終了しない                               | `npm test`（`vitest run`）を使う                                 |
+| `npm run dev` / `npm run preview` | 処理が終了せず、5173番ポートが競合する         | ターミナルBで起動する                                            |
+| `gh pr review` / `gh pr comment`  | Pull Request へ投稿する操作である              | 参加者が GitHub の画面から投稿する                               |
+| `gh api`                          | 操作内容を事前に判定できない                   | 実行したい操作を説明し、必要に応じて講師に相談する               |
+| `gh issue edit`                   | Issue 本文は講師が管理している                 | 参加者が GitHub の画面でチェックボックスを操作する               |
+| `npm run scaffold -- --all`       | 9名分の雛形を上書きする                        | `npm run scaffold -- --game <自分のゲームID>` を使う             |
+| `.claude/settings.json` の変更    | ハーネス自体の無効化                           | 操作が拒否された理由を講師に伝える                               |
 
-`docs/troubleshooting.md` には、エラーメッセージから引ける番号つきの対処集（T-01〜）があります。
-詰まったときは、事実を集めて状況を整理し、次に試すことを1つだけ挙げてもらってください。
-そのときコードは変更させないでください。
+`docs/troubleshooting.md` には、エラーメッセージから参照できる番号付きの対処方法（T-01〜）があります。原因を特定できない場合は、現在の状況とエラーを整理し、次に確認する項目を1つ挙げるよう依頼してください。その際は、コードを変更しないよう明記します。
