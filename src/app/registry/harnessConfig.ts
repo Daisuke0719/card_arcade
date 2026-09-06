@@ -13,7 +13,6 @@ export type ParticipantConfig = {
   minPlayers: number;
   maxPlayers: number;
   issue: number;
-  reviews: string;
 };
 
 /** harness/config.json（単一の真実源）を画面からも読む。 */

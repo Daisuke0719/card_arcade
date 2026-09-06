@@ -77,8 +77,8 @@ const LABELS = [
   { name: "difficulty:hard", color: "d93f0b", description: "上級" },
   { name: "stretch-goal", color: "fbca04", description: "発展課題（必須ではない）" },
   { name: "blocked", color: "b60205", description: "詰まっている・講師の判断待ち" },
-  { name: "bug", color: "d73a4a", description: "大会で見つかった不具合" },
-  { name: "core-change", color: "e99695", description: "共通基盤の変更を含む（講師レビュー必須）" },
+  { name: "bug", color: "d73a4a", description: "公開後に見つかった不具合" },
+  { name: "core-change", color: "e99695", description: "共通基盤の変更を含む（講師の確認が必要）" },
   { name: "harness:override", color: "c5def5", description: "講師のみ: 範囲チェックを警告に降格する" },
 ];
 
@@ -305,7 +305,6 @@ function protectBranch() {
   console.log("");
   console.log("研修中に詰まったときの逃げ道（優先度順）:");
   console.log("  1. gh pr merge <番号> --squash --admin --delete-branch");
-  console.log('  2. gh pr review <番号> --approve --body "講師承認"');
   console.log("  3. node scripts/setup-github.mjs unprotect（最終手段。研修後に必ず戻す）");
   console.log("");
 }

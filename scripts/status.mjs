@@ -3,7 +3,7 @@
  *
  *   npm run status
  *
- * 70〜75分の中間チェックポイントで、これを映して遅れているチームを特定する。
+ * これを映して、遅れている人を特定する。
  */
 import { execFileSync } from "node:child_process";
 import { existsSync, readFileSync } from "node:fs";
@@ -35,7 +35,7 @@ const raw = gh([
   "--limit",
   "50",
   "--json",
-  "number,title,headRefName,isDraft,state,statusCheckRollup,reviewDecision,url",
+  "number,title,headRefName,isDraft,state,statusCheckRollup,url",
 ]);
 
 let pulls = [];
@@ -55,19 +55,6 @@ function ciOf(pull) {
   return "実行中";
 }
 
-function reviewOf(pull) {
-  switch (pull.reviewDecision) {
-    case "APPROVED":
-      return "承認済み";
-    case "CHANGES_REQUESTED":
-      return "要修正";
-    case "REVIEW_REQUIRED":
-      return "レビュー待ち";
-    default:
-      return "-";
-  }
-}
-
 const rows = config.participants.map((item) => {
   const pull = pulls.find((pr) => pr.headRefName === "feature/" + item.gameId);
   return {
@@ -75,7 +62,6 @@ const rows = config.participants.map((item) => {
     game: item.name,
     pr: pull ? "#" + pull.number + (pull.isDraft ? "(Draft)" : "") : "なし",
     ci: pull ? ciOf(pull) : "-",
-    review: pull ? reviewOf(pull) : "-",
     merged: pull?.state === "MERGED" ? "マージ済み" : "-",
     local: localStatusOf(item.gameId),
   };
@@ -86,7 +72,6 @@ const widths = {
   game: 10,
   pr: 12,
   ci: 8,
-  review: 12,
   merged: 12,
 };
 
@@ -105,7 +90,6 @@ console.log(
     pad("ゲーム", widths.game) +
     pad("PR", widths.pr) +
     pad("CI", widths.ci) +
-    pad("レビュー", widths.review) +
     pad("マージ", widths.merged),
 );
 console.log("  " + "-".repeat(62));
@@ -117,7 +101,6 @@ for (const row of rows) {
       pad(row.game, widths.game) +
       pad(row.pr, widths.pr) +
       pad(row.ci, widths.ci) +
-      pad(row.review, widths.review) +
       pad(row.merged, widths.merged),
   );
 }

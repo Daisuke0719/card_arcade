@@ -124,7 +124,7 @@ if (!branchGameId) {
   );
 }
 
-// レビュー中（相手のブランチを checkout している）に相手のコードを触らせない。
+// 何かの拍子に他の人のブランチへ移っていても、他人のコードを触らせない。
 // ブランチ名は相手のものになっているので、記録した担当と突き合わせて判定する。
 if (myGameId && result.gameId !== myGameId) {
   const owner = findParticipantByGameId(config, result.gameId);
@@ -136,10 +136,8 @@ if (myGameId && result.gameId !== myGameId) {
         " の担当です。",
       "",
       "あなたの担当は " + myGameId + " です。",
-      "いま相手のブランチを取ってきている（レビュー中）だけなので、",
-      "相手のコードは変更できません。",
+      "いま他の人のブランチにいるので、そのコードは変更できません。",
       "",
-      "気づいたことは、直すのではなく Pull Request のコメントで伝えてください。",
       "自分の作業に戻るときは git switch feature/" + myGameId + " です。",
     ].join("\n"),
   );

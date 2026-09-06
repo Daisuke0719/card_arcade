@@ -1,7 +1,7 @@
 # CARD ARCADE
 
 日本のトランプゲームを参加者9名で手分けして作り、Pull Request で1つのゲームセンターに統合する研修用リポジトリです。
-チーム開発ではなく、**1人が1ゲームを調査から実装・テスト・PR・レビューまで最後まで担当**します。
+チーム開発ではなく、**1人が1ゲームを調査から実装・テスト・Pull Request の提出まで最後まで担当**します。
 
 **Claude Code × GitHub 共同開発ハンズオン — みんなでつくる CARD ARCADE**
 
@@ -16,7 +16,7 @@ CARD ARCADE
 研修開始時点では、9枚すべてが `[ COMING SOON ]` です。
 各担当の Pull Request がマージされるたびに、実際に遊べるゲームへ変わります。
 
-## 5分で始める
+## はじめかた
 
 ```powershell
 git clone https://github.com/Daisuke0719/card_arcade.git
@@ -55,28 +55,6 @@ Issue・ラベル・雛形・画面の並び順はすべてそこから作られ
 
 お手本は `src/games/example-game/`（ハイ＆ロー）です。**実装を始める前に必ず読んでください。**
 
-## 相互レビューはリング（1対1）
-
-自分の Pull Request を見るのは1人だけ、自分も1人分だけをレビューします。
-
-| 担当 | レビューする相手 | 自分をレビューする人 |
-|---|---|---|
-| 担当1（ババ抜き） | 担当2（大富豪） | 担当9 |
-| 担当2（大富豪） | 担当3（神経衰弱） | 担当1 |
-| 担当3（神経衰弱） | 担当4（ポーカー） | 担当2 |
-| 担当4（ポーカー） | 担当5（ぶたのしっぽ） | 担当3 |
-| 担当5（ぶたのしっぽ） | 担当6（スピード） | 担当4 |
-| 担当6（スピード） | 担当7（七並べ） | 担当5 |
-| 担当7（七並べ） | 担当8（ダウト） | 担当6 |
-| 担当8（ダウト） | 担当9（ページワン） | 担当7 |
-| 担当9（ページワン） | 担当1（ババ抜き） | 担当8 |
-
-この輪は意図してこの順に組んであります。
-**上級（大富豪・ポーカー）の担当がレビューするのは初級のゲーム**にして、実装が重い人のレビュー負担を下げています。
-逆に**上級のゲームをレビューするのは、早く実装が終わる初級の担当**です。
-レビューは差分を眺めるだけでは足りません。`gh pr checkout` で相手のブランチを取ってきて、
-**実際に1回遊んでから**コメントします。手順は [docs/review-guide.md](docs/review-guide.md) にあります。
-
 ## 覚えるコマンドは3つ
 
 ```powershell
@@ -100,7 +78,7 @@ npm run status                           # 9人の進み具合（講師用）
 ```
 
 1人開発なので、詰まっていることに気づけるのは自分と講師だけです。
-15分進まなかったら Claude Code の `/stuck` で状況を整理し、そのまま講師に見せてください。
+手が止まったら Claude Code に状況を整理してもらい、そのまま講師に見せてください。
 講師は中間チェックポイントで `npm run status` を投影して、遅れている人に個別に入ります。
 
 ## ドキュメント
@@ -110,10 +88,9 @@ npm run status                           # 9人の進み具合（講師用）
 | [docs/handson-steps.md](docs/handson-steps.md) | **当日はこれを上から順に** |
 | [docs/game-plugin-guide.md](docs/game-plugin-guide.md) | ゲームを実装するとき（主教材） |
 | [docs/games/](docs/games/) | ルールの正典。仕様で迷ったらここ |
-| [docs/architecture.md](docs/architecture.md) | リポジトリの地図（15分） |
+| [docs/architecture.md](docs/architecture.md) | リポジトリの地図 |
 | [docs/github-workflow.md](docs/github-workflow.md) | Git / GitHub の操作と巻き戻し集 |
 | [docs/claude-code-guide.md](docs/claude-code-guide.md) | Claude Code の使い方 |
-| [docs/review-guide.md](docs/review-guide.md) | 相互レビューのとき |
 | [docs/harness.md](docs/harness.md) | 「なぜ止められたのか」が分からないとき |
 | [docs/troubleshooting.md](docs/troubleshooting.md) | エラーで詰まったとき（T-01〜） |
 | [docs/instructor-guide.md](docs/instructor-guide.md) | 講師用 |

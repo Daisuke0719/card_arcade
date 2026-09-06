@@ -2,7 +2,7 @@
  * 担当フォルダの中だけ prettier をかける（PostToolUse: Write / Edit）。
  *
  * 目的はコードの美しさではなく「差分ノイズを消すこと」。
- * 整形の差分が混ざると、レビューで本質的な指摘までたどり着けなくなる。
+ * 整形の差分が混ざると、何を変えたのかが差分から読み取れなくなる。
  */
 import { execFileSync } from "node:child_process";
 import { classifyPath, loadConfig, repoRoot, toRepoPath } from "../../scripts/lib/harness.mjs";

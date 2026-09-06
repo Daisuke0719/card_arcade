@@ -50,7 +50,8 @@ if (role === "instructor") {
 lines.push(
   "",
   "詳しい決まりは CLAUDE.md と src/games/CLAUDE.md にあります。",
-  "作業の進め方: /kickoff → 計画を人間が確認 → /implement → /verify → /pr",
+  "作業の進め方: Issue と docs/games/<ゲームID>.md を読む → 実装の計画を先に立てて合意を得る →",
+  "  まず最後まで遊べる形まで実装する → 参加者が遊んで直す → npm run verify → Pull Request",
 );
 
 process.stdout.write(

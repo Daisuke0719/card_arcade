@@ -39,7 +39,7 @@ const pulls = json(
     "--limit",
     "50",
     "--json",
-    "number,headRefName,state,body,author,reviews,comments",
+    "number,headRefName,state,body,author,comments",
   ]),
   [],
 );
@@ -66,20 +66,15 @@ console.log("");
 
 for (const item of config.participants) {
   const pull = pulls.find((pr) => pr.headRefName === "feature/" + item.gameId);
-  const reviewsGiven = pulls
-    .filter((pr) => pr.headRefName !== "feature/" + item.gameId)
-    .reduce((sum, pr) => sum + (pr.reviews ?? []).length, 0);
 
   console.log("[" + item.displayName + "] " + item.name);
   console.log("  完成宣言(status: ready) : " + (isReady(item.gameId) ? "あり" : "なし"));
   console.log("  テスト件数              : " + testCountOf(item.gameId) + "件");
   console.log("  Pull Request            : " + (pull ? "#" + pull.number + " (" + pull.state + ")" : "なし"));
-  console.log("  受けたレビュー          : " + (pull?.reviews?.length ?? 0) + "件");
   console.log("  PR 本文の文字数         : " + (pull?.body?.length ?? 0));
-  console.log("  他の人へのレビュー総数   : " + reviewsGiven + "件（リポジトリ全体の参考値）");
   console.log("");
 }
 
-console.log("※ テストの中身の妥当性・命名の分かりやすさ・レビューの質は機械では測れません。");
-console.log("  そこは相互レビューと講師の目で評価してください。");
+console.log("※ テストの中身の妥当性や命名の分かりやすさは機械では測れません。");
+console.log("  そこは講師が実際に遊び、コードを読んで評価してください。");
 console.log("");

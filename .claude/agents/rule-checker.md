@@ -1,6 +1,6 @@
 ---
 name: rule-checker
-description: 担当フォルダの変更が CARD ARCADE の規約に沿っているかを、別の視点で点検する。実装は行わない。/verify から呼ばれる。
+description: 担当フォルダの変更が CARD ARCADE の規約に沿っているかを、別の視点で点検する。実装は行わない。提出前の確認で呼び出す。
 tools: Read, Grep, Glob, Bash
 model: sonnet
 ---

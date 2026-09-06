@@ -145,19 +145,19 @@ const onFeatureBranch = gameIdFromBranch(currentBranch(root2)) !== null;
 const isParticipant = currentRole(root2) !== "instructor";
 
 // 6. Pull Request / Issue への投稿
-//    レビューに書いてよいのは「自分が実機で確認したこと」だけ、という約束なので、
+//    投稿してよいのは「自分が実機で確認したこと」だけ、という約束なので、
 //    確認したかどうかを知っている人間が投稿する。これはロールで緩めない。
 if (/\bgh\s+(pr\s+(review|comment)|issue\s+comment)\b/.test(command)) {
   violation(
     "Pull Request や Issue への投稿は、Claude Code からは行いません。",
     [
-      "レビューに書いてよいのは「自分が実機で確認したこと」だけ、という約束です。",
+      "投稿してよいのは「自分が実機で確認したこと」だけ、という約束です。",
       "確認したかどうかを知っているのは人間だけなので、投稿も人間が行います。",
       "",
-      "  コメント / Approve : GitHub の画面（Files changed → Review changes）",
+      "  投稿する場所 : GitHub の画面",
       "  コマンドで出す場合 : ターミナルB で自分の手で打つ",
       "",
-      "Claude Code にできるのは下書きを出すところまでです（/review と /fix-review）。",
+      "Claude Code にできるのは、投稿文の下書きを出すところまでです。",
     ].join("\n"),
   );
 }
