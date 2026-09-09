@@ -1,4 +1,3 @@
-// @scaffold:untouched
 import type { GameManifest } from "@core";
 import { ShinkeisuijakuGame } from "./ShinkeisuijakuGame";
 
@@ -17,13 +16,17 @@ export const game: GameManifest = {
   description: "裏向きのカードを2枚めくって、同じ数字のペアを全部そろえます",
   difficulty: "easy",
   owner: "participant-3",
-  status: "coming-soon",
+  status: "ready",
   minPlayers: 1,
   maxPlayers: 1,
   icon: "🧠",
   issueNumber: 2,
   howToPlay: [
-    "TODO: 遊び方を3〜6行で書いてください（画面の「遊び方」に表示されます）。",
+    "裏向きに並んだ16枚から、カードを2枚めくります。",
+    "2枚が同じ数字ならペア成立で、表向きのまま場に残ります。",
+    "数字が違うと、しばらくして2枚とも裏向きに戻ります。",
+    "スート（マーク）は関係なく、数字だけで判定します。",
+    "8組すべてそろえるとクリアです。少ない手数を目指します。",
   ],
   component: ShinkeisuijakuGame,
 };
