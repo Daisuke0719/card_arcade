@@ -1,0 +1,65 @@
+const added=[];
+function make(title,sub){const s=base(title,1,sub);added.push(s);return s;}
+function link(s,label,url,y){const t=txt(s,label,110,y,1350,52,32,C.teal);t.text.get(label).link={uri:url,isExternal:true};}
+let s=make('フェーズ1｜必要なツールのインストール','参加者が操作：公式サイトからWindows用インストーラーを入手します');
+txt(s,'Node.js 22.x：22系のWindows用 .msi を選択して実行',110,230,1380,55,34,C.navy,true);
+link(s,'https://nodejs.org/','https://nodejs.org/',292);
+txt(s,'Git for Windows：Windows用をダウンロードして実行',110,380,1380,55,34,C.navy,true);
+link(s,'https://git-scm.com/download/win','https://git-scm.com/download/win',442);
+txt(s,'GitHub CLI：Windows用 .msi をダウンロードして実行',110,530,1380,55,34,C.navy,true);
+link(s,'https://cli.github.com/','https://cli.github.com/',592);
+band(s,'3つのインストールが終わったら、PowerShellを開き直します');
+s=make('フェーズ1｜インストール結果の確認','参加者が操作：スタートメニューで「PowerShell」を検索して開きます');
+txt(s,'下のコマンドを1行ずつ入力し、Enterで実行します。',110,230,1380,55,34);
+code(s,'node -v\ngit --version\ngh --version',110,320,1380,170,38);
+rows(s,['node -v：v22. で始まる番号が表示される','git --version／gh --version：それぞれの番号が表示される'],{y:545,step:80,size:32});
+band(s,'「認識されません」と出たら、導入状況を確認してPowerShellを開き直します');
+s=make('フェーズ1｜GitHubの招待承諾とログイン','参加者が操作：まず、講師から届いたリポジトリの招待をブラウザで承諾します');
+txt(s,'招待先：Daisuke0719/card_arcade',110,230,1380,55,34,C.navy,true);
+code(s,'gh auth login',110,325,1380,65,38);
+rows(s,['GitHub.com を選択','HTTPS を選択','Login with a web browser を選択し、表示されたコードをブラウザに入力'],{y:455,step:85,size:32});
+band(s,'ブラウザで認証を完了したら、PowerShellに戻ります');
+s=make('フェーズ1｜認証とアクセス権の確認','参加者が操作：ログイン後、同じPowerShellで上から順に実行します');
+code(s,'gh auth status\ngh repo view Daisuke0719/card_arcade --json name',110,255,1380,125,36);
+rows(s,['gh auth status：Logged in to github.com と表示される','Token scopes に repo が含まれる','gh repo view：リポジトリ名 card_arcade が表示される'],{y:455,step:86,size:32});
+band(s,'403エラーが出たら、招待の承諾状況を確認してから再実行します');
+s=make('フェーズ1｜Gitクローンで作業用コピーを作成','参加者が操作：保存先をユーザーフォルダ配下の card-arcade-work にする例です');
+txt(s,'同じPowerShellで、以下を上から1行ずつ実行します。',110,235,1380,55,34);
+code(s,'New-Item -ItemType Directory -Force "$HOME/card-arcade-work"\ncd "$HOME/card-arcade-work"\ngit clone https://github.com/Daisuke0719/card_arcade.git\ncd card_arcade\ngit status',110,325,1380,260,34);
+txt(s,'$HOME は自分のユーザーフォルダを表します。置き換えは不要です。',110,630,1380,55,32);
+band(s,'クローンは初回だけ実行します。以降は作成済みのフォルダへ移動します');
+s=make('フェーズ1｜クローン結果と現在地の確認','参加者が操作：クローン直後の card_arcade フォルダで実行します');
+code(s,'Get-Location\nGet-Item package.json, CLAUDE.md\ngit status',110,250,1380,165,36);
+rows(s,['現在地の末尾が card-arcade-work\\card_arcade になっている','package.json と CLAUDE.md の2つが表示される','On branch main と nothing to commit, working tree clean が表示される'],{y:465,step:87,size:32});
+band(s,'別の保存先を使った場合は、以降のcdを自分の保存先に置き換えます');
+s=make('フェーズ1｜Claude Codeが未導入の場合','参加者が操作：PowerShellで確認し、未導入の場合のみインストールします');
+code(s,'claude --version',110,255,1380,65,36);
+txt(s,'バージョンが表示されれば、次のスライドへ進みます。',110,355,1380,55,32);
+txt(s,'認識されない場合：公式インストーラーを実行します。',110,445,1380,55,32,C.navy,true);
+code(s,'irm https://claude.ai/install.ps1 | iex',110,530,1380,65,36);
+txt(s,'完了後にPowerShellを開き直し、claude --version を再実行します。',110,650,1380,55,32);
+link(s,'補足出典：Claude Code公式インストール手順','https://code.claude.com/docs/en/setup',755);
+const first=[...added];
+s=make('フェーズ1｜ターミナルBで開発サーバーを起動','参加者が操作：npm ciの完了とdoctorの成功を確認してから進みます');
+txt(s,'PowerShellをもう1つ開きます。この新しい画面がターミナルBです。',110,235,1380,55,32);
+code(s,'cd "$HOME/card-arcade-work/card_arcade"\nnpm run dev',110,340,1380,120,36);
+rows(s,['起動ログに http://localhost:5173/ が表示されることを確認','この画面は開いたままにし、研修終了までサーバーを動かす'],{y:530,step:85,size:32});
+band(s,'別のコマンドを使うときは、PowerShellを追加で開きます（追加のB）');
+s=make('フェーズ1｜ブラウザで一覧表示と試遊を確認','参加者が操作：ブラウザのアドレス欄に次のURLを入力します');
+code(s,'http://localhost:5173/',110,255,1380,70,42);
+rows(s,['CARD ARCADEのゲーム一覧が表示されることを確認','サンプルの「ハイ＆ロー」を開く','最後まで1回遊び、結果まで確認する'],{y:405,step:95,size:34});
+band(s,'表示されない場合は、ターミナルBの起動ログとエラーを確認します');
+function change(n,a,b){let sh=original[n-1].shapes.items.find(s=>s.text.toString()===a);if(!sh)throw Error(a);sh.text=b;}
+change(15,'フェーズ1｜ツール・認証・クローン','フェーズ1｜環境構築の全体像');
+change(16,'cd [任意のフォルダ]/card_arcade\nclaude','cd "$HOME/card-arcade-work/card_arcade"\nclaude');
+change(16,'このPowerShellを「ターミナルA」として使う','初回は画面の案内に従ってログインし、この画面をターミナルAにする');
+const order=[...original.slice(0,15),...first,original[15],original[16],original[17],...added.slice(7),...original.slice(18)];
+for(let i=0;i<order.length;i++){order[i].moveTo(i);const sh=order[i].shapes.items.find(s=>s.position.left>=1450 && s.position.top>=840);if(sh)sh.text=String(i+1).padStart(2,'0');}
+const out=path.join(root,'output/card-arcade-training-phase1-detailed.pptx');
+const candidate=path.join(dir,'phase1-candidate.pptx');
+await (await PresentationFile.exportPptx(p)).save(candidate);
+const tableOwners=[6,10,12,13];
+await finalizePresentation({workspaceDir:root,candidatePath:candidate,finalPath:out,pythonExecutable:path.join(runtime,'python/python.exe'),integrityValidatorPath:path.join(skill,'container_tools/inspect_presentation_package_integrity.py'),layoutValidatorPath:path.join(skill,'container_tools/inspect_presentation_layout_geometry.py'),layoutArgs:['--expected-slide-size-emu','15240000,8572500','--validate-bullet-geometry','--validate-heading-fit'],explicitTotalSlideCount:66,requiredNativeTableOwnerSlides:tableOwners,requiredNativeChartOwnerSlides:[],fontPolicy,verifyArtifactToolImport:true,receiptPath:path.join(dir,'phase1-validation.json')});
+const final=await PresentationFile.importPptx(await FileBlob.load(out));
+await fs.mkdir(path.join(dir,'phase1-renders'),{recursive:true});
+for(let i=0;i<66;i++){const png=await final.export({slide:final.slides.items[i],format:'png',scale:1});await fs.writeFile(path.join(dir,'phase1-renders',String(i+1).padStart(2,'0')+'.png'),new Uint8Array(await png.arrayBuffer()));console.log('Rendered '+(i+1));}

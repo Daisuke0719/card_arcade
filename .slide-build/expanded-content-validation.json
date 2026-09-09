@@ -1,0 +1,129 @@
+[
+  {
+    "title": "環境準備のプロンプト",
+    "slides": [
+      17
+    ],
+    "pass": true
+  },
+  {
+    "title": "Issue全文を確認する",
+    "slides": [
+      21
+    ],
+    "pass": true
+  },
+  {
+    "title": "対象外ルールを確認する",
+    "slides": [
+      22
+    ],
+    "pass": true
+  },
+  {
+    "title": "ブランチ・雛形のプロンプト",
+    "slides": [
+      26
+    ],
+    "pass": true
+  },
+  {
+    "title": "雛形をコミットする",
+    "slides": [
+      28
+    ],
+    "pass": true
+  },
+  {
+    "title": "pushとDraft PRを作成する",
+    "slides": [
+      29
+    ],
+    "pass": true
+  },
+  {
+    "title": "Closesの番号が違う場合",
+    "slides": [
+      30
+    ],
+    "pass": true
+  },
+  {
+    "title": "範囲外のaddが原因でCIが失敗した場合",
+    "slides": [
+      32
+    ],
+    "pass": true
+  },
+  {
+    "title": "実装計画を作成する",
+    "slides": [
+      35
+    ],
+    "pass": true
+  },
+  {
+    "title": "計画に要件が不足している場合",
+    "slides": [
+      36
+    ],
+    "pass": true
+  },
+  {
+    "title": "対象外のルールが含まれる場合",
+    "slides": [
+      37
+    ],
+    "pass": true
+  },
+  {
+    "title": "確認した計画で実装する",
+    "slides": [
+      38
+    ],
+    "pass": true
+  },
+  {
+    "title": "担当外のファイルが変更された場合",
+    "slides": [
+      40
+    ],
+    "pass": true
+  },
+  {
+    "title": "不具合の原因と改善策を計画",
+    "slides": [
+      44
+    ],
+    "pass": true
+  },
+  {
+    "title": "残りの必須要件を実装する",
+    "slides": [
+      46
+    ],
+    "pass": true
+  },
+  {
+    "title": "statusをreadyへ変更する",
+    "slides": [
+      47
+    ],
+    "pass": true
+  },
+  {
+    "title": "提出のプロンプト",
+    "slides": [
+      51,
+      52
+    ],
+    "pass": true
+  },
+  {
+    "title": "マージ後にmainへ同期する",
+    "slides": [
+      55
+    ],
+    "pass": true
+  }
+]

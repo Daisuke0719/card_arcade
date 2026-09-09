@@ -1,0 +1,1026 @@
+{"kind":"deck","id":"pr/4wvfog","name":"Deck"}
+{"kind":"layout","layoutId":"/ppt/slideMasters/slideMaster1.xml","name":"Master","type":"master"}
+{"kind":"layout","layoutId":"/ppt/slideLayouts/slideLayout1.xml","name":"Title Slide","type":"title"}
+{"kind":"slide","id":"sl/y90nupkv","slide":1,"title":"Claude Code × GitHub","textShapes":5}
+{"kind":"shape","id":"sh/fu94fe98","slide":1,"bbox":[95,135,100,10]}
+{"kind":"textbox","id":"sh/547294r6","slide":1,"text":"Claude Code × GitHub","textPreview":"Claude Code × GitHub","textChars":20,"textLines":1,"bbox":[95,190,1410,80]}
+{"kind":"textbox","id":"sh/k3yl0zql","slide":1,"text":"共同開発ハンズオン","textPreview":"共同開発ハンズオン","textChars":9,"textLines":1,"bbox":[95,282,1410,100]}
+{"kind":"textbox","id":"sh/7qp4be9c","slide":1,"text":"みんなでつくる CARD ARCADE","textPreview":"みんなでつくる CARD ARCADE","textChars":19,"textLines":1,"bbox":[98,430,1400,75]}
+{"kind":"textbox","id":"sh/65g3298r","slide":1,"text":"研修用スライド","textPreview":"研修用スライド","textChars":7,"textLines":1,"bbox":[100,688,1000,60]}
+{"kind":"shape","id":"sh/ts7md4r2","slide":1,"bbox":[95,811,1410,2]}
+{"kind":"textbox","id":"sh/sryl4zqx","slide":1,"text":"操作・プロンプトの全文：docs/handson-steps.md","textPreview":"操作・プロンプトの全文：docs/handson-steps.md","textChars":33,"textLines":1,"bbox":[100,832,1400,42]}
+{"kind":"notes","id":"nt/y90nupkv","slide":1,"text":""}
+{"kind":"slide","id":"sl/hwbqtkby","slide":2,"title":"研修の到達目標","textShapes":11}
+{"kind":"shape","id":"sh/cnupgny5","slide":2,"bbox":[70,65,8,64]}
+{"kind":"textbox","id":"sh/9072xkry","slide":2,"text":"研修の到達目標","textPreview":"研修の到達目標","textChars":7,"textLines":1,"bbox":[100,54,1430,90]}
+{"kind":"textbox","id":"sh/ozy1ofad","slide":2,"text":"1人1ゲームを担当し、調査から公開確認までの流れを経験します","textPreview":"1人1ゲームを担当し、調査から公開確認までの流れを経験します","textChars":30,"textLines":1,"bbox":[100,151,1410,60]}
+{"kind":"shape","id":"sh/b29kza94","slide":2,"bbox":[80,838,1440,2]}
+{"kind":"textbox","id":"sh/a10jqpsj","slide":2,"text":"Claude Code × GitHub 共同開発ハンズオン","textPreview":"Claude Code × GitHub 共同開発ハンズオン","textChars":30,"textLines":1,"bbox":[80,852,1340,30]}
+{"kind":"textbox","id":"sh/x4r21kru","slide":2,"text":"02","textPreview":"02","textChars":2,"textLines":1,"bbox":[1460,849,65,36]}
+{"kind":"shape","id":"sh/w3i1sfa9","slide":2,"bbox":[100,260,428.67,5]}
+{"kind":"textbox","id":"sh/r65knqtk","slide":2,"text":"仕様を確認する","textPreview":"仕様を確認する","textChars":7,"textLines":1,"bbox":[100,290,424.67,70]}
+{"kind":"textbox","id":"sh/q5wjelsz","slide":2,"text":"Issueの必須要件を読み、\n実装する範囲を決める","textPreview":"Issueの必須要件を読み、 | 実装する範囲を決める","textChars":25,"textLines":2,"bbox":[100,385,418.67,280]}
+{"kind":"shape","id":"sh/ove9o7yd","slide":2,"bbox":[566.67,260,428.67,5]}
+{"kind":"textbox","id":"sh/9wnqhczy","slide":2,"text":"AIと実装を進める","textPreview":"AIと実装を進める","textChars":9,"textLines":1,"bbox":[566.67,290,424.67,70]}
+{"kind":"textbox","id":"sh/mtwrmxg7","slide":2,"text":"計画を確認して実装する\n動作とテスト結果を確認","textPreview":"計画を確認して実装する | 動作とテスト結果を確認","textChars":23,"textLines":2,"bbox":[566.67,385,418.67,280]}
+{"kind":"shape","id":"sh/nu58f2hs","slide":2,"bbox":[1033.33,260,428.67,5]}
+{"kind":"textbox","id":"sh/wjy9sry9","slide":2,"text":"変更を提出する","textPreview":"変更を提出する","textChars":7,"textLines":1,"bbox":[1033.33,290,424.67,70]}
+{"kind":"textbox","id":"sh/xk7qlczu","slide":2,"text":"Pull Requestを提出\n統合・公開の結果を確認","textPreview":"Pull Requestを提出 | 統合・公開の結果を確認","textChars":27,"textLines":2,"bbox":[1033.33,385,418.67,280]}
+{"kind":"shape","id":"sh/ahwrqhgj","slide":2,"bbox":[80,745,1440,70]}
+{"kind":"textbox","id":"sh/bip8jmho","slide":2,"text":"到達の確認：担当ゲームを公開URLで開始できる","textPreview":"到達の確認：担当ゲームを公開URLで開始できる","textChars":23,"textLines":1,"bbox":[104,755,1390,50]}
+{"kind":"notes","id":"nt/hwbqtkby","slide":2,"text":""}
+{"kind":"slide","id":"sl/ofy9wn61","slide":3,"title":"9人の成果を、1つのアーケードへ統合","textShapes":23}
+{"kind":"shape","id":"sh/byd032h8","slide":3,"bbox":[70,65,8,64]}
+{"kind":"textbox","id":"sh/cza94vmx","slide":3,"text":"9人の成果を、1つのアーケードへ統合","textPreview":"9人の成果を、1つのアーケードへ統合","textChars":18,"textLines":1,"bbox":[100,54,1430,90]}
+{"kind":"textbox","id":"sh/d0jax03i","slide":3,"text":"参加者9名がそれぞれ1ゲームを担当します。チームには分かれません","textPreview":"参加者9名がそれぞれ1ゲームを担当します。チームには分かれません","textChars":32,"textLines":1,"bbox":[100,151,1410,60]}
+{"kind":"shape","id":"sh/298ryl4v","slide":3,"bbox":[80,838,1440,2]}
+{"kind":"textbox","id":"sh/3ah8rqlg","slide":3,"text":"Claude Code × GitHub 共同開発ハンズオン","textPreview":"Claude Code × GitHub 共同開発ハンズオン","textChars":30,"textLines":1,"bbox":[80,852,1340,30]}
+{"kind":"textbox","id":"sh/obq90bml","slide":3,"text":"03","textPreview":"03","textChars":2,"textLines":1,"bbox":[1460,849,65,36]}
+{"kind":"shape","id":"sh/pcjqtg36","slide":3,"bbox":[100,238,438,106]}
+{"kind":"textbox","id":"sh/m5cra54z","slide":3,"text":"担当1  ババ抜き","textPreview":"担当1  ババ抜き","textChars":9,"textLines":1,"bbox":[120,250,405,48]}
+{"kind":"textbox","id":"sh/n6ls3alk","slide":3,"text":"準備中 → 公開後にプレイ可能","textPreview":"準備中 → 公開後にプレイ可能","textChars":15,"textLines":1,"bbox":[120,301,405,32]}
+{"kind":"shape","id":"sh/n2l4fq98","slide":3,"bbox":[580,238,438,106]}
+{"kind":"textbox","id":"sh/m1c3mlsn","slide":3,"text":"担当2  大富豪","textPreview":"担当2  大富豪","textChars":8,"textLines":1,"bbox":[600,250,405,48]}
+{"kind":"textbox","id":"sh/943mhgre","slide":3,"text":"準備中 → 公開後にプレイ可能","textPreview":"準備中 → 公開後にプレイ可能","textChars":15,"textLines":1,"bbox":[600,301,405,32]}
+{"kind":"shape","id":"sh/83ulovat","slide":3,"bbox":[1060,238,438,106]}
+{"kind":"textbox","id":"sh/v6l4jq94","slide":3,"text":"担当3  神経衰弱","textPreview":"担当3  神経衰弱","textChars":9,"textLines":1,"bbox":[1080,250,405,48]}
+{"kind":"textbox","id":"sh/a5c3ql8z","slide":3,"text":"準備中 → 公開後にプレイ可能","textPreview":"準備中 → 公開後にプレイ可能","textChars":15,"textLines":1,"bbox":[1080,301,405,32]}
+{"kind":"shape","id":"sh/x8nml0ra","slide":3,"bbox":[100,376,438,106]}
+{"kind":"textbox","id":"sh/w7ulsvqp","slide":3,"text":"担当4  ポーカー","textPreview":"担当4  ポーカー","textChars":9,"textLines":1,"bbox":[120,388,405,48]}
+{"kind":"textbox","id":"sh/ja54na9g","slide":3,"text":"準備中 → 公開後にプレイ可能","textPreview":"準備中 → 公開後にプレイ可能","textChars":15,"textLines":1,"bbox":[120,439,405,32]}
+{"kind":"shape","id":"sh/i9w3u58v","slide":3,"bbox":[580,376,438,106]}
+{"kind":"textbox","id":"sh/e10f2twf","slide":3,"text":"担当5  ぶたのしっぽ","textPreview":"担当5  ぶたのしっぽ","textChars":11,"textLines":1,"bbox":[600,388,405,48]}
+{"kind":"textbox","id":"sh/f29gbyx0","slide":3,"text":"準備中 → 公開後にプレイ可能","textPreview":"準備中 → 公開後にプレイ可能","textChars":15,"textLines":1,"bbox":[600,439,405,32]}
+{"kind":"shape","id":"sh/03ix43e5","slide":3,"bbox":[1060,376,438,106]}
+{"kind":"textbox","id":"sh/14ryd8fq","slide":3,"text":"担当6  スピード","textPreview":"担当6  スピード","textChars":9,"textLines":1,"bbox":[1080,388,405,48]}
+{"kind":"textbox","id":"sh/6d0fytg3","slide":3,"text":"準備中 → 公開後にプレイ可能","textPreview":"準備中 → 公開後にプレイ可能","textChars":15,"textLines":1,"bbox":[1080,439,405,32]}
+{"kind":"shape","id":"sh/re9g7yxo","slide":3,"bbox":[100,514,438,106]}
+{"kind":"textbox","id":"sh/sfix03y9","slide":3,"text":"担当7  七並べ","textPreview":"担当7  七並べ","textChars":8,"textLines":1,"bbox":[120,526,405,48]}
+{"kind":"textbox","id":"sh/tgry9ofu","slide":3,"text":"準備中 → 公開後にプレイ可能","textPreview":"準備中 → 公開後にプレイ可能","textChars":15,"textLines":1,"bbox":[120,577,405,32]}
+{"kind":"shape","id":"sh/a9kfadwn","slide":3,"bbox":[580,514,438,106]}
+{"kind":"textbox","id":"sh/batgjixs","slide":3,"text":"担当8  ダウト","textPreview":"担当8  ダウト","textChars":8,"textLines":1,"bbox":[600,526,405,48]}
+{"kind":"textbox","id":"sh/l4fi9cza","slide":3,"text":"準備中 → 公開後にプレイ可能","textPreview":"準備中 → 公開後にプレイ可能","textChars":15,"textLines":1,"bbox":[600,577,405,32]}
+{"kind":"shape","id":"sh/k3m1g7yp","slide":3,"bbox":[1060,514,438,106]}
+{"kind":"textbox","id":"sh/z2d07mh4","slide":3,"text":"担当9  ページワン","textPreview":"担当9  ページワン","textChars":10,"textLines":1,"bbox":[1080,526,405,48]}
+{"kind":"textbox","id":"sh/y14jehgj","slide":3,"text":"準備中 → 公開後にプレイ可能","textPreview":"準備中 → 公開後にプレイ可能","textChars":15,"textLines":1,"bbox":[1080,577,405,32]}
+{"kind":"shape","id":"sh/x0vi5czy","slide":3,"bbox":[80,745,1440,70]}
+{"kind":"textbox","id":"sh/czmhc7id","slide":3,"text":"最初は「ハイ＆ロー」を試遊し、完成したゲームの動きを確認します","textPreview":"最初は「ハイ＆ロー」を試遊し、完成したゲームの動きを確認します","textChars":31,"textLines":1,"bbox":[104,755,1390,50]}
+{"kind":"notes","id":"nt/ofy9wn61","slide":3,"text":""}
+{"kind":"slide","id":"sl/jyx0ra1s","slide":4,"title":"Issue・ブランチ・Pull Requestの関係","textShapes":11}
+{"kind":"shape","id":"sh/g36tgryd","slide":4,"bbox":[70,65,8,64]}
+{"kind":"textbox","id":"sh/1cj2d8b6","slide":4,"text":"Issue・ブランチ・Pull Requestの関係","textPreview":"Issue・ブランチ・Pull Requestの関係","textChars":26,"textLines":1,"bbox":[100,54,1430,90]}
+{"kind":"textbox","id":"sh/0ba143al","slide":4,"text":"同じリポジトリで作業し、担当ごとの変更をmainへ集約します","textPreview":"同じリポジトリで作業し、担当ごとの変更をmainへ集約します","textChars":30,"textLines":1,"bbox":[100,151,1410,60]}
+{"kind":"shape","id":"sh/rm1k7yt4","slide":4,"bbox":[80,838,1440,2]}
+{"kind":"textbox","id":"sh/ql8jytsj","slide":4,"text":"Claude Code × GitHub 共同開発ハンズオン","textPreview":"Claude Code × GitHub 共同開発ハンズオン","textChars":30,"textLines":1,"bbox":[80,852,1340,30]}
+{"kind":"textbox","id":"sh/doj29oba","slide":4,"text":"04","textPreview":"04","textChars":2,"textLines":1,"bbox":[1460,849,65,36]}
+{"kind":"shape","id":"sh/sna103ap","slide":4,"bbox":[100,260,428.67,5]}
+{"kind":"textbox","id":"sh/3ihk3et8","slide":4,"text":"Issue","textPreview":"Issue","textChars":5,"textLines":1,"bbox":[100,290,424.67,70]}
+{"kind":"textbox","id":"sh/ih8ju9sn","slide":4,"text":"実装する要件を記録する\n担当ゲームの仕様を確認","textPreview":"実装する要件を記録する | 担当ゲームの仕様を確認","textChars":23,"textLines":2,"bbox":[100,385,418.67,280]}
+{"kind":"shape","id":"sh/kbm987y5","slide":4,"bbox":[566.67,260,428.67,5]}
+{"kind":"textbox","id":"sh/5cva1cfq","slide":4,"text":"ブランチ","textPreview":"ブランチ","textChars":4,"textLines":1,"bbox":[566.67,290,424.67,70]}
+{"kind":"textbox","id":"sh/i94r6xgz","slide":4,"text":"変更を進める作業場所\nfeature/<ゲームID>","textPreview":"変更を進める作業場所 | feature/<ゲームID>","textChars":26,"textLines":2,"bbox":[566.67,385,418.67,280]}
+{"kind":"shape","id":"sh/jadsz2xk","slide":4,"bbox":[1033.33,260,428.67,5]}
+{"kind":"textbox","id":"sh/w72947yt","slide":4,"text":"Pull Request","textPreview":"Pull Request","textChars":12,"textLines":1,"bbox":[1033.33,290,424.67,70]}
+{"kind":"textbox","id":"sh/x8vaxsfe","slide":4,"text":"変更を提出する窓口\n差分・説明・検証結果を\n共有する","textPreview":"変更を提出する窓口 | 差分・説明・検証結果を | 共有する","textChars":26,"textLines":3,"bbox":[1033.33,385,418.67,280]}
+{"kind":"shape","id":"sh/a5kr2xg3","slide":4,"bbox":[80,745,1440,70]}
+{"kind":"textbox","id":"sh/v6tsv2xo","slide":4,"text":"Commit：変更の記録 → Push：GitHubへ送信 → 講師がmainへマージ","textPreview":"Commit：変更の記録 → Push：GitHubへ送信 → 講師がmainへマージ","textChars":43,"textLines":1,"bbox":[104,755,1390,50]}
+{"kind":"notes","id":"nt/jyx0ra1s","slide":4,"text":""}
+{"kind":"slide","id":"sl/0qcf7s","slide":5,"title":"GitHub Issue｜要件・課題・進捗を記録する","textShapes":11}
+{"kind":"shape","id":"sh/a54b6pgb","slide":5,"bbox":[70,65,8,64]}
+{"kind":"textbox","id":"sh/x8fa14f2","slide":5,"text":"GitHub Issue｜要件・課題・進捗を記録する","textPreview":"GitHub Issue｜要件・課題・進捗を記録する","textChars":26,"textLines":1,"bbox":[100,54,1430,90]}
+{"kind":"textbox","id":"sh/c76t8zyh","slide":5,"text":"「何を作るか」「何が完了したか」を関係者と共有する、GitHubの機能です。","textPreview":"「何を作るか」「何が完了したか」を関係者と共有する、GitHubの機能です。","textChars":38,"textLines":1,"bbox":[100,151,1410,60]}
+{"kind":"shape","id":"sh/nidsvux0","slide":5,"bbox":[80,838,1440,2]}
+{"kind":"textbox","id":"sh/2h4b2pgf","slide":5,"text":"Claude Code × GitHub 共同開発ハンズオン","textPreview":"Claude Code × GitHub 共同開発ハンズオン","textChars":30,"textLines":1,"bbox":[80,852,1340,30]}
+{"kind":"textbox","id":"sh/pkvax4fq","slide":5,"text":"05","textPreview":"05","textChars":2,"textLines":1,"bbox":[1460,849,65,36]}
+{"kind":"shape","id":"sh/ojmt4zyl","slide":5,"bbox":[130,285,8.7,181.25]}
+{"kind":"shape","id":"sh/7ehc7ex4","slide":5,"bbox":[130,285,145,8.7]}
+{"kind":"shape","id":"sh/mdobe9gj","slide":5,"bbox":[266.3,285,8.7,181.25]}
+{"kind":"shape","id":"sh/8vex4ry1","slide":5,"bbox":[130,457.55,145,8.7]}
+{"kind":"shape","id":"sh/twnexwz6","slide":5,"bbox":[151.75,319.8,34.8,34.8]}
+{"kind":"shape","id":"sh/6twv2hgv","slide":5,"bbox":[201.05,334.3,44.95,7.25]}
+{"kind":"shape","id":"sh/7u5wvmhg","slide":5,"bbox":[151.75,360.4,34.8,34.8]}
+{"kind":"shape","id":"sh/krud0ryp","slide":5,"bbox":[201.05,374.9,44.95,7.25]}
+{"kind":"shape","id":"sh/lsnetcza","slide":5,"bbox":[151.75,401,34.8,34.8]}
+{"kind":"shape","id":"sh/ypcvyh0j","slide":5,"bbox":[201.05,415.5,44.95,7.25]}
+{"kind":"textbox","id":"sh/jqlwrmh4","slide":5,"text":"タイトルと本文で、作業内容を明確にする","textPreview":"タイトルと本文で、作業内容を明確にする","textChars":19,"textLines":1,"bbox":[390,240,1100,60]}
+{"kind":"textbox","id":"sh/wnudw7it","slide":5,"text":"機能追加や不具合を1件の課題として記録し、要件・背景・完了条件を整理します。","textPreview":"機能追加や不具合を1件の課題として記録し、要件・背景・完了条件を整理します。","textChars":38,"textLines":1,"bbox":[390,305,1100,80]}
+{"kind":"textbox","id":"sh/xo3epcze","slide":5,"text":"担当・ラベル・コメントで、作業を整理する","textPreview":"担当・ラベル・コメントで、作業を整理する","textChars":20,"textLines":1,"bbox":[390,395,1100,60]}
+{"kind":"textbox","id":"sh/dkvut8r2","slide":5,"text":"担当者を示し、種類を分類し、質問や判断の経緯を残せます。","textPreview":"担当者を示し、種類を分類し、質問や判断の経緯を残せます。","textChars":28,"textLines":1,"bbox":[390,460,1100,80]}
+{"kind":"textbox","id":"sh/cjmt03ah","slide":5,"text":"チェックリストと状態で、進み具合を確認する","textPreview":"チェックリストと状態で、進み具合を確認する","textChars":21,"textLines":1,"bbox":[390,550,1100,60]}
+{"kind":"textbox","id":"sh/bidcry9w","slide":5,"text":"研修では必須要件のチェックを更新し、PRから対応するIssueを参照します。","textPreview":"研修では必須要件のチェックを更新し、PRから対応するIssueを参照します。","textChars":38,"textLines":1,"bbox":[390,615,1100,80]}
+{"kind":"textbox","id":"sh/qh4bytsb","slide":5,"text":"出典：GitHub Docs「About issues」","textPreview":"出典：GitHub Docs「About issues」","textChars":28,"textLines":1,"bbox":[100,788,1380,32]}
+{"kind":"notes","id":"nt/0qcf7s","slide":5,"text":""}
+{"kind":"slide","id":"sl/2bbolo","slide":6,"title":"担当Issueの読み方｜ババ抜きの例","textShapes":6}
+{"kind":"shape","id":"sh/cf2pwz25","slide":6,"bbox":[70,65,8,64]}
+{"kind":"textbox","id":"sh/beto3elk","slide":6,"text":"担当Issueの読み方｜ババ抜きの例","textPreview":"担当Issueの読み方｜ババ抜きの例","textChars":18,"textLines":1,"bbox":[100,54,1430,90]}
+{"kind":"textbox","id":"sh/ad0nu94f","slide":6,"text":"画面の再現ではなく、Issue #1の内容を説明用に整理した図です","textPreview":"画面の再現ではなく、Issue #1の内容を説明用に整理した図です","textChars":33,"textLines":1,"bbox":[100,151,1410,60]}
+{"kind":"shape","id":"sh/pcr6143u","slide":6,"bbox":[80,838,1440,2]}
+{"kind":"textbox","id":"sh/obi5szm9","slide":6,"text":"Claude Code × GitHub 共同開発ハンズオン","textPreview":"Claude Code × GitHub 共同開発ハンズオン","textChars":30,"textLines":1,"bbox":[80,852,1340,30]}
+{"kind":"textbox","id":"sh/na9ozulo","slide":6,"text":"06","textPreview":"06","textChars":2,"textLines":1,"bbox":[1460,849,65,36]}
+{"kind":"shape","id":"sh/290nqp43","slide":6,"bbox":[115,267,6.3,131.25]}
+{"kind":"shape","id":"sh/98v6do3y","slide":6,"bbox":[115,267,105,6.3]}
+{"kind":"shape","id":"sh/87mp4j2d","slide":6,"bbox":[213.7,267,6.3,131.25]}
+{"kind":"shape","id":"sh/618zipsn","slide":6,"bbox":[115,391.95,105,6.3]}
+{"kind":"shape","id":"sh/r2h0but8","slide":6,"bbox":[130.75,292.2,25.2,25.2]}
+{"kind":"shape","id":"sh/s3qhkzat","slide":6,"bbox":[166.45,302.7,32.55,5.25]}
+{"kind":"shape","id":"sh/t4zid4be","slide":6,"bbox":[130.75,321.6,25.2,25.2]}
+{"kind":"shape","id":"sh/ixozepsr","slide":6,"bbox":[166.45,332.1,32.55,5.25]}
+{"kind":"shape","id":"sh/jyxg7utc","slide":6,"bbox":[130.75,351,25.2,25.2]}
+{"kind":"shape","id":"sh/kz6hgfah","slide":6,"bbox":[166.45,361.5,32.55,5.25]}
+{"kind":"textbox","id":"sh/2tszq9sv","slide":6,"text":"要件を読む → 実装する → 動作を確認する → チェックを入れる","textPreview":"要件を読む → 実装する → 動作を確認する → チェックを入れる","textChars":33,"textLines":1,"bbox":[110,717,1380,65]}
+{"kind":"textbox","id":"sh/3u10jetg","slide":6,"text":"出典：担当1：ババ抜き（Issue #1）","textPreview":"出典：担当1：ババ抜き（Issue #1）","textChars":21,"textLines":1,"bbox":[100,788,1380,32]}
+{"kind":"table","id":"tb/ylkr29gn","slide":6,"name":"","rows":5,"cols":2,"preview":"読む場所 | 確認する内容","bbox":[285,245,1210,420]}
+{"kind":"notes","id":"nt/2bbolo","slide":6,"text":""}
+{"kind":"slide","id":"sl/bjrw7y","slide":7,"title":"ブランチ｜変更履歴を分けて開発する","textShapes":11}
+{"kind":"shape","id":"sh/fqdk72tk","slide":7,"bbox":[70,65,8,64]}
+{"kind":"textbox","id":"sh/0rml0nup","slide":7,"text":"ブランチ｜変更履歴を分けて開発する","textPreview":"ブランチ｜変更履歴を分けて開発する","textChars":17,"textLines":1,"bbox":[100,54,1430,90]}
+{"kind":"textbox","id":"sh/1sv29sba","slide":7,"text":"mainから作業用の履歴を分岐させ、担当ゲームの変更を進めます。","textPreview":"mainから作業用の履歴を分岐させ、担当ゲームの変更を進めます。","textChars":32,"textLines":1,"bbox":[100,151,1410,60]}
+{"kind":"shape","id":"sh/q1k3udcn","slide":7,"bbox":[80,838,1440,2]}
+{"kind":"textbox","id":"sh/rmtk3it8","slide":7,"text":"Claude Code × GitHub 共同開発ハンズオン","textPreview":"Claude Code × GitHub 共同開発ハンズオン","textChars":30,"textLines":1,"bbox":[80,852,1340,30]}
+{"kind":"textbox","id":"sh/sn2lwnut","slide":7,"text":"07","textPreview":"07","textChars":2,"textLines":1,"bbox":[1460,849,65,36]}
+{"kind":"shape","id":"sh/dov25sbe","slide":7,"bbox":[160.45,311.1,7.25,147.9]}
+{"kind":"shape","id":"sh/ixk3qdcr","slide":7,"bbox":[160.45,380.7,110.2,7.25]}
+{"kind":"shape","id":"sh/3ytkzytc","slide":7,"bbox":[263.4,325.6,7.25,62.35]}
+{"kind":"shape","id":"sh/rals7upk","slide":7,"bbox":[145.95,285,34.8,34.8]}
+{"kind":"shape","id":"sh/q9cbep8z","slide":7,"bbox":[145.95,441.6,34.8,34.8]}
+{"kind":"shape","id":"sh/dcna947q","slide":7,"bbox":[248.9,292.25,34.8,34.8]}
+{"kind":"textbox","id":"sh/sbetgzq5","slide":7,"text":"mainは、統合されたコードの基準","textPreview":"mainは、統合されたコードの基準","textChars":17,"textLines":1,"bbox":[390,240,1100,60]}
+{"kind":"textbox","id":"sh/fe5sbupw","slide":7,"text":"研修ではmainからfeature/<ゲームID>を作成し、作業先を切り替えます。","textPreview":"研修ではmainからfeature/<ゲームID>を作成し、作業先を切り替えます。","textChars":41,"textLines":1,"bbox":[390,305,1100,80]}
+{"kind":"textbox","id":"sh/edwbi98b","slide":7,"text":"作業ブランチに変更を記録する","textPreview":"作業ブランチに変更を記録する","textChars":14,"textLines":1,"bbox":[390,395,1100,60]}
+{"kind":"textbox","id":"sh/1gnad47m","slide":7,"text":"Commitで変更履歴を残し、PushでGitHub上の同じブランチへ送信します。","textPreview":"Commitで変更履歴を残し、PushでGitHub上の同じブランチへ送信します。","textChars":41,"textLines":1,"bbox":[390,460,1100,80]}
+{"kind":"textbox","id":"sh/0fetkzq1","slide":7,"text":"PRを通して、mainへ統合する","textPreview":"PRを通して、mainへ統合する","textChars":16,"textLines":1,"bbox":[390,550,1100,60]}
+{"kind":"textbox","id":"sh/vi1szapc","slide":7,"text":"ブランチを作るだけではmainは変わりません。講師のマージで反映されます。","textPreview":"ブランチを作るだけではmainは変わりません。講師のマージで反映されます。","textChars":37,"textLines":1,"bbox":[390,615,1100,80]}
+{"kind":"textbox","id":"sh/uhsr658r","slide":7,"text":"出典：GitHub Docs「Branches」／研修手順書","textPreview":"出典：GitHub Docs「Branches」／研修手順書","textChars":30,"textLines":1,"bbox":[100,788,1380,32]}
+{"kind":"notes","id":"nt/bjrw7y","slide":7,"text":""}
+{"kind":"slide","id":"sl/8pxtrq","slide":8,"title":"ブランチの流れ｜分岐・変更・統合","textShapes":10}
+{"kind":"shape","id":"sh/98ju1gne","slide":8,"bbox":[70,65,8,64]}
+{"kind":"textbox","id":"sh/m5sv61on","slide":8,"text":"ブランチの流れ｜分岐・変更・統合","textPreview":"ブランチの流れ｜分岐・変更・統合","textChars":16,"textLines":1,"bbox":[100,54,1430,90]}
+{"kind":"textbox","id":"sh/n61cz658","slide":8,"text":"例：ババ抜きの変更をfeature/babanukiで進め、講師がmainへ統合します","textPreview":"例：ババ抜きの変更をfeature/babanukiで進め、講師がmainへ統合します","textChars":43,"textLines":1,"bbox":[100,151,1410,60]}
+{"kind":"shape","id":"sh/03ad4r6h","slide":8,"bbox":[80,838,1440,2]}
+{"kind":"textbox","id":"sh/l4juxwn2","slide":8,"text":"Claude Code × GitHub 共同開発ハンズオン","textPreview":"Claude Code × GitHub 共同開発ハンズオン","textChars":30,"textLines":1,"bbox":[80,852,1340,30]}
+{"kind":"textbox","id":"sh/y18v21or","slide":8,"text":"08","textPreview":"08","textChars":2,"textLines":1,"bbox":[1460,849,65,36]}
+{"kind":"textbox","id":"sh/z2hcv65c","slide":8,"text":"main","textPreview":"main","textChars":4,"textLines":1,"bbox":[100,270,230,60]}
+{"kind":"shape","id":"sh/cfqt0r6l","slide":8,"bbox":[350,300,1050,7]}
+{"kind":"shape","id":"sh/dgzutwn6","slide":8,"bbox":[350,288,32,32]}
+{"kind":"shape","id":"sh/503id87u","slide":8,"bbox":[630,288,32,32]}
+{"kind":"shape","id":"sh/4zu1k369","slide":8,"bbox":[1040,288,32,32]}
+{"kind":"shape","id":"sh/3yl0bipo","slide":8,"bbox":[1380,288,32,32]}
+{"kind":"shape","id":"sh/ixcjido3","slide":8,"bbox":[645,306,6,210]}
+{"kind":"shape","id":"sh/hw3i987i","slide":8,"bbox":[645,510,550,7]}
+{"kind":"shape","id":"sh/gva1g3qx","slide":8,"bbox":[1190,305,6,212]}
+{"kind":"shape","id":"sh/vu107ypc","slide":8,"bbox":[645,497,32,32]}
+{"kind":"shape","id":"sh/utsjet87","slide":8,"bbox":[835,497,32,32]}
+{"kind":"shape","id":"sh/tsji5o7m","slide":8,"bbox":[1030,497,32,32]}
+{"kind":"textbox","id":"sh/8ra1cjq1","slide":8,"text":"feature/babanuki","textPreview":"feature/babanuki","textChars":16,"textLines":1,"bbox":[620,568,770,55]}
+{"kind":"textbox","id":"sh/kbe1s3yx","slide":8,"text":"ブランチ作成","textPreview":"ブランチ作成","textChars":6,"textLines":1,"bbox":[540,368,250,55]}
+{"kind":"textbox","id":"sh/lcn2l8fi","slide":8,"text":"Commit","textPreview":"Commit","textChars":6,"textLines":1,"bbox":[804,440,190,50]}
+{"kind":"textbox","id":"sh/y9cjqtgr","slide":8,"text":"PR・講師がマージ","textPreview":"PR・講師がマージ","textChars":9,"textLines":1,"bbox":[1070,365,420,60]}
+{"kind":"shape","id":"sh/za50jyxc","slide":8,"bbox":[80,745,1440,70]}
+{"kind":"textbox","id":"sh/c7u1ojyl","slide":8,"text":"ブランチを分けても、編集してよいのは src/games/babanuki/ の中だけ","textPreview":"ブランチを分けても、編集してよいのは src/games/babanuki/ の中だけ","textChars":43,"textLines":1,"bbox":[104,755,1390,50]}
+{"kind":"notes","id":"nt/8pxtrq","slide":8,"text":""}
+{"kind":"slide","id":"sl/ho7x59","slide":9,"title":"Pull Request｜変更を提案し、確認を受ける","textShapes":11}
+{"kind":"shape","id":"sh/2l8be1gv","slide":9,"bbox":[70,65,8,64]}
+{"kind":"textbox","id":"sh/pozupgfm","slide":9,"text":"Pull Request｜変更を提案し、確認を受ける","textPreview":"Pull Request｜変更を提案し、確認を受ける","textChars":26,"textLines":1,"bbox":[100,54,1430,90]}
+{"kind":"textbox","id":"sh/4nqtgby1","slide":9,"text":"作業ブランチの変更をmainへ取り込むための、GitHub上の提案です。","textPreview":"作業ブランチの変更をmainへ取り込むための、GitHub上の提案です。","textChars":36,"textLines":1,"bbox":[100,151,1410,60]}
+{"kind":"shape","id":"sh/fixcjmxk","slide":9,"bbox":[80,838,1440,2]}
+{"kind":"textbox","id":"sh/uhoba1gz","slide":9,"text":"Claude Code × GitHub 共同開発ハンズオン","textPreview":"Claude Code × GitHub 共同開発ハンズオン","textChars":30,"textLines":1,"bbox":[80,852,1340,30]}
+{"kind":"textbox","id":"sh/hkzulwfa","slide":9,"text":"09","textPreview":"09","textChars":2,"textLines":1,"bbox":[1460,849,65,36]}
+{"kind":"shape","id":"sh/gj6tcry5","slide":9,"bbox":[148.85,303.85,7.25,145]}
+{"kind":"shape","id":"sh/ze1cvqxo","slide":9,"bbox":[148.85,372,126.15,7.25]}
+{"kind":"shape","id":"sh/edsvmlg3","slide":9,"bbox":[267.75,321.25,7.25,58]}
+{"kind":"shape","id":"sh/wja1cbi1","slide":9,"bbox":[134.35,285,34.8,34.8]}
+{"kind":"shape","id":"sh/xkjilgzm","slide":9,"bbox":[134.35,437.25,34.8,34.8]}
+{"kind":"shape","id":"sh/ahsja10v","slide":9,"bbox":[253.25,296.6,34.8,34.8]}
+{"kind":"shape","id":"sh/vi10j6hg","slide":9,"bbox":[199.6,356.05,55.1,39.15]}
+{"kind":"textbox","id":"sh/8va18rip","slide":9,"text":"変更の理由と内容を説明する","textPreview":"変更の理由と内容を説明する","textChars":13,"textLines":1,"bbox":[390,240,1100,60]}
+{"kind":"textbox","id":"sh/9gjihwza","slide":9,"text":"PR本文に実装内容と確認結果を記載し、対応するIssueを示します。","textPreview":"PR本文に実装内容と確認結果を記載し、対応するIssueを示します。","textChars":34,"textLines":1,"bbox":[390,305,1100,80]}
+{"kind":"textbox","id":"sh/mt8j610z","slide":9,"text":"差分と検証結果をまとめて確認する","textPreview":"差分と検証結果をまとめて確認する","textChars":16,"textLines":1,"bbox":[390,395,1100,60]}
+{"kind":"textbox","id":"sh/nu10fmhk","slide":9,"text":"変更ファイル・コミット履歴・コメント・CIの結果を、同じPRで確認できます。","textPreview":"変更ファイル・コミット履歴・コメント・CIの結果を、同じPRで確認できます。","textChars":38,"textLines":1,"bbox":[390,460,1100,80]}
+{"kind":"textbox","id":"sh/0rqh4rit","slide":9,"text":"確認後にマージする","textPreview":"確認後にマージする","textChars":9,"textLines":1,"bbox":[390,550,1100,60]}
+{"kind":"textbox","id":"sh/lszidwze","slide":9,"text":"研修では参加者がDraftを解除して提出し、講師がmainへマージします。","textPreview":"研修では参加者がDraftを解除して提出し、講師がmainへマージします。","textChars":37,"textLines":1,"bbox":[390,615,1100,80]}
+{"kind":"textbox","id":"sh/1ory18b2","slide":9,"text":"出典：GitHub Docs「Pull requests」／研修手順書","textPreview":"出典：GitHub Docs「Pull requests」／研修手順書","textChars":35,"textLines":1,"bbox":[100,788,1380,32]}
+{"kind":"notes","id":"nt/ho7x59","slide":9,"text":""}
+{"kind":"slide","id":"sl/wycxkh","slide":10,"title":"PRの状態と、確認する場所","textShapes":16}
+{"kind":"shape","id":"sh/2hcr2t4f","slide":10,"bbox":[70,65,8,64]}
+{"kind":"textbox","id":"sh/p4nqxo36","slide":10,"text":"PRの状態と、確認する場所","textPreview":"PRの状態と、確認する場所","textChars":13,"textLines":1,"bbox":[100,54,1430,90]}
+{"kind":"textbox","id":"sh/43u943ml","slide":10,"text":"Draft作成、提出、マージは別の段階です。Pushだけではmainに統合されません。","textPreview":"Draft作成、提出、マージは別の段階です。Pushだけではmainに統合されません。","textChars":43,"textLines":1,"bbox":[100,151,1410,60]}
+{"kind":"shape","id":"sh/fel8rel4","slide":10,"bbox":[80,838,1440,2]}
+{"kind":"textbox","id":"sh/udcry94j","slide":10,"text":"Claude Code × GitHub 共同開発ハンズオン","textPreview":"Claude Code × GitHub 共同開発ハンズオン","textChars":30,"textLines":1,"bbox":[80,852,1340,30]}
+{"kind":"textbox","id":"sh/hg3qto3u","slide":10,"text":"10","textPreview":"10","textChars":2,"textLines":1,"bbox":[1460,849,65,36]}
+{"kind":"shape","id":"sh/gfu90jmp","slide":10,"bbox":[113.45,258.45,3.25,65]}
+{"kind":"shape","id":"sh/7a18ne5s","slide":10,"bbox":[113.45,289,56.55,3.25]}
+{"kind":"shape","id":"sh/69s7u947","slide":10,"bbox":[166.75,266.25,3.25,26]}
+{"kind":"shape","id":"sh/4fqpo3it","slide":10,"bbox":[106.95,250,15.6,15.6]}
+{"kind":"shape","id":"sh/5gj6xoze","slide":10,"bbox":[106.95,318.25,15.6,15.6]}
+{"kind":"shape","id":"sh/it87mt0n","slide":10,"bbox":[160.25,255.2,15.6,15.6]}
+{"kind":"shape","id":"sh/3ehovy18","slide":10,"bbox":[136.2,281.85,24.7,17.55]}
+{"kind":"textbox","id":"sh/grq5kjih","slide":10,"text":"Draft","textPreview":"Draft","textChars":5,"textLines":1,"bbox":[205,255,375,55]}
+{"kind":"textbox","id":"sh/hsz6toj2","slide":10,"text":"作業途中を共有","textPreview":"作業途中を共有","textChars":7,"textLines":1,"bbox":[105,359,450,50]}
+{"kind":"textbox","id":"sh/up8ni90r","slide":10,"text":"フェーズ3","textPreview":"フェーズ3","textChars":5,"textLines":1,"bbox":[105,414,450,40]}
+{"kind":"shape","id":"sh/vqhore1w","slide":10,"bbox":[608.45,258.45,3.25,65]}
+{"kind":"shape","id":"sh/0nupwni1","slide":10,"bbox":[608.45,289,56.55,3.25]}
+{"kind":"shape","id":"sh/1o36p8z6","slide":10,"bbox":[661.75,266.25,3.25,26]}
+{"kind":"shape","id":"sh/94z698rq","slide":10,"bbox":[601.95,250,15.6,15.6]}
+{"kind":"shape","id":"sh/o3qpg3a5","slide":10,"bbox":[601.95,318.25,15.6,15.6]}
+{"kind":"shape","id":"sh/n2ho7y9k","slide":10,"bbox":[655.25,255.2,15.6,15.6]}
+{"kind":"shape","id":"sh/m1onedsz","slide":10,"bbox":[631.2,281.85,24.7,17.55]}
+{"kind":"textbox","id":"sh/10f658re","slide":10,"text":"Ready for review","textPreview":"Ready for review","textChars":16,"textLines":1,"bbox":[700,255,375,55]}
+{"kind":"textbox","id":"sh/0z65c3at","slide":10,"text":"参加者が提出","textPreview":"参加者が提出","textChars":6,"textLines":1,"bbox":[600,359,450,50]}
+{"kind":"textbox","id":"sh/zexo3y98","slide":10,"text":"フェーズ6","textPreview":"フェーズ6","textChars":5,"textLines":1,"bbox":[600,414,450,40]}
+{"kind":"shape","id":"sh/edonats3","slide":10,"bbox":[1095,250,65,3.9]}
+{"kind":"shape","id":"sh/dcf61ori","slide":10,"bbox":[1095,250,3.9,71.5]}
+{"kind":"shape","id":"sh/cb658jax","slide":10,"bbox":[1156.1,250,3.9,71.5]}
+{"kind":"shape","id":"sh/2hk3ip8v","slide":10,"bbox":[1095,317.6,65,3.9]}
+{"kind":"textbox","id":"sh/3it4bup0","slide":10,"text":"✓","textPreview":"✓","textChars":1,"textLines":1,"bbox":[1106.7,261.7,53.3,53.3]}
+{"kind":"textbox","id":"sh/4jmlkzql","slide":10,"text":"Merged","textPreview":"Merged","textChars":6,"textLines":1,"bbox":[1195,255,375,55]}
+{"kind":"textbox","id":"sh/pkvmd476","slide":10,"text":"講師がmainへ統合","textPreview":"講師がmainへ統合","textChars":10,"textLines":1,"bbox":[1095,359,450,50]}
+{"kind":"textbox","id":"sh/udk3ep8j","slide":10,"text":"フェーズ7","textPreview":"フェーズ7","textChars":5,"textLines":1,"bbox":[1095,414,450,40]}
+{"kind":"textbox","id":"sh/gf2lgfqp","slide":10,"text":"Draft中はマージ不可。提出後も同じブランチへpushすると、PRの差分が更新されます。","textPreview":"Draft中はマージ不可。提出後も同じブランチへpushすると、PRの差分が更新されます。","textChars":45,"textLines":1,"bbox":[100,715,1410,65]}
+{"kind":"textbox","id":"sh/hgbm9k7a","slide":10,"text":"出典：GitHub Docs「Pull requests」","textPreview":"出典：GitHub Docs「Pull requests」","textChars":29,"textLines":1,"bbox":[100,788,1380,32]}
+{"kind":"table","id":"tb/gjq5g3ah","slide":10,"name":"","rows":2,"cols":4,"preview":"本文・会話 | 変更履歴 | 自動チェック | ファイル差分","bbox":[90,520,1420,145]}
+{"kind":"notes","id":"nt/wycxkh","slide":10,"text":""}
+{"kind":"slide","id":"sl/i107q5of","slide":11,"title":"7フェーズで進める共同開発","textShapes":12}
+{"kind":"shape","id":"sh/ud0ne10b","slide":11,"bbox":[70,65,8,64]}
+{"kind":"textbox","id":"sh/dgbulwnm","slide":11,"text":"7フェーズで進める共同開発","textPreview":"7フェーズで進める共同開発","textChars":13,"textLines":1,"bbox":[100,54,1430,90]}
+{"kind":"textbox","id":"sh/cf2tcr61","slide":11,"text":"各フェーズの完了条件を確認してから、次へ進みます","textPreview":"各フェーズの完了条件を確認してから、次へ進みます","textChars":24,"textLines":1,"bbox":[100,151,1410,60]}
+{"kind":"shape","id":"sh/z2tcnm5s","slide":11,"bbox":[80,838,1440,2]}
+{"kind":"textbox","id":"sh/yhkbe1o7","slide":11,"text":"Claude Code × GitHub 共同開発ハンズオン","textPreview":"Claude Code × GitHub 共同開発ハンズオン","textChars":30,"textLines":1,"bbox":[80,852,1340,30]}
+{"kind":"textbox","id":"sh/l4bupwny","slide":11,"text":"11","textPreview":"11","textChars":2,"textLines":1,"bbox":[1460,849,65,36]}
+{"kind":"shape","id":"sh/032tgr6d","slide":11,"bbox":[100,290,335,100]}
+{"kind":"textbox","id":"sh/n6dcr65o","slide":11,"text":"1  環境を用意する","textPreview":"1  環境を用意する","textChars":10,"textLines":1,"bbox":[117,306,300,70]}
+{"kind":"shape","id":"sh/m5kbi1oj","slide":11,"bbox":[470,290,335,100]}
+{"kind":"textbox","id":"sh/w32dkbuh","slide":11,"text":"2  担当ルールを読む","textPreview":"2  担当ルールを読む","textChars":11,"textLines":1,"bbox":[487,306,300,70]}
+{"kind":"shape","id":"sh/x4vedgvm","slide":11,"bbox":[840,290,335,100]}
+{"kind":"textbox","id":"sh/ahkvi1cb","slide":11,"text":"3  雛形・Draft PR","textPreview":"3  雛形・Draft PR","textChars":14,"textLines":1,"bbox":[857,306,300,70]}
+{"kind":"shape","id":"sh/v2twb6dw","slide":11,"bbox":[1210,290,335,100]}
+{"kind":"textbox","id":"sh/k7mxovud","slide":11,"text":"4  ゲームを実装する","textPreview":"4  ゲームを実装する","textChars":11,"textLines":1,"bbox":[1227,306,300,70]}
+{"kind":"shape","id":"sh/58vehgvy","slide":11,"bbox":[285,505,335,100]}
+{"kind":"textbox","id":"sh/i54fmlc7","slide":11,"text":"5  検証・不具合修正","textPreview":"5  検証・不具合修正","textChars":11,"textLines":1,"bbox":[302,521,300,70]}
+{"kind":"shape","id":"sh/j6dwfqds","slide":11,"bbox":[655,505,335,100]}
+{"kind":"textbox","id":"sh/sb6xsvu9","slide":11,"text":"6  PRを提出する","textPreview":"6  PRを提出する","textChars":10,"textLines":1,"bbox":[672,521,300,70]}
+{"kind":"shape","id":"sh/tcfel0vu","slide":11,"bbox":[1025,505,335,100]}
+{"kind":"textbox","id":"sh/hgrmpwj2","slide":11,"text":"7  マージ・公開確認","textPreview":"7  マージ・公開確認","textChars":11,"textLines":1,"bbox":[1042,521,300,70]}
+{"kind":"shape","id":"sh/gfi5grih","slide":11,"bbox":[80,745,1440,70]}
+{"kind":"textbox","id":"sh/fe94nm1w","slide":11,"text":"講師がフェーズの区切りで全体の進捗を確認します","textPreview":"講師がフェーズの区切りで全体の進捗を確認します","textChars":23,"textLines":1,"bbox":[104,755,1390,50]}
+{"kind":"notes","id":"nt/i107q5of","slide":11,"text":""}
+{"kind":"slide","id":"sl/x8f69ofe","slide":12,"title":"ターミナルA・Bの役割分担","textShapes":5}
+{"kind":"shape","id":"sh/h4bupgn6","slide":12,"bbox":[70,65,8,64]}
+{"kind":"textbox","id":"sh/yhg7epsj","slide":12,"text":"ターミナルA・Bの役割分担","textPreview":"ターミナルA・Bの役割分担","textChars":13,"textLines":1,"bbox":[100,54,1430,90]}
+{"kind":"textbox","id":"sh/zi98nu94","slide":12,"text":"PowerShellを2つ開き、AIへの依頼と参加者の操作を分けます","textPreview":"PowerShellを2つ開き、AIへの依頼と参加者の操作を分けます","textChars":34,"textLines":1,"bbox":[100,151,1410,60]}
+{"kind":"shape","id":"sh/87ipkzal","slide":12,"bbox":[80,838,1440,2]}
+{"kind":"textbox","id":"sh/98rqt4r6","slide":12,"text":"Claude Code × GitHub 共同開発ハンズオン","textPreview":"Claude Code × GitHub 共同開発ハンズオン","textChars":30,"textLines":1,"bbox":[80,852,1340,30]}
+{"kind":"textbox","id":"sh/ml07i9sv","slide":12,"text":"12","textPreview":"12","textChars":2,"textLines":1,"bbox":[1460,849,65,36]}
+{"kind":"shape","id":"sh/oryp8fah","slide":12,"bbox":[80,745,1440,70]}
+{"kind":"textbox","id":"sh/pc76hkr2","slide":12,"text":"追加のPowerShellもBとして扱います。Claude Codeを起動するのはAだけ","textPreview":"追加のPowerShellもBとして扱います。Claude Codeを起動するのはAだけ","textChars":44,"textLines":1,"bbox":[104,755,1390,50]}
+{"kind":"table","id":"tb/fa103ulc","slide":12,"name":"","rows":4,"cols":3,"preview":"役割 | A：Claude Code | B：参加者が直接操作","bbox":[90,238,1420,430]}
+{"kind":"notes","id":"nt/x8f69ofe","slide":12,"text":""}
+{"kind":"slide","id":"sl/gnmp4jqx","slide":13,"title":"担当ゲームと編集できる範囲","textShapes":5}
+{"kind":"shape","id":"sh/baxkjqlk","slide":13,"bbox":[70,65,8,64]}
+{"kind":"textbox","id":"sh/cb2tkvap","slide":13,"text":"担当ゲームと編集できる範囲","textPreview":"担当ゲームと編集できる範囲","textChars":13,"textLines":1,"bbox":[100,54,1430,90]}
+{"kind":"textbox","id":"sh/dcbud0ra","slide":13,"text":"担当・ゲームID・Issue番号をメモします。相違があればharness/config.jsonを優先","textPreview":"担当・ゲームID・Issue番号をメモします。相違があればharness/config.jsonを優先","textChars":51,"textLines":1,"bbox":[100,151,1410,60]}
+{"kind":"shape","id":"sh/ydkbm5sv","slide":13,"bbox":[80,838,1440,2]}
+{"kind":"textbox","id":"sh/zedcfa9g","slide":13,"text":"Claude Code × GitHub 共同開発ハンズオン","textPreview":"Claude Code × GitHub 共同開発ハンズオン","textChars":30,"textLines":1,"bbox":[80,852,1340,30]}
+{"kind":"textbox","id":"sh/kzmdova1","slide":13,"text":"13","textPreview":"13","textChars":2,"textLines":1,"bbox":[1460,849,65,36]}
+{"kind":"shape","id":"sh/eh0ba1sr","slide":13,"bbox":[80,745,1440,70]}
+{"kind":"textbox","id":"sh/fi9c369c","slide":13,"text":"編集できるのは src/games/<ゲームID>/ の中だけ","textPreview":"編集できるのは src/games/<ゲームID>/ の中だけ","textChars":31,"textLines":1,"bbox":[104,755,1390,50]}
+{"kind":"table","id":"tb/p83mhgfi","slide":13,"name":"","rows":10,"cols":5,"preview":"担当 | ゲーム | ゲームID | 難易度 | Issue","bbox":[90,230,1420,465]}
+{"kind":"notes","id":"nt/gnmp4jqx","slide":13,"text":""}
+{"kind":"slide","id":"sl/dy68ji","slide":14,"title":"プロンプトと担当Issueの使い分け","textShapes":10}
+{"kind":"shape","id":"sh/y54fqh4n","slide":14,"bbox":[70,65,8,64]}
+{"kind":"textbox","id":"sh/l8fylc3y","slide":14,"text":"プロンプトと担当Issueの使い分け","textPreview":"プロンプトと担当Issueの使い分け","textChars":18,"textLines":1,"bbox":[100,54,1430,90]}
+{"kind":"textbox","id":"sh/k7mhs7mt","slide":14,"text":"スライドは共通の指示を掲載。実際の入力では、担当Issueの文面を利用します。","textPreview":"スライドは共通の指示を掲載。実際の入力では、担当Issueの文面を利用します。","textChars":39,"textLines":1,"bbox":[100,151,1410,60]}
+{"kind":"shape","id":"sh/7axgnml4","slide":14,"bbox":[80,838,1440,2]}
+{"kind":"textbox","id":"sh/69ozuh4j","slide":14,"text":"Claude Code × GitHub 共同開発ハンズオン","textPreview":"Claude Code × GitHub 共同開発ハンズオン","textChars":30,"textLines":1,"bbox":[80,852,1340,30]}
+{"kind":"textbox","id":"sh/tcfypw3a","slide":14,"text":"14","textPreview":"14","textChars":2,"textLines":1,"bbox":[1460,849,65,36]}
+{"kind":"shape","id":"sh/8b6hwrmp","slide":14,"bbox":[100,260,662,5]}
+{"kind":"textbox","id":"sh/netgbil0","slide":14,"text":"フェーズ1・2・7","textPreview":"フェーズ1・2・7","textChars":9,"textLines":1,"bbox":[100,290,658,70]}
+{"kind":"textbox","id":"sh/2dkfid4f","slide":14,"text":"スライドの全文を入力\n<ゲームID>・<Issue番号>などを\n自分の担当情報に置き換える","textPreview":"スライドの全文を入力 | <ゲームID>・<Issue番号>などを | 自分の担当情報に置き換える","textChars":45,"textLines":3,"bbox":[100,385,652,280]}
+{"kind":"shape","id":"sh/gf2h4v2h","slide":14,"bbox":[800,260,662,5]}
+{"kind":"textbox","id":"sh/hgbyxgj2","slide":14,"text":"フェーズ3〜6","textPreview":"フェーズ3〜6","textChars":7,"textLines":1,"bbox":[800,290,658,70]}
+{"kind":"textbox","id":"sh/udkz2lkb","slide":14,"text":"担当Issueのコードブロックを利用\nゲームID・ブランチ名・Issue番号は\n担当内容に合わせて記載済み","textPreview":"担当Issueのコードブロックを利用 | ゲームID・ブランチ名・Issue番号は | 担当内容に合わせて記載済み","textChars":53,"textLines":3,"bbox":[800,385,652,280]}
+{"kind":"textbox","id":"sh/vetgvq1w","slide":14,"text":"<自分のPR番号>・不具合の状況・要件の文言は、実際の内容に置き換えます。","textPreview":"<自分のPR番号>・不具合の状況・要件の文言は、実際の内容に置き換えます。","textChars":37,"textLines":1,"bbox":[105,635,1390,60]}
+{"kind":"shape","id":"sh/43mh8v2d","slide":14,"bbox":[80,745,1440,70]}
+{"kind":"textbox","id":"sh/54vi10jy","slide":14,"text":"複数ページのプロンプトは、全文をまとめてAに入力。停止条件・禁止事項も残します","textPreview":"複数ページのプロンプトは、全文をまとめてAに入力。停止条件・禁止事項も残します","textChars":39,"textLines":1,"bbox":[104,755,1390,50]}
+{"kind":"notes","id":"nt/dy68ji","slide":14,"text":""}
+{"kind":"slide","id":"sl/fu1gfa1s","slide":15,"title":"フェーズ1｜ツール・認証・クローン","textShapes":13}
+{"kind":"shape","id":"sh/zipwbmdc","slide":15,"bbox":[70,65,8,64]}
+{"kind":"textbox","id":"sh/18byd4zy","slide":15,"text":"フェーズ1｜ツール・認証・クローン","textPreview":"フェーズ1｜ツール・認証・クローン","textChars":17,"textLines":1,"bbox":[100,54,1430,90]}
+{"kind":"textbox","id":"sh/g72x4zyd","slide":15,"text":"目的：共有リポジトリへアクセスできる環境を用意する","textPreview":"目的：共有リポジトリへアクセスできる環境を用意する","textChars":25,"textLines":1,"bbox":[100,151,1410,60]}
+{"kind":"shape","id":"sh/ri9g7uhw","slide":15,"bbox":[80,838,1440,2]}
+{"kind":"textbox","id":"sh/6h0fypgb","slide":15,"text":"手順書：フェーズ1  |  docs/handson-steps.md","textPreview":"手順書：フェーズ1  |  docs/handson-steps.md","textChars":35,"textLines":1,"bbox":[80,852,1340,30]}
+{"kind":"textbox","id":"sh/tkby9kzm","slide":15,"text":"15","textPreview":"15","textChars":2,"textLines":1,"bbox":[1460,849,65,36]}
+{"kind":"textbox","id":"sh/sjix0zy1","slide":15,"text":"01","textPreview":"01","textChars":2,"textLines":1,"bbox":[100,230,76,50]}
+{"kind":"textbox","id":"sh/je9g3ahk","slide":15,"text":"Node.js 22.x・Git・GitHub CLIをインストールし、バージョンを確認","textPreview":"Node.js 22.x・Git・GitHub CLIをインストールし、バージョンを確認","textChars":44,"textLines":1,"bbox":[200,230,1280,98]}
+{"kind":"textbox","id":"sh/id0fu50z","slide":15,"text":"02","textPreview":"02","textChars":2,"textLines":1,"bbox":[100,340,76,50]}
+{"kind":"textbox","id":"sh/o7ydoret","slide":15,"text":"リポジトリへの招待を承諾し、gh auth login でログイン","textPreview":"リポジトリへの招待を承諾し、gh auth login でログイン","textChars":33,"textLines":1,"bbox":[200,340,1280,98]}
+{"kind":"textbox","id":"sh/98rehwve","slide":15,"text":"03","textPreview":"03","textChars":2,"textLines":1,"bbox":[100,450,76,50]}
+{"kind":"textbox","id":"sh/m5gvmhwn","slide":15,"text":"gh auth status と gh repo view で認証・アクセスを確認","textPreview":"gh auth status と gh repo view で認証・アクセスを確認","textChars":41,"textLines":1,"bbox":[200,450,1280,98]}
+{"kind":"textbox","id":"sh/n6pwfmd8","slide":15,"text":"04","textPreview":"04","textChars":2,"textLines":1,"bbox":[100,560,76,50]}
+{"kind":"textbox","id":"sh/0jydkreh","slide":15,"text":"リポジトリをcloneし、git statusでmain・変更なしを確認","textPreview":"リポジトリをcloneし、git statusでmain・変更なしを確認","textChars":36,"textLines":1,"bbox":[200,560,1280,98]}
+{"kind":"shape","id":"sh/1k7edwv2","slide":15,"bbox":[80,745,1440,70]}
+{"kind":"textbox","id":"sh/ehgvihwr","slide":15,"text":"参加者が操作：GitHub.com → HTTPS → Login with a web browser","textPreview":"参加者が操作：GitHub.com → HTTPS → Login with a web browser","textChars":52,"textLines":1,"bbox":[104,755,1390,50]}
+{"kind":"notes","id":"nt/fu1gfa1s","slide":15,"text":""}
+{"kind":"slide","id":"sl/udsvah03","slide":16,"title":"フェーズ1｜Claude Codeを起動","textShapes":12}
+{"kind":"shape","id":"sh/bml0buxs","slide":16,"bbox":[70,65,8,64]}
+{"kind":"textbox","id":"sh/1cfmhgne","slide":16,"text":"フェーズ1｜Claude Codeを起動","textPreview":"フェーズ1｜Claude Codeを起動","textChars":20,"textLines":1,"bbox":[100,54,1430,90]}
+{"kind":"textbox","id":"sh/0b65obm9","slide":16,"text":"参加者が操作：クローンしたcard_arcadeフォルダで起動します","textPreview":"参加者が操作：クローンしたcard_arcadeフォルダで起動します","textChars":34,"textLines":1,"bbox":[100,151,1410,60]}
+{"kind":"shape","id":"sh/nex4jq5k","slide":16,"bbox":[80,838,1440,2]}
+{"kind":"textbox","id":"sh/mdonql4z","slide":16,"text":"手順書：フェーズ1  |  docs/handson-steps.md","textPreview":"手順書：フェーズ1  |  docs/handson-steps.md","textChars":35,"textLines":1,"bbox":[80,852,1340,30]}
+{"kind":"textbox","id":"sh/9gzml0nq","slide":16,"text":"16","textPreview":"16","textChars":2,"textLines":1,"bbox":[1460,849,65,36]}
+{"kind":"shape","id":"sh/ofq5svm5","slide":16,"bbox":[100,243,1400,144]}
+{"kind":"textbox","id":"sh/bih4na5w","slide":16,"text":"cd [任意のフォルダ]/card_arcade\nclaude","textPreview":"cd [任意のフォルダ]/card_arcade | claude","textChars":31,"textLines":2,"bbox":[115,255,1370,120]}
+{"kind":"textbox","id":"sh/ah8nu54b","slide":16,"text":"01","textPreview":"01","textChars":2,"textLines":1,"bbox":[100,442,76,50]}
+{"kind":"textbox","id":"sh/oza1gfyh","slide":16,"text":"このPowerShellを「ターミナルA」として使う","textPreview":"このPowerShellを「ターミナルA」として使う","textChars":26,"textLines":1,"bbox":[200,442,1280,70]}
+{"kind":"textbox","id":"sh/p0ji9kf2","slide":16,"text":"02","textPreview":"02","textChars":2,"textLines":1,"bbox":[100,524,76,50]}
+{"kind":"textbox","id":"sh/2xsjepgb","slide":16,"text":"起動時の「今のセッションの前提」を確認する","textPreview":"起動時の「今のセッションの前提」を確認する","textChars":21,"textLines":1,"bbox":[200,524,1280,70]}
+{"kind":"textbox","id":"sh/3y107axw","slide":16,"text":"03","textPreview":"03","textChars":2,"textLines":1,"bbox":[100,606,76,50]}
+{"kind":"textbox","id":"sh/cnu1kzyd","slide":16,"text":"最初は「担当未設定 ⋅ main ⋅ 変更なし」で問題ない","textPreview":"最初は「担当未設定 ⋅ main ⋅ 変更なし」で問題ない","textChars":29,"textLines":1,"bbox":[200,606,1280,70]}
+{"kind":"shape","id":"sh/do3id4fy","slide":16,"bbox":[80,745,1440,70]}
+{"kind":"textbox","id":"sh/qlcjipgn","slide":16,"text":"担当情報は、フェーズ3でブランチを作成して起動し直すと反映されます","textPreview":"担当情報は、フェーズ3でブランチを作成して起動し直すと反映されます","textChars":33,"textLines":1,"bbox":[104,755,1390,50]}
+{"kind":"notes","id":"nt/udsvah03","slide":16,"text":""}
+{"kind":"slide","id":"sl/qq0ol1","slide":17,"title":"フェーズ1｜環境準備のプロンプト","textShapes":12}
+{"kind":"shape","id":"sh/yl0z2twn","slide":17,"bbox":[70,65,8,64]}
+{"kind":"textbox","id":"sh/l8rid8vy","slide":17,"text":"フェーズ1｜環境準備のプロンプト","textPreview":"フェーズ1｜環境準備のプロンプト","textChars":16,"textLines":1,"bbox":[100,54,1430,90]}
+{"kind":"textbox","id":"sh/k7ih43et","slide":17,"text":"ターミナルA：Claude Codeに入力するプロンプト（全文）","textPreview":"ターミナルA：Claude Codeに入力するプロンプト（全文）","textChars":32,"textLines":1,"bbox":[100,151,1410,60]}
+{"kind":"shape","id":"sh/7at0fid4","slide":17,"bbox":[80,838,1440,2]}
+{"kind":"textbox","id":"sh/690z6dwj","slide":17,"text":"手順書：フェーズ1  |  docs/handson-steps.md","textPreview":"手順書：フェーズ1  |  docs/handson-steps.md","textChars":35,"textLines":1,"bbox":[80,852,1340,30]}
+{"kind":"textbox","id":"sh/tcbihsva","slide":17,"text":"17","textPreview":"17","textChars":2,"textLines":1,"bbox":[1460,849,65,36]}
+{"kind":"shape","id":"sh/8b2h8nep","slide":17,"bbox":[90,228,1420,493]}
+{"kind":"textbox","id":"sh/nepg3ed0","slide":17,"text":"環境の準備をします。次の2つを、この順番で実行してください。","textPreview":"環境の準備をします。次の2つを、この順番で実行してください。","textChars":30,"textLines":1,"bbox":[111,244,1380,53]}
+{"kind":"textbox","id":"sh/mdgzu9wf","slide":17,"text":"1. npm ci","textPreview":"1. npm ci","textChars":9,"textLines":1,"bbox":[111,307,1380,53]}
+{"kind":"textbox","id":"sh/0jy5o7yp","slide":17,"text":"2. npm run doctor","textPreview":"2. npm run doctor","textChars":17,"textLines":1,"bbox":[111,351,1380,53]}
+{"kind":"textbox","id":"sh/1k7mxsfa","slide":17,"text":"npm install は使わないでください（package-lock.json が書き換わると CI が失敗します）。","textPreview":"npm install は使わないでください（package-lock.json が書き換わると CI が失敗します）。","textChars":60,"textLines":1,"bbox":[111,414,1380,97]}
+{"kind":"textbox","id":"sh/exgnmxgj","slide":17,"text":"npm run dev は実行しないでください。私が別のターミナルで動かします。","textPreview":"npm run dev は実行しないでください。私が別のターミナルで動かします。","textChars":40,"textLines":1,"bbox":[111,502,1380,53]}
+{"kind":"textbox","id":"sh/fyp4v2x4","slide":17,"text":"npm run doctor に ✗ が出た場合は、修正せずに止めてください。","textPreview":"npm run doctor に ✗ が出た場合は、修正せずに止めてください。","textChars":39,"textLines":1,"bbox":[111,565,1380,53]}
+{"kind":"textbox","id":"sh/oni5s7y1","slide":17,"text":"✗ の行と、その直下にある「→」の行を、そのまま表示してください。","textPreview":"✗ の行と、その直下にある「→」の行を、そのまま表示してください。","textChars":33,"textLines":1,"bbox":[111,609,1380,53]}
+{"kind":"textbox","id":"sh/porm1cf6","slide":17,"text":"doctorに✗が出た場合は、その出力を講師へ共有してから次へ進みます。","textPreview":"doctorに✗が出た場合は、その出力を講師へ共有してから次へ進みます。","textChars":36,"textLines":1,"bbox":[100,738,1400,40]}
+{"kind":"notes","id":"nt/qq0ol1","slide":17,"text":""}
+{"kind":"slide","id":"sl/m90b6t0r","slide":18,"title":"フェーズ1｜環境確認後にサーバーを起動","textShapes":9}
+{"kind":"shape","id":"sh/1cru1g3y","slide":18,"bbox":[70,65,8,64]}
+{"kind":"textbox","id":"sh/xc3mho32","slide":18,"text":"フェーズ1｜環境確認後にサーバーを起動","textPreview":"フェーズ1｜環境確認後にサーバーを起動","textChars":19,"textLines":1,"bbox":[100,54,1430,90]}
+{"kind":"textbox","id":"sh/cbu58j2h","slide":18,"text":"npm ciの完了を待ってから、ターミナルBを操作します","textPreview":"npm ciの完了を待ってから、ターミナルBを操作します","textChars":28,"textLines":1,"bbox":[100,151,1410,60]}
+{"kind":"shape","id":"sh/zelojyl8","slide":18,"bbox":[80,838,1440,2]}
+{"kind":"textbox","id":"sh/ydcnatkn","slide":18,"text":"手順書：フェーズ1  |  docs/handson-steps.md","textPreview":"手順書：フェーズ1  |  docs/handson-steps.md","textChars":35,"textLines":1,"bbox":[80,852,1340,30]}
+{"kind":"textbox","id":"sh/l036l83y","slide":18,"text":"18","textPreview":"18","textChars":2,"textLines":1,"bbox":[1460,849,65,36]}
+{"kind":"shape","id":"sh/kzu5c32t","slide":18,"bbox":[100,260,662,5]}
+{"kind":"textbox","id":"sh/725onyl4","slide":18,"text":"A：Claude Codeへ依頼","textPreview":"A：Claude Codeへ依頼","textChars":16,"textLines":1,"bbox":[100,290,658,70]}
+{"kind":"textbox","id":"sh/m1cnetkj","slide":18,"text":"1. npm ci\n2. npm run doctor\n\n✗ があれば修正せず停止","textPreview":"1. npm ci | 2. npm run doctor |  | ✗ があれば修正せず停止","textChars":41,"textLines":4,"bbox":[100,385,652,280]}
+{"kind":"shape","id":"sh/s7yt4b21","slide":18,"bbox":[800,260,662,5]}
+{"kind":"textbox","id":"sh/d87uxg3m","slide":18,"text":"B：参加者が操作","textPreview":"B：参加者が操作","textChars":8,"textLines":1,"bbox":[800,290,658,70]}
+{"kind":"textbox","id":"sh/q5gb21kb","slide":18,"text":"3. npm run dev\n4. localhost:5173を開く\n5. ハイ＆ローを最後まで試遊","textPreview":"3. npm run dev | 4. localhost:5173を開く | 5. ハイ＆ローを最後まで試遊","textChars":51,"textLines":3,"bbox":[800,385,652,280]}
+{"kind":"shape","id":"sh/r6pcv6lw","slide":18,"bbox":[80,745,1440,70]}
+{"kind":"textbox","id":"sh/0bit8b2d","slide":18,"text":"npm installは使わない。doctorの✗行と直下の「→」行をそのまま確認する","textPreview":"npm installは使わない。doctorの✗行と直下の「→」行をそのまま確認する","textChars":43,"textLines":1,"bbox":[104,755,1390,50]}
+{"kind":"notes","id":"nt/m90b6t0r","slide":18,"text":""}
+{"kind":"slide","id":"sl/jetc3ut0","slide":19,"title":"フェーズ1｜完了条件","textShapes":9}
+{"kind":"shape","id":"sh/1cfa58zi","slide":19,"bbox":[70,65,8,64]}
+{"kind":"textbox","id":"sh/xcryxg7y","slide":19,"text":"フェーズ1｜完了条件","textPreview":"フェーズ1｜完了条件","textChars":10,"textLines":1,"bbox":[100,54,1430,90]}
+{"kind":"textbox","id":"sh/wbih4b6d","slide":19,"text":"環境チェックと画面確認の両方を終えて、ルール確認へ進みます","textPreview":"環境チェックと画面確認の両方を終えて、ルール確認へ進みます","textChars":29,"textLines":1,"bbox":[100,151,1410,60]}
+{"kind":"shape","id":"sh/n69grmpw","slide":19,"bbox":[80,838,1440,2]}
+{"kind":"textbox","id":"sh/250zy18b","slide":19,"text":"手順書：フェーズ1  |  docs/handson-steps.md","textPreview":"手順書：フェーズ1  |  docs/handson-steps.md","textChars":35,"textLines":1,"bbox":[80,852,1340,30]}
+{"kind":"textbox","id":"sh/98rytw72","slide":19,"text":"19","textPreview":"19","textChars":2,"textLines":1,"bbox":[1460,849,65,36]}
+{"kind":"shape","id":"sh/o7ih0r6h","slide":19,"bbox":[100,260,662,5]}
+{"kind":"textbox","id":"sh/72t03qp0","slide":19,"text":"環境・認証","textPreview":"環境・認証","textChars":5,"textLines":1,"bbox":[100,290,658,70]}
+{"kind":"textbox","id":"sh/61kzalof","slide":19,"text":"Node.js 22.x／GitHubログイン\nclone直後はmain・変更なし\nClaude Codeの起動案内を確認\ndoctorの9項目に✗がない","textPreview":"Node.js 22.x／GitHubログイン | clone直後はmain・変更なし | Claude Codeの起動案内を確認 | doctorの9項目に✗がない","textChars":77,"textLines":4,"bbox":[100,385,652,280]}
+{"kind":"shape","id":"sh/ofqtgnyt","slide":19,"bbox":[800,260,662,5]}
+{"kind":"textbox","id":"sh/9gza9sze","slide":19,"text":"画面・担当","textPreview":"画面・担当","textChars":5,"textLines":1,"bbox":[800,290,658,70]}
+{"kind":"textbox","id":"sh/mdobedg3","slide":19,"text":"Bで開発サーバーが動作\n一覧表示・ハイ＆ローの試遊\n担当と編集範囲を記録\nAとBの役割を説明できる","textPreview":"Bで開発サーバーが動作 | 一覧表示・ハイ＆ローの試遊 | 担当と編集範囲を記録 | AとBの役割を説明できる","textChars":49,"textLines":4,"bbox":[800,385,652,280]}
+{"kind":"shape","id":"sh/nehs7iho","slide":19,"bbox":[80,745,1440,70]}
+{"kind":"textbox","id":"sh/0b6tc3yx","slide":19,"text":"npm run devは研修終了まで起動。テスト等は追加のBで実行します","textPreview":"npm run devは研修終了まで起動。テスト等は追加のBで実行します","textChars":36,"textLines":1,"bbox":[104,755,1390,50]}
+{"kind":"notes","id":"nt/jetc3ut0","slide":19,"text":""}
+{"kind":"slide","id":"sl/8f2psfyx","slide":20,"title":"フェーズ2｜必須要件と対象外ルールを読む","textShapes":9}
+{"kind":"shape","id":"sh/9sj65kn2","slide":20,"bbox":[70,65,8,64]}
+{"kind":"textbox","id":"sh/1gbm9s3a","slide":20,"text":"フェーズ2｜必須要件と対象外ルールを読む","textPreview":"フェーズ2｜必須要件と対象外ルールを読む","textChars":20,"textLines":1,"bbox":[100,54,1430,90]}
+{"kind":"textbox","id":"sh/0f2lgnmp","slide":20,"text":"目的：実装するもの・実装しないものを、原文で確認する","textPreview":"目的：実装するもの・実装しないものを、原文で確認する","textChars":26,"textLines":1,"bbox":[100,151,1410,60]}
+{"kind":"shape","id":"sh/ra943il8","slide":20,"bbox":[80,838,1440,2]}
+{"kind":"textbox","id":"sh/q903ad4n","slide":20,"text":"手順書：フェーズ2  |  docs/handson-steps.md","textPreview":"手順書：フェーズ2  |  docs/handson-steps.md","textChars":35,"textLines":1,"bbox":[80,852,1340,30]}
+{"kind":"textbox","id":"sh/dcbm583y","slide":20,"text":"20","textPreview":"20","textChars":2,"textLines":1,"bbox":[1460,849,65,36]}
+{"kind":"shape","id":"sh/sb2lcnmd","slide":20,"bbox":[100,260,662,5]}
+{"kind":"textbox","id":"sh/b6d4f2lc","slide":20,"text":"GitHub Issue","textPreview":"GitHub Issue","textChars":12,"textLines":1,"bbox":[100,290,658,70]}
+{"kind":"textbox","id":"sh/a543mx4r","slide":20,"text":"A：本文を全文表示してもらう\n要約・省略・並べ替えはしない\n\n最後に必須要件の件数を確認","textPreview":"A：本文を全文表示してもらう | 要約・省略・並べ替えはしない |  | 最後に必須要件の件数を確認","textChars":44,"textLines":4,"bbox":[100,385,652,280]}
+{"kind":"shape","id":"sh/wvupgz6t","slide":20,"bbox":[800,260,662,5]}
+{"kind":"textbox","id":"sh/xw3q94ne","slide":20,"text":"ゲームのルール文書","textPreview":"ゲームのルール文書","textChars":9,"textLines":1,"bbox":[800,290,658,70]}
+{"kind":"textbox","id":"sh/atc7epon","slide":20,"text":"docs/games/<ゲームID>.md\n「今回は実装しないルール」\n「時間が足りないときの省略順」\nの内容を原文で確認","textPreview":"docs/games/<ゲームID>.md | 「今回は実装しないルール」 | 「時間が足りないときの省略順」 | の内容を原文で確認","textChars":61,"textLines":4,"bbox":[800,385,652,280]}
+{"kind":"shape","id":"sh/bulo7u58","slide":20,"bbox":[80,745,1440,70]}
+{"kind":"textbox","id":"sh/orapcf6h","slide":20,"text":"Issue・ルール文書のどちらにも記載がない機能は、実装対象に含めません","textPreview":"Issue・ルール文書のどちらにも記載がない機能は、実装対象に含めません","textChars":36,"textLines":1,"bbox":[104,755,1390,50]}
+{"kind":"notes","id":"nt/8f2psfyx","slide":20,"text":""}
+{"kind":"slide","id":"sl/5bdz4c","slide":21,"title":"フェーズ2｜Issue全文を確認する","textShapes":9}
+{"kind":"shape","id":"sh/mlwv2p87","slide":21,"bbox":[70,65,8,64]}
+{"kind":"textbox","id":"sh/9oned4ry","slide":21,"text":"フェーズ2｜Issue全文を確認する","textPreview":"フェーズ2｜Issue全文を確認する","textChars":18,"textLines":1,"bbox":[100,54,1430,90]}
+{"kind":"textbox","id":"sh/8ned4zqd","slide":21,"text":"ターミナルA：Claude Codeに入力するプロンプト（全文）","textPreview":"ターミナルA：Claude Codeに入力するプロンプト（全文）","textChars":32,"textLines":1,"bbox":[100,151,1410,60]}
+{"kind":"shape","id":"sh/zilc7u9w","slide":21,"bbox":[80,838,1440,2]}
+{"kind":"textbox","id":"sh/yxcvypsb","slide":21,"text":"手順書：フェーズ2  |  docs/handson-steps.md","textPreview":"手順書：フェーズ2  |  docs/handson-steps.md","textChars":35,"textLines":1,"bbox":[80,852,1340,30]}
+{"kind":"textbox","id":"sh/lknu9kr2","slide":21,"text":"21","textPreview":"21","textChars":2,"textLines":1,"bbox":[1460,849,65,36]}
+{"kind":"shape","id":"sh/kjed0fqh","slide":21,"bbox":[90,228,1420,493]}
+{"kind":"textbox","id":"sh/jepwje90","slide":21,"text":"gh issue view <Issue番号> を実行して、出力をそのまま全文表示してください。","textPreview":"gh issue view <Issue番号> を実行して、出力をそのまま全文表示してください。","textChars":48,"textLines":1,"bbox":[111,244,1380,53]}
+{"kind":"textbox","id":"sh/idgva98f","slide":21,"text":"要約・省略・並べ替え・言い換えをしないでください。原文のまま出してください。","textPreview":"要約・省略・並べ替え・言い換えをしないでください。原文のまま出してください。","textChars":38,"textLines":1,"bbox":[111,288,1380,53]}
+{"kind":"textbox","id":"sh/832hw7a5","slide":21,"text":"最後に、必須要件（チェックボックスの行）の件数だけを教えてください。","textPreview":"最後に、必須要件（チェックボックスの行）の件数だけを教えてください。","textChars":34,"textLines":1,"bbox":[111,351,1380,53]}
+{"kind":"textbox","id":"sh/t4bipcbq","slide":21,"text":"解説や所感は不要です。","textPreview":"解説や所感は不要です。","textChars":11,"textLines":1,"bbox":[111,395,1380,53]}
+{"kind":"textbox","id":"sh/61kzuhsz","slide":21,"text":"<…> は担当情報や実際に起きたことに置き換えて入力します。","textPreview":"<…> は担当情報や実際に起きたことに置き換えて入力します。","textChars":30,"textLines":1,"bbox":[100,738,1400,40]}
+{"kind":"notes","id":"nt/5bdz4c","slide":21,"text":""}
+{"kind":"slide","id":"sl/8u3cmy","slide":22,"title":"フェーズ2｜対象外ルールを確認する","textShapes":9}
+{"kind":"shape","id":"sh/7apwfexs","slide":22,"bbox":[70,65,8,64]}
+{"kind":"textbox","id":"sh/8byxojyd","slide":22,"text":"フェーズ2｜対象外ルールを確認する","textPreview":"フェーズ2｜対象外ルールを確認する","textChars":17,"textLines":1,"bbox":[100,54,1430,90]}
+{"kind":"textbox","id":"sh/9c7eh4fy","slide":22,"text":"ターミナルA：Claude Codeに入力するプロンプト（全文）","textPreview":"ターミナルA：Claude Codeに入力するプロンプト（全文）","textChars":32,"textLines":1,"bbox":[100,151,1410,60]}
+{"kind":"shape","id":"sh/ylwfipgb","slide":22,"bbox":[80,838,1440,2]}
+{"kind":"textbox","id":"sh/zm5wbuxw","slide":22,"text":"手順書：フェーズ2  |  docs/handson-steps.md","textPreview":"手順書：フェーズ2  |  docs/handson-steps.md","textChars":35,"textLines":1,"bbox":[80,852,1340,30]}
+{"kind":"textbox","id":"sh/knexkzy1","slide":22,"text":"22","textPreview":"22","textChars":2,"textLines":1,"bbox":[1460,849,65,36]}
+{"kind":"shape","id":"sh/l87ed4fm","slide":22,"bbox":[90,228,1420,493]}
+{"kind":"textbox","id":"sh/ih0fetwf","slide":22,"text":"docs/games/<ゲームID>.md を開き、次の2つの見出しに含まれる内容を原文のまま表示してください。","textPreview":"docs/games/<ゲームID>.md を開き、次の2つの見出しに含まれる内容を原文のまま表示してください。","textChars":56,"textLines":1,"bbox":[111,244,1380,97]}
+{"kind":"textbox","id":"sh/ji9gnyx0","slide":22,"text":"- 「今回は実装しないルール」の表","textPreview":"- 「今回は実装しないルール」の表","textChars":17,"textLines":1,"bbox":[111,351,1380,53]}
+{"kind":"textbox","id":"sh/ritkrutk","slide":22,"text":"- 「時間が足りないときの省略順」","textPreview":"- 「時間が足りないときの省略順」","textChars":17,"textLines":1,"bbox":[111,395,1380,53]}
+{"kind":"textbox","id":"sh/qhkjypsz","slide":22,"text":"要約しないでください。解釈や補足も足さないでください。原文のまま出してください。","textPreview":"要約しないでください。解釈や補足も足さないでください。原文のまま出してください。","textChars":40,"textLines":1,"bbox":[111,458,1380,53]}
+{"kind":"textbox","id":"sh/dkb2t4ba","slide":22,"text":"<…> は担当情報や実際に起きたことに置き換えて入力します。","textPreview":"<…> は担当情報や実際に起きたことに置き換えて入力します。","textChars":30,"textLines":1,"bbox":[100,738,1400,40]}
+{"kind":"notes","id":"nt/8u3cmy","slide":22,"text":""}
+{"kind":"slide","id":"sl/hgzapcr6","slide":23,"title":"フェーズ2｜要件件数を進捗の基準にする","textShapes":12}
+{"kind":"shape","id":"sh/6l4fu547","slide":23,"bbox":[70,65,8,64]}
+{"kind":"textbox","id":"sh/q50nydsj","slide":23,"text":"フェーズ2｜要件件数を進捗の基準にする","textPreview":"フェーズ2｜要件件数を進捗の基準にする","textChars":19,"textLines":1,"bbox":[100,54,1430,90]}
+{"kind":"textbox","id":"sh/bq9orito","slide":23,"text":"必須要件の件数を数え、実装中もIssueを見られる状態にします","textPreview":"必須要件の件数を数え、実装中もIssueを見られる状態にします","textChars":31,"textLines":1,"bbox":[100,151,1410,60]}
+{"kind":"shape","id":"sh/o3i5w3ad","slide":23,"bbox":[80,838,1440,2]}
+{"kind":"textbox","id":"sh/p4r6p8by","slide":23,"text":"手順書：フェーズ2  |  docs/handson-steps.md","textPreview":"手順書：フェーズ2  |  docs/handson-steps.md","textChars":35,"textLines":1,"bbox":[80,852,1340,30]}
+{"kind":"textbox","id":"sh/21gnuts7","slide":23,"text":"23","textPreview":"23","textChars":2,"textLines":1,"bbox":[1460,849,65,36]}
+{"kind":"shape","id":"sh/32ponyts","slide":23,"bbox":[100,248,1400,94]}
+{"kind":"textbox","id":"sh/gzy5s3a1","slide":23,"text":"gh issue view <Issue番号> --web","textPreview":"gh issue view <Issue番号> --web","textChars":29,"textLines":1,"bbox":[115,260,1370,70]}
+{"kind":"textbox","id":"sh/1076lobm","slide":23,"text":"01","textPreview":"01","textChars":2,"textLines":1,"bbox":[100,395,76,50]}
+{"kind":"textbox","id":"sh/hcfy9k3u","slide":23,"text":"BでIssueをブラウザ表示する（開発サーバーとは別のPowerShell）","textPreview":"BでIssueをブラウザ表示する（開発サーバーとは別のPowerShell）","textChars":38,"textLines":1,"bbox":[200,395,1280,88]}
+{"kind":"textbox","id":"sh/gb6x0zm9","slide":23,"text":"02","textPreview":"02","textChars":2,"textLines":1,"bbox":[100,495,76,50]}
+{"kind":"textbox","id":"sh/vaxg7ulo","slide":23,"text":"完了条件：Issue本文を省略せず最後まで読んだ","textPreview":"完了条件：Issue本文を省略せず最後まで読んだ","textChars":24,"textLines":1,"bbox":[200,495,1280,88]}
+{"kind":"textbox","id":"sh/u9ofyp43","slide":23,"text":"03","textPreview":"03","textChars":2,"textLines":1,"bbox":[100,595,76,50]}
+{"kind":"textbox","id":"sh/t8fy5k3i","slide":23,"text":"完了条件：必須要件の件数と、対象外ルールを確認した","textPreview":"完了条件：必須要件の件数と、対象外ルールを確認した","textChars":25,"textLines":1,"bbox":[200,595,1280,88]}
+{"kind":"shape","id":"sh/876xwfmx","slide":23,"bbox":[80,745,1440,70]}
+{"kind":"textbox","id":"sh/7mdg3als","slide":23,"text":"実装中は、実装と確認が済んだ必須要件にIssue画面でチェックを入れます","textPreview":"実装中は、実装と確認が済んだ必須要件にIssue画面でチェックを入れます","textChars":36,"textLines":1,"bbox":[104,755,1390,50]}
+{"kind":"notes","id":"nt/hgzapcr6","slide":23,"text":""}
+{"kind":"slide","id":"sl/te8npu","slide":24,"title":"フェーズ3｜担当Issueを参照して進める","textShapes":9}
+{"kind":"shape","id":"sh/4r6twzix","slide":24,"bbox":[70,65,8,64]}
+{"kind":"textbox","id":"sh/3qdc3uhc","slide":24,"text":"フェーズ3｜担当Issueを参照して進める","textPreview":"フェーズ3｜担当Issueを参照して進める","textChars":21,"textLines":1,"bbox":[100,54,1430,90]}
+{"kind":"textbox","id":"sh/254bup0r","slide":24,"text":"Issueの「進め方（フェーズ3〜6）」には、担当ゲーム用のプロンプトが用意されています","textPreview":"Issueの「進め方（フェーズ3〜6）」には、担当ゲーム用のプロンプトが用意されています","textChars":44,"textLines":1,"bbox":[100,151,1410,60]}
+{"kind":"shape","id":"sh/dwfu94ze","slide":24,"bbox":[80,838,1440,2]}
+{"kind":"textbox","id":"sh/cv6d0zit","slide":24,"text":"手順書：フェーズ3  |  docs/handson-steps.md","textPreview":"手順書：フェーズ3  |  docs/handson-steps.md","textChars":35,"textLines":1,"bbox":[80,852,1340,30]}
+{"kind":"textbox","id":"sh/ruxc7eh8","slide":24,"text":"24","textPreview":"24","textChars":2,"textLines":1,"bbox":[1460,849,65,36]}
+{"kind":"shape","id":"sh/qtoby90n","slide":24,"bbox":[118,262,7.2,150]}
+{"kind":"shape","id":"sh/10zudoza","slide":24,"bbox":[118,262,120,7.2]}
+{"kind":"shape","id":"sh/0zqd4jy5","slide":24,"bbox":[230.8,262,7.2,150]}
+{"kind":"shape","id":"sh/ypcnu5ov","slide":24,"bbox":[118,404.8,120,7.2]}
+{"kind":"shape","id":"sh/zql43apg","slide":24,"bbox":[136,290.8,28.8,28.8]}
+{"kind":"shape","id":"sh/0ru5wf61","slide":24,"bbox":[176.8,302.8,37.2,6]}
+{"kind":"shape","id":"sh/ls3m5k7m","slide":24,"bbox":[136,324.4,28.8,28.8]}
+{"kind":"shape","id":"sh/mtwnypor","slide":24,"bbox":[176.8,336.4,37.2,6]}
+{"kind":"shape","id":"sh/nu547upc","slide":24,"bbox":[136,358,28.8,28.8]}
+{"kind":"shape","id":"sh/8ve50z6x","slide":24,"bbox":[176.8,370,37.2,6]}
+{"kind":"textbox","id":"sh/9wnm9k7i","slide":24,"text":"今回、開く見出し","textPreview":"今回、開く見出し","textChars":8,"textLines":1,"bbox":[335,242,1150,60]}
+{"kind":"textbox","id":"sh/2xs3ml8n","slide":24,"text":"「1. ブランチを作成し、雛形を生成する」\n「2. 最初のコミットと Draft の Pull Request 作成」","textPreview":"「1. ブランチを作成し、雛形を生成する」 | 「2. 最初のコミットと Draft の Pull Request 作成」","textChars":59,"textLines":2,"bbox":[335,310,1150,150]}
+{"kind":"textbox","id":"sh/3y14vqp8","slide":24,"text":"確認する内容","textPreview":"確認する内容","textChars":6,"textLines":1,"bbox":[335,478,1150,55]}
+{"kind":"textbox","id":"sh/7qxs721o","slide":24,"text":"自分のゲームID・編集範囲・ブランチを確認。\nClosesの番号が担当Issueと一致することも確認します。","textPreview":"自分のゲームID・編集範囲・ブランチを確認。 | Closesの番号が担当Issueと一致することも確認します。","textChars":54,"textLines":2,"bbox":[335,544,1135,135]}
+{"kind":"shape","id":"sh/6pobexk3","slide":24,"bbox":[80,745,1440,70]}
+{"kind":"textbox","id":"sh/tsfa9sju","slide":24,"text":"Bで gh issue view <Issue番号> --web を実行し、担当Issueを開いてください","textPreview":"Bで gh issue view <Issue番号> --web を実行し、担当Issueを開いてください","textChars":53,"textLines":1,"bbox":[104,755,1390,50]}
+{"kind":"notes","id":"nt/te8npu","slide":24,"text":""}
+{"kind":"slide","id":"sl/6lsnupw7","slide":25,"title":"フェーズ3｜ブランチと5つの雛形を用意","textShapes":9}
+{"kind":"shape","id":"sh/ls7idofu","slide":25,"bbox":[70,65,8,64]}
+{"kind":"textbox","id":"sh/xc7eds76","slide":25,"text":"フェーズ3｜ブランチと5つの雛形を用意","textPreview":"フェーズ3｜ブランチと5つの雛形を用意","textChars":19,"textLines":1,"bbox":[100,54,1430,90]}
+{"kind":"textbox","id":"sh/wbydknq1","slide":25,"text":"目的：実装前に作業場所と提出経路を確認する","textPreview":"目的：実装前に作業場所と提出経路を確認する","textChars":21,"textLines":1,"bbox":[100,151,1410,60]}
+{"kind":"shape","id":"sh/jepwf2pc","slide":25,"bbox":[80,838,1440,2]}
+{"kind":"textbox","id":"sh/idgvmx8r","slide":25,"text":"手順書：フェーズ3  |  docs/handson-steps.md","textPreview":"手順書：フェーズ3  |  docs/handson-steps.md","textChars":35,"textLines":1,"bbox":[80,852,1340,30]}
+{"kind":"textbox","id":"sh/5grehs7i","slide":25,"text":"25","textPreview":"25","textChars":2,"textLines":1,"bbox":[1460,849,65,36]}
+{"kind":"shape","id":"sh/kfidonqx","slide":25,"bbox":[100,260,662,5]}
+{"kind":"textbox","id":"sh/zi5c3y98","slide":25,"text":"A：順に実行を依頼","textPreview":"A：順に実行を依頼","textChars":9,"textLines":1,"bbox":[100,290,658,70]}
+{"kind":"textbox","id":"sh/ehwvat8n","slide":25,"text":"git switch main\ngit pull\ngit switch -c feature/<ゲームID>\n担当ゲームのscaffoldを実行\nnpm test","textPreview":"git switch main | git pull | git switch -c feature/<ゲームID> | 担当ゲームのscaffoldを実行 | npm test","textChars":81,"textLines":5,"bbox":[100,385,652,280]}
+{"kind":"shape","id":"sh/c3e1gjyd","slide":25,"bbox":[800,260,662,5]}
+{"kind":"textbox","id":"sh/x4ni9ofy","slide":25,"text":"生成する5ファイル","textPreview":"生成する5ファイル","textChars":9,"textLines":1,"bbox":[800,290,658,70]}
+{"kind":"textbox","id":"sh/a1wze9g7","slide":25,"text":"index.ts：公開情報\n<Xxx>Game.tsx：画面\nlogic.ts：ルールの純粋関数\nlogic.test.ts：テスト\nREADME.md：遊び方・実装メモ","textPreview":"index.ts：公開情報 | <Xxx>Game.tsx：画面 | logic.ts：ルールの純粋関数 | logic.test.ts：テスト | README.md：遊び方・実装メモ","textChars":85,"textLines":5,"bbox":[800,385,652,280]}
+{"kind":"shape","id":"sh/b2507exs","slide":25,"bbox":[80,745,1440,70]}
+{"kind":"textbox","id":"sh/kre1k3y9","slide":25,"text":"実行コマンドは手順書を参照。雛形生成後は /exit → claude で担当表示を確認","textPreview":"実行コマンドは手順書を参照。雛形生成後は /exit → claude で担当表示を確認","textChars":44,"textLines":1,"bbox":[104,755,1390,50]}
+{"kind":"notes","id":"nt/6lsnupw7","slide":25,"text":""}
+{"kind":"slide","id":"sl/2nvgvb","slide":26,"title":"フェーズ3｜ブランチ・雛形のプロンプト","textShapes":14}
+{"kind":"shape","id":"sh/jy9sf25k","slide":26,"bbox":[70,65,8,64]}
+{"kind":"textbox","id":"sh/kzi987mp","slide":26,"text":"フェーズ3｜ブランチ・雛形のプロンプト","textPreview":"フェーズ3｜ブランチ・雛形のプロンプト","textChars":19,"textLines":1,"bbox":[100,54,1430,90]}
+{"kind":"textbox","id":"sh/l0rahcna","slide":26,"text":"ターミナルA：Claude Codeに入力するプロンプト（全文）","textPreview":"ターミナルA：Claude Codeに入力するプロンプト（全文）","textChars":32,"textLines":1,"bbox":[100,151,1410,60]}
+{"kind":"shape","id":"sh/a9gr2d4n","slide":26,"bbox":[80,838,1440,2]}
+{"kind":"textbox","id":"sh/bapsbi58","slide":26,"text":"手順書：フェーズ3  |  docs/handson-steps.md","textPreview":"手順書：フェーズ3  |  docs/handson-steps.md","textChars":35,"textLines":1,"bbox":[80,852,1340,30]}
+{"kind":"textbox","id":"sh/wbi94nmt","slide":26,"text":"26","textPreview":"26","textChars":2,"textLines":1,"bbox":[1460,849,65,36]}
+{"kind":"shape","id":"sh/xwradsne","slide":26,"bbox":[90,228,1420,493]}
+{"kind":"textbox","id":"sh/m5gryd4r","slide":26,"text":"これから <ゲームID> の実装を始めます。次の5つを、この順番で実行してください。","textPreview":"これから <ゲームID> の実装を始めます。次の5つを、この順番で実行してください。","textChars":42,"textLines":1,"bbox":[111,244,1380,53]}
+{"kind":"textbox","id":"sh/n6ps7i5c","slide":26,"text":"1. git switch main","textPreview":"1. git switch main","textChars":18,"textLines":1,"bbox":[111,307,1380,53]}
+{"kind":"textbox","id":"sh/rqxszip4","slide":26,"text":"2. git pull","textPreview":"2. git pull","textChars":11,"textLines":1,"bbox":[111,351,1380,53]}
+{"kind":"textbox","id":"sh/6pob6d8z","slide":26,"text":"3. git switch -c feature/<ゲームID>","textPreview":"3. git switch -c feature/<ゲームID>","textChars":32,"textLines":1,"bbox":[111,395,1380,53]}
+{"kind":"textbox","id":"sh/tsfa187a","slide":26,"text":"4. npm run scaffold -- --game <ゲームID>","textPreview":"4. npm run scaffold -- --game <ゲームID>","textChars":37,"textLines":1,"bbox":[111,439,1380,53]}
+{"kind":"textbox","id":"sh/sr6t8nqp","slide":26,"text":"5. npm test","textPreview":"5. npm test","textChars":11,"textLines":1,"bbox":[111,483,1380,53]}
+{"kind":"textbox","id":"sh/fuhs3ipg","slide":26,"text":"実行後、src/games/<ゲームID>/ に生成された5つのファイルについて、","textPreview":"実行後、src/games/<ゲームID>/ に生成された5つのファイルについて、","textChars":41,"textLines":1,"bbox":[111,546,1380,53]}
+{"kind":"textbox","id":"sh/et8bad8v","slide":26,"text":"「ファイル名 … 役割」の形式で1行ずつ、合計5行で説明してください。","textPreview":"「ファイル名 … 役割」の形式で1行ずつ、合計5行で説明してください。","textChars":35,"textLines":1,"bbox":[111,590,1380,53]}
+{"kind":"textbox","id":"sh/1gzu5s7m","slide":26,"text":"ファイルは変更せず、まだ実装を始めないでください。","textPreview":"ファイルは変更せず、まだ実装を始めないでください。","textChars":25,"textLines":1,"bbox":[111,653,1380,53]}
+{"kind":"textbox","id":"sh/gfqtcnq1","slide":26,"text":"完了後は /exit → claude で起動し直し、担当情報の表示を確認します。","textPreview":"完了後は /exit → claude で起動し直し、担当情報の表示を確認します。","textChars":41,"textLines":1,"bbox":[100,738,1400,40]}
+{"kind":"notes","id":"nt/2nvgvb","slide":26,"text":""}
+{"kind":"slide","id":"sl/vaxsvy10","slide":27,"title":"フェーズ3｜変更を確認し、Draft PRを作成","textShapes":13}
+{"kind":"shape","id":"sh/judsvqxg","slide":27,"bbox":[70,65,8,64]}
+{"kind":"textbox","id":"sh/547mhg3m","slide":27,"text":"フェーズ3｜変更を確認し、Draft PRを作成","textPreview":"フェーズ3｜変更を確認し、Draft PRを作成","textChars":24,"textLines":1,"bbox":[100,54,1430,90]}
+{"kind":"textbox","id":"sh/k3y5ov21","slide":27,"text":"A：Claude Codeへ依頼。push・PR作成はコマンドを確認して承認します","textPreview":"A：Claude Codeへ依頼。push・PR作成はコマンドを確認して承認します","textChars":41,"textLines":1,"bbox":[100,151,1410,60]}
+{"kind":"shape","id":"sh/76p4jqls","slide":27,"bbox":[80,838,1440,2]}
+{"kind":"textbox","id":"sh/65gnqlk7","slide":27,"text":"手順書：フェーズ3  |  docs/handson-steps.md","textPreview":"手順書：フェーズ3  |  docs/handson-steps.md","textChars":35,"textLines":1,"bbox":[80,852,1340,30]}
+{"kind":"textbox","id":"sh/t87ml0ji","slide":27,"text":"27","textPreview":"27","textChars":2,"textLines":1,"bbox":[1460,849,65,36]}
+{"kind":"textbox","id":"sh/s7y5sv2x","slide":27,"text":"01","textPreview":"01","textChars":2,"textLines":1,"bbox":[100,230,76,50]}
+{"kind":"textbox","id":"sh/na5476l8","slide":27,"text":"git status --short で変更一覧を確認する","textPreview":"git status --short で変更一覧を確認する","textChars":29,"textLines":1,"bbox":[200,230,1280,96]}
+{"kind":"textbox","id":"sh/m9c3e1kn","slide":27,"text":"02","textPreview":"02","textChars":2,"textLines":1,"bbox":[100,338,76,50]}
+{"kind":"textbox","id":"sh/wrm9kvep","slide":27,"text":"担当フォルダだけをaddし、雛形追加のコミットを作成する","textPreview":"担当フォルダだけをaddし、雛形追加のコミットを作成する","textChars":28,"textLines":1,"bbox":[200,338,1280,96]}
+{"kind":"textbox","id":"sh/hsvat0fa","slide":27,"text":"03","textPreview":"03","textChars":2,"textLines":1,"bbox":[100,446,76,50]}
+{"kind":"textbox","id":"sh/upkrilwj","slide":27,"text":"git push -u origin HEAD でGitHubへ送信する","textPreview":"git push -u origin HEAD でGitHubへ送信する","textChars":36,"textLines":1,"bbox":[200,446,1280,96]}
+{"kind":"textbox","id":"sh/vqdsrqx4","slide":27,"text":"04","textPreview":"04","textChars":2,"textLines":1,"bbox":[100,554,76,50]}
+{"kind":"textbox","id":"sh/4vm9ovel","slide":27,"text":"Draft PRを作成し、PR番号を記録する","textPreview":"Draft PRを作成し、PR番号を記録する","textChars":22,"textLines":1,"bbox":[200,554,1280,96]}
+{"kind":"shape","id":"sh/5wvax0f6","slide":27,"bbox":[80,745,1440,70]}
+{"kind":"textbox","id":"sh/it4rm5wv","slide":27,"text":"Draft＝作業途中のPR。gh pr readyは実行せず、Draftのままにします","textPreview":"Draft＝作業途中のPR。gh pr readyは実行せず、Draftのままにします","textChars":43,"textLines":1,"bbox":[104,755,1390,50]}
+{"kind":"notes","id":"nt/vaxsvy10","slide":27,"text":""}
+{"kind":"slide","id":"sl/bcnz27","slide":28,"title":"フェーズ3｜雛形をコミットする","textShapes":10}
+{"kind":"shape","id":"sh/qhg3uxoz","slide":28,"bbox":[70,65,8,64]}
+{"kind":"textbox","id":"sh/d47mps7q","slide":28,"text":"フェーズ3｜雛形をコミットする","textPreview":"フェーズ3｜雛形をコミットする","textChars":15,"textLines":1,"bbox":[100,54,1430,90]}
+{"kind":"textbox","id":"sh/c3ylw765","slide":28,"text":"ターミナルA：Claude Codeに入力するプロンプト（全文）","textPreview":"ターミナルA：Claude Codeに入力するプロンプト（全文）","textChars":32,"textLines":1,"bbox":[100,151,1410,60]}
+{"kind":"shape","id":"sh/3ep4jip8","slide":28,"bbox":[80,838,1440,2]}
+{"kind":"textbox","id":"sh/2dg3qdo3","slide":28,"text":"手順書：フェーズ3  |  docs/handson-steps.md","textPreview":"手順書：フェーズ3  |  docs/handson-steps.md","textChars":35,"textLines":1,"bbox":[80,852,1340,30]}
+{"kind":"textbox","id":"sh/pg7mls7e","slide":28,"text":"28","textPreview":"28","textChars":2,"textLines":1,"bbox":[1460,849,65,36]}
+{"kind":"shape","id":"sh/4fylsn6t","slide":28,"bbox":[90,228,1420,493]}
+{"kind":"textbox","id":"sh/na94vmps","slide":28,"text":"コミットの前に git status --short を実行し、変更されたファイルの一覧をそのまま表示してください。","textPreview":"コミットの前に git status --short を実行し、変更されたファイルの一覧をそのまま表示してください。","textChars":58,"textLines":1,"bbox":[111,244,1380,97]}
+{"kind":"textbox","id":"sh/m9032ho7","slide":28,"text":"そのうえで、git add の対象は src/games/<ゲームID> だけにして、","textPreview":"そのうえで、git add の対象は src/games/<ゲームID> だけにして、","textChars":43,"textLines":1,"bbox":[111,351,1380,53]}
+{"kind":"textbox","id":"sh/8n6xcvyd","slide":28,"text":"次のメッセージでコミットしてください。","textPreview":"次のメッセージでコミットしてください。","textChars":19,"textLines":1,"bbox":[111,395,1380,53]}
+{"kind":"textbox","id":"sh/9ofylgfy","slide":28,"text":"  chore(<ゲームID>): 雛形を追加する","textPreview":"chore(<ゲームID>): 雛形を追加する","textChars":25,"textLines":1,"bbox":[111,458,1380,53]}
+{"kind":"textbox","id":"sh/mlofalg7","slide":28,"text":"src/games/<ゲームID> の外にあるファイルは、1つも add しないでください。","textPreview":"src/games/<ゲームID> の外にあるファイルは、1つも add しないでください。","textChars":46,"textLines":1,"bbox":[111,521,1380,53]}
+{"kind":"textbox","id":"sh/7mxgjqxs","slide":28,"text":"実際の入力は、担当Issueの該当するコードブロックをコピーしてください。","textPreview":"実際の入力は、担当Issueの該当するコードブロックをコピーしてください。","textChars":37,"textLines":1,"bbox":[100,738,1400,40]}
+{"kind":"notes","id":"nt/bcnz27","slide":28,"text":""}
+{"kind":"slide","id":"sl/7e98mo","slide":29,"title":"フェーズ3｜pushとDraft PRを作成する","textShapes":10}
+{"kind":"shape","id":"sh/l4belsfi","slide":29,"bbox":[70,65,8,64]}
+{"kind":"textbox","id":"sh/y1kfadwr","slide":29,"text":"フェーズ3｜pushとDraft PRを作成する","textPreview":"フェーズ3｜pushとDraft PRを作成する","textChars":24,"textLines":1,"bbox":[100,54,1430,90]}
+{"kind":"textbox","id":"sh/z2twjixc","slide":29,"text":"ターミナルA：Claude Codeに入力するプロンプト（全文）","textPreview":"ターミナルA：Claude Codeに入力するプロンプト（全文）","textChars":32,"textLines":1,"bbox":[100,151,1410,60]}
+{"kind":"shape","id":"sh/cf2x83e1","slide":29,"bbox":[80,838,1440,2]}
+{"kind":"textbox","id":"sh/dgbeh8fm","slide":29,"text":"手順書：フェーズ3  |  docs/handson-steps.md","textPreview":"手順書：フェーズ3  |  docs/handson-steps.md","textChars":35,"textLines":1,"bbox":[80,852,1340,30]}
+{"kind":"textbox","id":"sh/qd0f6tgv","slide":29,"text":"29","textPreview":"29","textChars":2,"textLines":1,"bbox":[1460,849,65,36]}
+{"kind":"shape","id":"sh/betwfyxg","slide":29,"bbox":[90,228,1420,493]}
+{"kind":"textbox","id":"sh/obid43yp","slide":29,"text":"push して、Draft の Pull Request を作ってください。","textPreview":"push して、Draft の Pull Request を作ってください。","textChars":38,"textLines":1,"bbox":[111,244,1380,53]}
+{"kind":"textbox","id":"sh/pcred8fa","slide":29,"text":"- push: git push -u origin HEAD","textPreview":"- push: git push -u origin HEAD","textChars":31,"textLines":1,"bbox":[111,307,1380,53]}
+{"kind":"textbox","id":"sh/pcbid872","slide":29,"text":"- PR: gh pr create --draft --title \"<ゲームID> を実装する\" --body \"雛形を置いただけの Draft です。実装はこれから進めます。Closes #<Issue番号>\"","textPreview":"- PR: gh pr create --draft --title \"<ゲームID> を実装する\" --body \"雛形を置いただけの Draft です。実装はこれから進めます。Closes #<Issue番号>\"","textChars":108,"textLines":1,"bbox":[111,351,1380,97]}
+{"kind":"textbox","id":"sh/obih43qh","slide":29,"text":"作成した Pull Request の番号を最後に教えてください。","textPreview":"作成した Pull Request の番号を最後に教えてください。","textChars":33,"textLines":1,"bbox":[111,458,1380,53]}
+{"kind":"textbox","id":"sh/na90bypw","slide":29,"text":"gh pr ready は実行しないでください。Draft のままにします。","textPreview":"gh pr ready は実行しないでください。Draft のままにします。","textChars":38,"textLines":1,"bbox":[111,502,1380,53]}
+{"kind":"textbox","id":"sh/290z2t8b","slide":29,"text":"実際の入力は、担当Issueの該当するコードブロックをコピーしてください。","textPreview":"実際の入力は、担当Issueの該当するコードブロックをコピーしてください。","textChars":37,"textLines":1,"bbox":[100,738,1400,40]}
+{"kind":"notes","id":"nt/7e98mo","slide":29,"text":""}
+{"kind":"slide","id":"sl/dcxshu","slide":30,"title":"フェーズ3｜Closesの番号が違う場合","textShapes":6}
+{"kind":"shape","id":"sh/321szedo","slide":30,"bbox":[70,65,8,64]}
+{"kind":"textbox","id":"sh/43at8je9","slide":30,"text":"フェーズ3｜Closesの番号が違う場合","textPreview":"フェーズ3｜Closesの番号が違う場合","textChars":20,"textLines":1,"bbox":[100,54,1430,90]}
+{"kind":"textbox","id":"sh/p43a14vu","slide":30,"text":"ターミナルA：Claude Codeに入力するプロンプト（全文）","textPreview":"ターミナルA：Claude Codeに入力するプロンプト（全文）","textChars":32,"textLines":1,"bbox":[100,151,1410,60]}
+{"kind":"shape","id":"sh/udsb2pw7","slide":30,"bbox":[80,838,1440,2]}
+{"kind":"textbox","id":"sh/fy1svuds","slide":30,"text":"手順書：フェーズ3  |  docs/handson-steps.md","textPreview":"手順書：フェーズ3  |  docs/handson-steps.md","textChars":35,"textLines":1,"bbox":[80,852,1340,30]}
+{"kind":"textbox","id":"sh/gzat4zex","slide":30,"text":"30","textPreview":"30","textChars":2,"textLines":1,"bbox":[1460,849,65,36]}
+{"kind":"shape","id":"sh/h0jax4vi","slide":30,"bbox":[90,228,1420,493]}
+{"kind":"textbox","id":"sh/698rypwv","slide":30,"text":"Closes の番号が違います。私の Issue は #<Issue番号> です。そこだけ直してもう一度出してください。","textPreview":"Closes の番号が違います。私の Issue は #<Issue番号> です。そこだけ直してもう一度出してください。","textChars":60,"textLines":1,"bbox":[111,244,1380,97]}
+{"kind":"textbox","id":"sh/7ahsrudg","slide":30,"text":"承認画面で番号が違えば n を選択し、この修正依頼を入力します。","textPreview":"承認画面で番号が違えば n を選択し、この修正依頼を入力します。","textChars":32,"textLines":1,"bbox":[100,738,1400,40]}
+{"kind":"notes","id":"nt/dcxshu","slide":30,"text":""}
+{"kind":"slide","id":"sl/gny5sjyp","slide":31,"title":"フェーズ3｜CI成功を確認して実装へ進む","textShapes":10}
+{"kind":"shape","id":"sh/oruhcf65","slide":31,"bbox":[70,65,8,64]}
+{"kind":"textbox","id":"sh/8z2h8bq1","slide":31,"text":"フェーズ3｜CI成功を確認して実装へ進む","textPreview":"フェーズ3｜CI成功を確認して実装へ進む","textChars":20,"textLines":1,"bbox":[100,54,1430,90]}
+{"kind":"textbox","id":"sh/9kby1g7m","slide":31,"text":"CIはGitHub上で実行される自動チェックです。失敗を解消してから進みます","textPreview":"CIはGitHub上で実行される自動チェックです。失敗を解消してから進みます","textChars":38,"textLines":1,"bbox":[100,151,1410,60]}
+{"kind":"shape","id":"sh/ytkf2h8j","slide":31,"bbox":[80,838,1440,2]}
+{"kind":"textbox","id":"sh/zutgvm94","slide":31,"text":"手順書：フェーズ3  |  docs/handson-steps.md","textPreview":"手順書：フェーズ3  |  docs/handson-steps.md","textChars":35,"textLines":1,"bbox":[80,852,1340,30]}
+{"kind":"textbox","id":"sh/kv2h4rqp","slide":31,"text":"31","textPreview":"31","textChars":2,"textLines":1,"bbox":[1460,849,65,36]}
+{"kind":"shape","id":"sh/lwbyxwra","slide":31,"bbox":[100,235,1400,138]}
+{"kind":"textbox","id":"sh/ip4zel83","slide":31,"text":"gh pr checks <自分のPR番号> --watch\ngh pr view <自分のPR番号>","textPreview":"gh pr checks <自分のPR番号> --watch | gh pr view <自分のPR番号>","textChars":51,"textLines":2,"bbox":[115,247,1370,114]}
+{"kind":"shape","id":"sh/3qdg7qpo","slide":31,"bbox":[100,435,662,5]}
+{"kind":"textbox","id":"sh/fm1gzq5o","slide":31,"text":"画面・ファイルの確認","textPreview":"画面・ファイルの確認","textChars":10,"textLines":1,"bbox":[100,465,658,70]}
+{"kind":"textbox","id":"sh/e1sf65o3","slide":31,"text":"担当名・ゲーム名を表示\n担当フォルダに5ファイル\n一覧に「準備中」を表示","textPreview":"担当名・ゲーム名を表示 | 担当フォルダに5ファイル | 一覧に「準備中」を表示","textChars":36,"textLines":3,"bbox":[100,560,652,165]}
+{"kind":"shape","id":"sh/1ojy10ne","slide":31,"bbox":[800,435,662,5]}
+{"kind":"textbox","id":"sh/gnax8v6t","slide":31,"text":"提出経路の確認","textPreview":"提出経路の確認","textChars":7,"textLines":1,"bbox":[800,465,658,70]}
+{"kind":"textbox","id":"sh/nqlg3a5k","slide":31,"text":"push成功・Draft PR作成\nPR番号を記録・verify成功\n担当外ファイルをcommitしていない","textPreview":"push成功・Draft PR作成 | PR番号を記録・verify成功 | 担当外ファイルをcommitしていない","textChars":54,"textLines":3,"bbox":[800,560,652,165]}
+{"kind":"shape","id":"sh/2pcfa5oz","slide":31,"bbox":[80,745,1440,70]}
+{"kind":"textbox","id":"sh/ps3y5knq","slide":31,"text":"CI失敗時は原因を確認。403エラーは招待の承諾状況を講師に相談します","textPreview":"CI失敗時は原因を確認。403エラーは招待の承諾状況を講師に相談します","textChars":35,"textLines":1,"bbox":[104,755,1390,50]}
+{"kind":"notes","id":"nt/gny5sjyp","slide":31,"text":""}
+{"kind":"slide","id":"sl/ff8lxo","slide":32,"title":"フェーズ3｜範囲外のaddが原因でCIが失敗した場合","textShapes":8}
+{"kind":"shape","id":"sh/hc3i947y","slide":32,"bbox":[70,65,8,64]}
+{"kind":"textbox","id":"sh/u9sjypon","slide":32,"text":"フェーズ3｜範囲外のaddが原因でCIが失敗した場合","textPreview":"フェーズ3｜範囲外のaddが原因でCIが失敗した場合","textChars":26,"textLines":1,"bbox":[100,54,1430,90]}
+{"kind":"textbox","id":"sh/val07up8","slide":32,"text":"ターミナルA：Claude Codeに入力するプロンプト（全文）","textPreview":"ターミナルA：Claude Codeに入力するプロンプト（全文）","textChars":32,"textLines":1,"bbox":[100,151,1410,60]}
+{"kind":"shape","id":"sh/4fu14z6p","slide":32,"bbox":[80,838,1440,2]}
+{"kind":"textbox","id":"sh/pg3id47a","slide":32,"text":"手順書：フェーズ3  |  docs/handson-steps.md","textPreview":"手順書：フェーズ3  |  docs/handson-steps.md","textChars":35,"textLines":1,"bbox":[80,852,1340,30]}
+{"kind":"textbox","id":"sh/idcj2poj","slide":32,"text":"32","textPreview":"32","textChars":2,"textLines":1,"bbox":[1460,849,65,36]}
+{"kind":"shape","id":"sh/3el0bup4","slide":32,"bbox":[90,228,1420,493]}
+{"kind":"textbox","id":"sh/c3e18j61","slide":32,"text":"npm run scope を実行して、範囲外の変更があるか確認してください。","textPreview":"npm run scope を実行して、範囲外の変更があるか確認してください。","textChars":39,"textLines":1,"bbox":[111,244,1380,53]}
+{"kind":"textbox","id":"sh/d4n2ho76","slide":32,"text":"範囲外があれば、scope の出力に示された git restore のコマンドをそのまま実行して戻してください。","textPreview":"範囲外があれば、scope の出力に示された git restore のコマンドをそのまま実行して戻してください。","textChars":57,"textLines":1,"bbox":[111,288,1380,97]}
+{"kind":"textbox","id":"sh/xwra10r2","slide":32,"text":"src/games/<ゲームID> の中身は消さないでください。","textPreview":"src/games/<ゲームID> の中身は消さないでください。","textChars":32,"textLines":1,"bbox":[111,376,1380,53]}
+{"kind":"textbox","id":"sh/cvy98vax","slide":32,"text":"該当する場合のみ入力。担当フォルダの中身は保持します。","textPreview":"該当する場合のみ入力。担当フォルダの中身は保持します。","textChars":27,"textLines":1,"bbox":[100,738,1400,40]}
+{"kind":"notes","id":"nt/ff8lxo","slide":32,"text":""}
+{"kind":"slide","id":"sl/ydvp86","slide":33,"title":"フェーズ4｜担当Issueを参照して進める","textShapes":9}
+{"kind":"shape","id":"sh/hk72hsbe","slide":33,"bbox":[70,65,8,64]}
+{"kind":"textbox","id":"sh/uhgj6xcn","slide":33,"text":"フェーズ4｜担当Issueを参照して進める","textPreview":"フェーズ4｜担当Issueを参照して進める","textChars":21,"textLines":1,"bbox":[100,54,1430,90]}
+{"kind":"textbox","id":"sh/vipkfit8","slide":33,"text":"Issueの「進め方（フェーズ3〜6）」には、担当ゲーム用のプロンプトが用意されています","textPreview":"Issueの「進め方（フェーズ3〜6）」には、担当ゲーム用のプロンプトが用意されています","textChars":44,"textLines":1,"bbox":[100,151,1410,60]}
+{"kind":"shape","id":"sh/4nilc7ap","slide":33,"bbox":[80,838,1440,2]}
+{"kind":"textbox","id":"sh/5or2lcba","slide":33,"text":"手順書：フェーズ4  |  docs/handson-steps.md","textPreview":"手順書：フェーズ4  |  docs/handson-steps.md","textChars":35,"textLines":1,"bbox":[80,852,1340,30]}
+{"kind":"textbox","id":"sh/ilg3axcj","slide":33,"text":"33","textPreview":"33","textChars":2,"textLines":1,"bbox":[1460,849,65,36]}
+{"kind":"shape","id":"sh/jmpkj2t4","slide":33,"bbox":[118,262,7.2,150]}
+{"kind":"shape","id":"sh/kre103ul","slide":33,"bbox":[118,262,120,7.2]}
+{"kind":"shape","id":"sh/lsn298b6","slide":33,"bbox":[230.8,262,7.2,150]}
+{"kind":"shape","id":"sh/d4za9g32","slide":33,"bbox":[118,404.8,120,7.2]}
+{"kind":"shape","id":"sh/cj69gbmh","slide":33,"bbox":[136,290.8,28.8,28.8]}
+{"kind":"shape","id":"sh/rixs7qlw","slide":33,"bbox":[176.8,302.8,37.2,6]}
+{"kind":"shape","id":"sh/qhorel4b","slide":33,"bbox":[136,324.4,28.8,28.8]}
+{"kind":"shape","id":"sh/18zad03y","slide":33,"bbox":[176.8,336.4,37.2,6]}
+{"kind":"shape","id":"sh/07q9kv2d","slide":33,"bbox":[136,358,28.8,28.8]}
+{"kind":"shape","id":"sh/z6hsbqls","slide":33,"bbox":[176.8,370,37.2,6]}
+{"kind":"textbox","id":"sh/e58rilkn","slide":33,"text":"今回、開く見出し","textPreview":"今回、開く見出し","textChars":8,"textLines":1,"bbox":[335,242,1150,60]}
+{"kind":"textbox","id":"sh/9cjah03a","slide":33,"text":"「3. 実装の計画を先に立てる」\n「4. 最後まで遊べる状態にする」","textPreview":"「3. 実装の計画を先に立てる」 | 「4. 最後まで遊べる状態にする」","textChars":34,"textLines":2,"bbox":[335,310,1150,150]}
+{"kind":"textbox","id":"sh/obatov2p","slide":33,"text":"確認する内容","textPreview":"確認する内容","textChars":6,"textLines":1,"bbox":[335,478,1150,55]}
+{"kind":"textbox","id":"sh/8fidkjal","slide":33,"text":"計画と「必須要件」を1件ずつ照合します。\nゲーム固有の作り方は「実装の進め方」も参照します。","textPreview":"計画と「必須要件」を1件ずつ照合します。 | ゲーム固有の作り方は「実装の進め方」も参照します。","textChars":46,"textLines":2,"bbox":[335,544,1135,135]}
+{"kind":"shape","id":"sh/9grudob6","slide":33,"bbox":[80,745,1440,70]}
+{"kind":"textbox","id":"sh/mdgbi9sv","slide":33,"text":"Bで gh issue view <Issue番号> --web を実行し、担当Issueを開いてください","textPreview":"Bで gh issue view <Issue番号> --web を実行し、担当Issueを開いてください","textChars":53,"textLines":1,"bbox":[104,755,1390,50]}
+{"kind":"notes","id":"nt/ydvp86","slide":33,"text":""}
+{"kind":"slide","id":"sl/14bup87q","slide":34,"title":"フェーズ4｜実装計画を必須要件と照合","textShapes":13}
+{"kind":"shape","id":"sh/fm58bm54","slide":34,"bbox":[70,65,8,64]}
+{"kind":"textbox","id":"sh/1c7e50ni","slide":34,"text":"フェーズ4｜実装計画を必須要件と照合","textPreview":"フェーズ4｜実装計画を必須要件と照合","textChars":18,"textLines":1,"bbox":[100,54,1430,90]}
+{"kind":"textbox","id":"sh/gbedwfmx","slide":34,"text":"目的：仕様に合う計画を確認し、最後まで遊べる実装につなげる","textPreview":"目的：仕様に合う計画を確認し、最後まで遊べる実装につなげる","textChars":29,"textLines":1,"bbox":[100,151,1410,60]}
+{"kind":"shape","id":"sh/rm5czq50","slide":34,"bbox":[80,838,1440,2]}
+{"kind":"textbox","id":"sh/6lwvql4v","slide":34,"text":"手順書：フェーズ4  |  docs/handson-steps.md","textPreview":"手順書：フェーズ4  |  docs/handson-steps.md","textChars":35,"textLines":1,"bbox":[80,852,1340,30]}
+{"kind":"textbox","id":"sh/t8ne10n6","slide":34,"text":"34","textPreview":"34","textChars":2,"textLines":1,"bbox":[1460,849,65,36]}
+{"kind":"textbox","id":"sh/snedsvml","slide":34,"text":"01","textPreview":"01","textChars":2,"textLines":1,"bbox":[100,230,76,50]}
+{"kind":"textbox","id":"sh/jilcvq54","slide":34,"text":"Aへ依頼：Issueとルール文書を読み、実装計画だけを作成する","textPreview":"Aへ依頼：Issueとルール文書を読み、実装計画だけを作成する","textChars":31,"textLines":1,"bbox":[200,230,1280,98]}
+{"kind":"textbox","id":"sh/ihcvml4j","slide":34,"text":"02","textPreview":"02","textChars":2,"textLines":1,"bbox":[100,340,76,50]}
+{"kind":"textbox","id":"sh/4by9or6l","slide":34,"text":"参加者が確認：必須要件を上から1件ずつ計画と照合する","textPreview":"参加者が確認：必須要件を上から1件ずつ計画と照合する","textChars":26,"textLines":1,"bbox":[200,340,1280,98]}
+{"kind":"textbox","id":"sh/pc7qhwn6","slide":34,"text":"03","textPreview":"03","textChars":2,"textLines":1,"bbox":[100,450,76,50]}
+{"kind":"textbox","id":"sh/29grm1of","slide":34,"text":"不足があれば追記、仕様にないルールがあれば計画から除く","textPreview":"不足があれば追記、仕様にないルールがあれば計画から除く","textChars":27,"textLines":1,"bbox":[200,450,1280,98]}
+{"kind":"textbox","id":"sh/3ap8fm50","slide":34,"text":"04","textPreview":"04","textChars":2,"textLines":1,"bbox":[100,560,76,50]}
+{"kind":"textbox","id":"sh/gnepkr69","slide":34,"text":"計画が一致したら実装を依頼する。発展課題には着手しない","textPreview":"計画が一致したら実装を依頼する。発展課題には着手しない","textChars":27,"textLines":1,"bbox":[200,560,1280,98]}
+{"kind":"shape","id":"sh/honqdwnu","slide":34,"bbox":[80,745,1440,70]}
+{"kind":"textbox","id":"sh/ulw7ihoj","slide":34,"text":"計画の確認中は「まだコードを書かない・ファイルを変更しない」を維持","textPreview":"計画の確認中は「まだコードを書かない・ファイルを変更しない」を維持","textChars":33,"textLines":1,"bbox":[104,755,1390,50]}
+{"kind":"notes","id":"nt/14bup87q","slide":34,"text":""}
+{"kind":"slide","id":"sl/xaj0j0","slide":35,"title":"フェーズ4｜実装計画を作成する","textShapes":9}
+{"kind":"shape","id":"sh/nml03ud0","slide":35,"bbox":[70,65,8,64]}
+{"kind":"textbox","id":"sh/onuhczel","slide":35,"text":"フェーズ4｜実装計画を作成する","textPreview":"フェーズ4｜実装計画を作成する","textChars":15,"textLines":1,"bbox":[100,54,1430,90]}
+{"kind":"textbox","id":"sh/9o3i54v6","slide":35,"text":"ターミナルA：Claude Codeに入力するプロンプト（全文）","textPreview":"ターミナルA：Claude Codeに入力するプロンプト（全文）","textChars":32,"textLines":1,"bbox":[100,151,1410,60]}
+{"kind":"shape","id":"sh/exsz6pwj","slide":35,"bbox":[80,838,1440,2]}
+{"kind":"textbox","id":"sh/zy1gzad4","slide":35,"text":"手順書：フェーズ4  |  docs/handson-steps.md","textPreview":"手順書：フェーズ4  |  docs/handson-steps.md","textChars":35,"textLines":1,"bbox":[80,852,1340,30]}
+{"kind":"textbox","id":"sh/0jah8fep","slide":35,"text":"35","textPreview":"35","textChars":2,"textLines":1,"bbox":[1460,849,65,36]}
+{"kind":"shape","id":"sh/1k3i1kvu","slide":35,"bbox":[90,228,1420,493]}
+{"kind":"textbox","id":"sh/itwzi9wn","slide":35,"text":"GitHub の Issue #<Issue番号> と docs/games/<ゲームID>.md を読んで、","textPreview":"GitHub の Issue #<Issue番号> と docs/games/<ゲームID>.md を読んで、","textChars":55,"textLines":1,"bbox":[111,244,1380,53]}
+{"kind":"textbox","id":"sh/ju50bed8","slide":35,"text":"src/games/<ゲームID>/ にこのゲームをどう実装するか計画を立ててください。","textPreview":"src/games/<ゲームID>/ にこのゲームをどう実装するか計画を立ててください。","textChars":44,"textLines":1,"bbox":[111,288,1380,53]}
+{"kind":"textbox","id":"sh/fido7qpk","slide":35,"text":"- Issue にも docs/games/<ゲームID>.md にも書かれていないルールは足さないでください。","textPreview":"- Issue にも docs/games/<ゲームID>.md にも書かれていないルールは足さないでください。","textChars":56,"textLines":1,"bbox":[111,351,1380,97]}
+{"kind":"textbox","id":"sh/ux4nyl8z","slide":35,"text":"- まだコードは書かないでください。ファイルも変更しないでください。","textPreview":"- まだコードは書かないでください。ファイルも変更しないでください。","textChars":34,"textLines":1,"bbox":[111,439,1380,53]}
+{"kind":"textbox","id":"sh/hkf6907q","slide":35,"text":"実際の入力は、担当Issueの該当するコードブロックをコピーしてください。","textPreview":"実際の入力は、担当Issueの該当するコードブロックをコピーしてください。","textChars":37,"textLines":1,"bbox":[100,738,1400,40]}
+{"kind":"notes","id":"nt/xaj0j0","slide":35,"text":""}
+{"kind":"slide","id":"sl/ls9uyl","slide":36,"title":"フェーズ4｜計画に要件が不足している場合","textShapes":7}
+{"kind":"shape","id":"sh/ofat4vu9","slide":36,"bbox":[70,65,8,64]}
+{"kind":"textbox","id":"sh/ne1svqto","slide":36,"text":"フェーズ4｜計画に要件が不足している場合","textPreview":"フェーズ4｜計画に要件が不足している場合","textChars":20,"textLines":1,"bbox":[100,54,1430,90]}
+{"kind":"textbox","id":"sh/mtsb2lc3","slide":36,"text":"ターミナルA：Claude Codeに入力するプロンプト（全文）","textPreview":"ターミナルA：Claude Codeに入力するプロンプト（全文）","textChars":32,"textLines":1,"bbox":[100,151,1410,60]}
+{"kind":"shape","id":"sh/xkju10bq","slide":36,"bbox":[80,838,1440,2]}
+{"kind":"textbox","id":"sh/wjat8vu5","slide":36,"text":"手順書：フェーズ4  |  docs/handson-steps.md","textPreview":"手順書：フェーズ4  |  docs/handson-steps.md","textChars":35,"textLines":1,"bbox":[80,852,1340,30]}
+{"kind":"textbox","id":"sh/bi1czatk","slide":36,"text":"36","textPreview":"36","textChars":2,"textLines":1,"bbox":[1460,849,65,36]}
+{"kind":"shape","id":"sh/ahsb65cf","slide":36,"bbox":[90,228,1420,493]}
+{"kind":"textbox","id":"sh/lo3u5kb2","slide":36,"text":"必須要件の「<Issue の要件の文言をそのまま貼る>」に対応する項目が計画にありません。","textPreview":"必須要件の「<Issue の要件の文言をそのまま貼る>」に対応する項目が計画にありません。","textChars":45,"textLines":1,"bbox":[111,244,1380,97]}
+{"kind":"textbox","id":"sh/knutcfuh","slide":36,"text":"どの項目で実現するか分かるように、計画へ追記してください。まだ実装はしないでください。","textPreview":"どの項目で実現するか分かるように、計画へ追記してください。まだ実装はしないでください。","textChars":43,"textLines":1,"bbox":[111,332,1380,97]}
+{"kind":"textbox","id":"sh/2tkruxwz","slide":36,"text":"実際の入力は、担当Issueの該当するコードブロックをコピーしてください。","textPreview":"実際の入力は、担当Issueの該当するコードブロックをコピーしてください。","textChars":37,"textLines":1,"bbox":[100,738,1400,40]}
+{"kind":"notes","id":"nt/ls9uyl","slide":36,"text":""}
+{"kind":"slide","id":"sl/dhnfdj","slide":37,"title":"フェーズ4｜対象外のルールが含まれる場合","textShapes":7}
+{"kind":"shape","id":"sh/0j2x4zu1","slide":37,"bbox":[70,65,8,64]}
+{"kind":"textbox","id":"sh/zi9wvudw","slide":37,"text":"フェーズ4｜対象外のルールが含まれる場合","textPreview":"フェーズ4｜対象外のルールが含まれる場合","textChars":20,"textLines":1,"bbox":[100,54,1430,90]}
+{"kind":"textbox","id":"sh/yh0v2pcb","slide":37,"text":"ターミナルA：Claude Codeに入力するプロンプト（全文）","textPreview":"ターミナルA：Claude Codeに入力するプロンプト（全文）","textChars":32,"textLines":1,"bbox":[100,151,1410,60]}
+{"kind":"shape","id":"sh/dwretkvq","slide":37,"bbox":[80,838,1440,2]}
+{"kind":"textbox","id":"sh/cvid0fu5","slide":37,"text":"手順書：フェーズ4  |  docs/handson-steps.md","textPreview":"手順書：フェーズ4  |  docs/handson-steps.md","textChars":35,"textLines":1,"bbox":[80,852,1340,30]}
+{"kind":"textbox","id":"sh/bu9wradk","slide":37,"text":"37","textPreview":"37","textChars":2,"textLines":1,"bbox":[1460,849,65,36]}
+{"kind":"shape","id":"sh/qt0vy5cz","slide":37,"bbox":[90,228,1420,493]}
+{"kind":"textbox","id":"sh/psrep0ve","slide":37,"text":"計画の「<計画の中の1行をそのまま貼る>」は、Issue にも docs/games/<ゲームID>.md にも書かれていないルールです。","textPreview":"計画の「<計画の中の1行をそのまま貼る>」は、Issue にも docs/games/<ゲームID>.md にも書かれていないルールです。","textChars":69,"textLines":1,"bbox":[111,244,1380,97]}
+{"kind":"textbox","id":"sh/oridwfu9","slide":37,"text":"実装対象ではないため、計画から外してください。まだ実装はしないでください。","textPreview":"実装対象ではないため、計画から外してください。まだ実装はしないでください。","textChars":37,"textLines":1,"bbox":[111,332,1380,53]}
+{"kind":"textbox","id":"sh/e98byloz","slide":37,"text":"実際の入力は、担当Issueの該当するコードブロックをコピーしてください。","textPreview":"実際の入力は、担当Issueの該当するコードブロックをコピーしてください。","textChars":37,"textLines":1,"bbox":[100,738,1400,40]}
+{"kind":"notes","id":"nt/dhnfdj","slide":37,"text":""}
+{"kind":"slide","id":"sl/2u5zlt","slide":38,"title":"フェーズ4｜確認した計画で実装する","textShapes":6}
+{"kind":"shape","id":"sh/cnq1cjmd","slide":38,"bbox":[70,65,8,64]}
+{"kind":"textbox","id":"sh/bmh03els","slide":38,"text":"フェーズ4｜確認した計画で実装する","textPreview":"フェーズ4｜確認した計画で実装する","textChars":17,"textLines":1,"bbox":[100,54,1430,90]}
+{"kind":"textbox","id":"sh/qloza947","slide":38,"text":"ターミナルA：Claude Codeに入力するプロンプト（全文）","textPreview":"ターミナルA：Claude Codeに入力するプロンプト（全文）","textChars":32,"textLines":1,"bbox":[100,151,1410,60]}
+{"kind":"shape","id":"sh/pkfi1432","slide":38,"bbox":[80,838,1440,2]}
+{"kind":"textbox","id":"sh/oj6h8zmh","slide":38,"text":"手順書：フェーズ4  |  docs/handson-steps.md","textPreview":"手順書：フェーズ4  |  docs/handson-steps.md","textChars":35,"textLines":1,"bbox":[80,852,1340,30]}
+{"kind":"textbox","id":"sh/3ix0zelw","slide":38,"text":"38","textPreview":"38","textChars":2,"textLines":1,"bbox":[1460,849,65,36]}
+{"kind":"shape","id":"sh/2hoz694b","slide":38,"bbox":[90,228,1420,493]}
+{"kind":"textbox","id":"sh/1wfix43q","slide":38,"text":"その計画で実装してください。まず最後まで遊べる状態にすることを優先し、発展課題には手を付けないでください。","textPreview":"その計画で実装してください。まず最後まで遊べる状態にすることを優先し、発展課題には手を付けないでください。","textChars":53,"textLines":1,"bbox":[111,244,1380,97]}
+{"kind":"textbox","id":"sh/gv6h4zm5","slide":38,"text":"実際の入力は、担当Issueの該当するコードブロックをコピーしてください。","textPreview":"実際の入力は、担当Issueの該当するコードブロックをコピーしてください。","textChars":37,"textLines":1,"bbox":[100,738,1400,40]}
+{"kind":"notes","id":"nt/2u5zlt","slide":38,"text":""}
+{"kind":"slide","id":"sl/y5wne50z","slide":39,"title":"フェーズ4｜実装後にテストと試遊を行う","textShapes":9}
+{"kind":"shape","id":"sh/6lg3e18f","slide":39,"bbox":[70,65,8,64]}
+{"kind":"textbox","id":"sh/wrelszu9","slide":39,"text":"フェーズ4｜実装後にテストと試遊を行う","textPreview":"フェーズ4｜実装後にテストと試遊を行う","textChars":19,"textLines":1,"bbox":[100,54,1430,90]}
+{"kind":"textbox","id":"sh/hsn2l4bu","slide":39,"text":"B：npm testを実行し、ブラウザをF5で再読み込みして操作します","textPreview":"B：npm testを実行し、ブラウザをF5で再読み込みして操作します","textChars":35,"textLines":1,"bbox":[100,151,1410,60]}
+{"kind":"shape","id":"sh/itw3upcf","slide":39,"bbox":[80,838,1440,2]}
+{"kind":"textbox","id":"sh/je5knut0","slide":39,"text":"手順書：フェーズ4  |  docs/handson-steps.md","textPreview":"手順書：フェーズ4  |  docs/handson-steps.md","textChars":35,"textLines":1,"bbox":[80,852,1340,30]}
+{"kind":"textbox","id":"sh/4felwzu5","slide":39,"text":"39","textPreview":"39","textChars":2,"textLines":1,"bbox":[1460,849,65,36]}
+{"kind":"shape","id":"sh/5gnmp4bq","slide":39,"bbox":[100,260,662,5]}
+{"kind":"textbox","id":"sh/6hw3y9sb","slide":39,"text":"参加者が行うこと","textPreview":"参加者が行うこと","textChars":8,"textLines":1,"bbox":[100,290,658,70]}
+{"kind":"textbox","id":"sh/rip4retw","slide":39,"text":"最初から最後までの試遊を試す\n停止・白画面・未決着を記録\n確認済みの必須要件にチェック\n不具合はフェーズ5で修正","textPreview":"最初から最後までの試遊を試す | 停止・白画面・未決着を記録 | 確認済みの必須要件にチェック | 不具合はフェーズ5で修正","textChars":56,"textLines":4,"bbox":[100,385,652,280]}
+{"kind":"shape","id":"sh/fapkr6pw","slide":39,"bbox":[800,260,662,5]}
+{"kind":"textbox","id":"sh/upg3i18r","slide":39,"text":"完了条件","textPreview":"完了条件","textChars":4,"textLines":1,"bbox":[800,290,658,70]}
+{"kind":"textbox","id":"sh/1cr2tg72","slide":39,"text":"計画と必須要件を照合済み\nnpm testが成功\n担当ゲームを表示・操作できる\n変更が担当フォルダ内に収まる","textPreview":"計画と必須要件を照合済み | npm testが成功 | 担当ゲームを表示・操作できる | 変更が担当フォルダ内に収まる","textChars":54,"textLines":4,"bbox":[800,385,652,280]}
+{"kind":"shape","id":"sh/gbylkbqh","slide":39,"bbox":[80,745,1440,70]}
+{"kind":"textbox","id":"sh/7mpknmp0","slide":39,"text":"担当外の変更があれば元に戻すよう依頼し、変更一覧を再確認します","textPreview":"担当外の変更があれば元に戻すよう依頼し、変更一覧を再確認します","textChars":31,"textLines":1,"bbox":[104,755,1390,50]}
+{"kind":"notes","id":"nt/y5wne50z","slide":39,"text":""}
+{"kind":"slide","id":"sl/ndx36f","slide":40,"title":"フェーズ4｜担当外のファイルが変更された場合","textShapes":7}
+{"kind":"shape","id":"sh/vqdczalc","slide":40,"bbox":[70,65,8,64]}
+{"kind":"textbox","id":"sh/wr6d8fmx","slide":40,"text":"フェーズ4｜担当外のファイルが変更された場合","textPreview":"フェーズ4｜担当外のファイルが変更された場合","textChars":22,"textLines":1,"bbox":[100,54,1430,90]}
+{"kind":"textbox","id":"sh/xsfu1k32","slide":40,"text":"ターミナルA：Claude Codeに入力するプロンプト（全文）","textPreview":"ターミナルA：Claude Codeに入力するプロンプト（全文）","textChars":32,"textLines":1,"bbox":[100,151,1410,60]}
+{"kind":"shape","id":"sh/itovap4n","slide":40,"bbox":[80,838,1440,2]}
+{"kind":"textbox","id":"sh/juxc3ul8","slide":40,"text":"手順書：フェーズ4  |  docs/handson-steps.md","textPreview":"手順書：フェーズ4  |  docs/handson-steps.md","textChars":35,"textLines":1,"bbox":[80,852,1340,30]}
+{"kind":"textbox","id":"sh/kv6dczmt","slide":40,"text":"40","textPreview":"40","textChars":2,"textLines":1,"bbox":[1460,849,65,36]}
+{"kind":"shape","id":"sh/5wfe543e","slide":40,"bbox":[90,228,1420,493]}
+{"kind":"textbox","id":"sh/yxkvyl4j","slide":40,"text":"src/games/<ゲームID>/ の外が変更されています。","textPreview":"src/games/<ゲームID>/ の外が変更されています。","textChars":31,"textLines":1,"bbox":[111,244,1380,53]}
+{"kind":"textbox","id":"sh/zytcrql4","slide":40,"text":"その変更を元に戻してから、変更したファイルの一覧をもう一度報告してください。","textPreview":"その変更を元に戻してから、変更したファイルの一覧をもう一度報告してください。","textChars":38,"textLines":1,"bbox":[111,288,1380,53]}
+{"kind":"textbox","id":"sh/v2t8ra1c","slide":40,"text":"実際の入力は、担当Issueの該当するコードブロックをコピーしてください。","textPreview":"実際の入力は、担当Issueの該当するコードブロックをコピーしてください。","textChars":37,"textLines":1,"bbox":[100,738,1400,40]}
+{"kind":"notes","id":"nt/ndx36f","slide":40,"text":""}
+{"kind":"slide","id":"sl/w7c160","slide":41,"title":"フェーズ5｜担当Issueを参照して進める","textShapes":9}
+{"kind":"shape","id":"sh/ipk7258r","slide":41,"bbox":[70,65,8,64]}
+{"kind":"textbox","id":"sh/5cv6d0r2","slide":41,"text":"フェーズ5｜担当Issueを参照して進める","textPreview":"フェーズ5｜担当Issueを参照して進める","textChars":21,"textLines":1,"bbox":[100,54,1430,90]}
+{"kind":"textbox","id":"sh/krmp4vqh","slide":41,"text":"Issueの「進め方（フェーズ3〜6）」には、担当ゲーム用のプロンプトが用意されています","textPreview":"Issueの「進め方（フェーズ3〜6）」には、担当ゲーム用のプロンプトが用意されています","textChars":44,"textLines":1,"bbox":[100,151,1410,60]}
+{"kind":"shape","id":"sh/vmto7q90","slide":41,"bbox":[80,838,1440,2]}
+{"kind":"textbox","id":"sh/alknyl8f","slide":41,"text":"手順書：フェーズ5  |  docs/handson-steps.md","textPreview":"手順書：フェーズ5  |  docs/handson-steps.md","textChars":35,"textLines":1,"bbox":[80,852,1340,30]}
+{"kind":"textbox","id":"sh/xob690r6","slide":41,"text":"41","textPreview":"41","textChars":2,"textLines":1,"bbox":[1460,849,65,36]}
+{"kind":"shape","id":"sh/wn250vql","slide":41,"bbox":[118,262,7.2,150]}
+{"kind":"shape","id":"sh/fidoju94","slide":41,"bbox":[118,262,120,7.2]}
+{"kind":"shape","id":"sh/uh47ap8z","slide":41,"bbox":[230.8,262,7.2,150]}
+{"kind":"shape","id":"sh/032lg7a1","slide":41,"bbox":[118,404.8,120,7.2]}
+{"kind":"shape","id":"sh/1obm9srm","slide":41,"bbox":[136,290.8,28.8,28.8]}
+{"kind":"shape","id":"sh/e1k3exsv","slide":41,"bbox":[176.8,302.8,37.2,6]}
+{"kind":"shape","id":"sh/z2t4729g","slide":41,"bbox":[136,324.4,28.8,28.8]}
+{"kind":"shape","id":"sh/czilcna5","slide":41,"bbox":[176.8,336.4,37.2,6]}
+{"kind":"shape","id":"sh/d0r25sra","slide":41,"bbox":[136,358,28.8,28.8]}
+{"kind":"shape","id":"sh/qx03adsz","slide":41,"bbox":[176.8,370,37.2,6]}
+{"kind":"textbox","id":"sh/ry9k3i9k","slide":41,"text":"今回、開く見出し","textPreview":"今回、開く見出し","textChars":8,"textLines":1,"bbox":[335,242,1150,60]}
+{"kind":"textbox","id":"sh/4vil83at","slide":41,"text":"「4. 最後まで遊べる状態にする」\n「必須要件」「実装の進め方」「完了条件」","textPreview":"「4. 最後まで遊べる状態にする」 | 「必須要件」「実装の進め方」「完了条件」","textChars":38,"textLines":2,"bbox":[335,310,1150,150]}
+{"kind":"textbox","id":"sh/pwr218re","slide":41,"text":"確認する内容","textPreview":"確認する内容","textChars":6,"textLines":1,"bbox":[335,478,1150,55]}
+{"kind":"textbox","id":"sh/lgzapkz6","slide":41,"text":"担当ゲームの動作と必須テストを確認。\n不具合の状況と期待する動作は、自分が試した結果を記入します。","textPreview":"担当ゲームの動作と必須テストを確認。 | 不具合の状況と期待する動作は、自分が試した結果を記入します。","textChars":49,"textLines":2,"bbox":[335,544,1135,135]}
+{"kind":"shape","id":"sh/kfq9gfyl","slide":41,"bbox":[80,745,1440,70]}
+{"kind":"textbox","id":"sh/jehsnah0","slide":41,"text":"Bで gh issue view <Issue番号> --web を実行し、担当Issueを開いてください","textPreview":"Bで gh issue view <Issue番号> --web を実行し、担当Issueを開いてください","textChars":53,"textLines":1,"bbox":[104,755,1390,50]}
+{"kind":"notes","id":"nt/w7c160","slide":41,"text":""}
+{"kind":"slide","id":"sl/nid43ytk","slide":42,"title":"フェーズ5｜3つの観点で動作を検証","textShapes":11}
+{"kind":"shape","id":"sh/oj21o7qt","slide":42,"bbox":[70,65,8,64]}
+{"kind":"textbox","id":"sh/9gb6xgbi","slide":42,"text":"フェーズ5｜3つの観点で動作を検証","textPreview":"フェーズ5｜3つの観点で動作を検証","textChars":17,"textLines":1,"bbox":[100,54,1430,90]}
+{"kind":"textbox","id":"sh/8v2pobax","slide":42,"text":"目的：不具合を見つけ、同じ操作で修正結果を確認する","textPreview":"目的：不具合を見つけ、同じ操作で修正結果を確認する","textChars":25,"textLines":1,"bbox":[100,151,1410,60]}
+{"kind":"shape","id":"sh/vitozqt8","slide":42,"bbox":[80,838,1440,2]}
+{"kind":"textbox","id":"sh/ahk7qls3","slide":42,"text":"手順書：フェーズ5  |  docs/handson-steps.md","textPreview":"手順書：フェーズ5  |  docs/handson-steps.md","textChars":35,"textLines":1,"bbox":[80,852,1340,30]}
+{"kind":"textbox","id":"sh/xkbq10be","slide":42,"text":"42","textPreview":"42","textChars":2,"textLines":1,"bbox":[1460,849,65,36]}
+{"kind":"shape","id":"sh/wj2psvat","slide":42,"bbox":[100,260,428.67,5]}
+{"kind":"textbox","id":"sh/jmd83atk","slide":42,"text":"正常操作","textPreview":"正常操作","textChars":4,"textLines":1,"bbox":[100,290,424.67,70]}
+{"kind":"textbox","id":"sh/il47u5sz","slide":42,"text":"最初から最後まで\n途中で止めずに遊ぶ\n\n正しく決着するか確認","textPreview":"最初から最後まで | 途中で止めずに遊ぶ |  | 正しく決着するか確認","textChars":30,"textLines":4,"bbox":[100,385,418.67,280]}
+{"kind":"shape","id":"sh/cri1gnql","slide":42,"bbox":[566.67,260,428.67,5]}
+{"kind":"textbox","id":"sh/dsri9sr6","slide":42,"text":"無効な操作","textPreview":"無効な操作","textChars":5,"textLines":1,"bbox":[566.67,290,424.67,70]}
+{"kind":"textbox","id":"sh/qpgjex8f","slide":42,"text":"CPUの手番中に連打\n出せないカードを選択\n山札0枚で引く\n\n状態が変わらないか確認","textPreview":"CPUの手番中に連打 | 出せないカードを選択 | 山札0枚で引く |  | 状態が変わらないか確認","textChars":42,"textLines":5,"bbox":[566.67,385,418.67,280]}
+{"kind":"shape","id":"sh/rqp07290","slide":42,"bbox":[1033.33,260,428.67,5]}
+{"kind":"textbox","id":"sh/0vi1k7qx","slide":42,"text":"リセット","textPreview":"リセット","textChars":4,"textLines":1,"bbox":[1033.33,290,424.67,70]}
+{"kind":"textbox","id":"sh/1gridcr2","slide":42,"text":"ゲームをリセットして\n2回目を開始する\n\n初期状態に戻るか確認","textPreview":"ゲームをリセットして | 2回目を開始する |  | 初期状態に戻るか確認","textChars":31,"textLines":4,"bbox":[1033.33,385,418.67,280]}
+{"kind":"shape","id":"sh/et0jix8r","slide":42,"bbox":[80,745,1440,70]}
+{"kind":"textbox","id":"sh/zu90b29c","slide":42,"text":"1人用ゲームはCPU関連を省き、そのゲームで無効になる操作を試します","textPreview":"1人用ゲームはCPU関連を省き、そのゲームで無効になる操作を試します","textChars":34,"textLines":1,"bbox":[104,755,1390,50]}
+{"kind":"notes","id":"nt/nid43ytk","slide":42,"text":""}
+{"kind":"slide","id":"sl/zyxsni5k","slide":43,"title":"フェーズ5｜不具合は事実と期待を伝える","textShapes":12}
+{"kind":"shape","id":"sh/2t4nqpgb","slide":43,"bbox":[70,65,8,64]}
+{"kind":"textbox","id":"sh/qpwjmh8n","slide":43,"text":"フェーズ5｜不具合は事実と期待を伝える","textPreview":"フェーズ5｜不具合は事実と期待を伝える","textChars":19,"textLines":1,"bbox":[100,54,1430,90]}
+{"kind":"textbox","id":"sh/rq50vmp8","slide":43,"text":"Aで/planに切り替え、原因と改善策の計画を確認してから修正します","textPreview":"Aで/planに切り替え、原因と改善策の計画を確認してから修正します","textChars":34,"textLines":1,"bbox":[100,151,1410,60]}
+{"kind":"shape","id":"sh/4nu1krqh","slide":43,"bbox":[80,838,1440,2]}
+{"kind":"textbox","id":"sh/po3itc72","slide":43,"text":"手順書：フェーズ5  |  docs/handson-steps.md","textPreview":"手順書：フェーズ5  |  docs/handson-steps.md","textChars":35,"textLines":1,"bbox":[80,852,1340,30]}
+{"kind":"textbox","id":"sh/2lczih8r","slide":43,"text":"43","textPreview":"43","textChars":2,"textLines":1,"bbox":[1460,849,65,36]}
+{"kind":"shape","id":"sh/3ml0rmpw","slide":43,"bbox":[100,238,1400,199]}
+{"kind":"textbox","id":"sh/gjuhg7ql","slide":43,"text":"起きたこと：<ブラウザで発生したこと>\n期待する動作：<本来どう動くべきか>\n依頼：原因と改善策を計画。まだファイルは変更しない","textPreview":"起きたこと：<ブラウザで発生したこと> | 期待する動作：<本来どう動くべきか> | 依頼：原因と改善策を計画。まだファイルは変更しない","textChars":64,"textLines":3,"bbox":[115,250,1370,175]}
+{"kind":"textbox","id":"sh/hk3ipcr6","slide":43,"text":"01","textPreview":"01","textChars":2,"textLines":1,"bbox":[100,477,76,50]}
+{"kind":"textbox","id":"sh/dkfmp4zy","slide":43,"text":"参加者が計画を読み、報告した不具合に対応しているか確認","textPreview":"参加者が計画を読み、報告した不具合に対応しているか確認","textChars":27,"textLines":1,"bbox":[200,477,1280,66]}
+{"kind":"textbox","id":"sh/cj65wzyd","slide":43,"text":"02","textPreview":"02","textChars":2,"textLines":1,"bbox":[100,555,76,50]}
+{"kind":"textbox","id":"sh/rid4nuhs","slide":43,"text":"計画に沿った修正を依頼","textPreview":"計画に沿った修正を依頼","textChars":11,"textLines":1,"bbox":[200,555,1280,66]}
+{"kind":"textbox","id":"sh/qh4nupg7","slide":43,"text":"03","textPreview":"03","textChars":2,"textLines":1,"bbox":[100,633,76,50]}
+{"kind":"textbox","id":"sh/pwvmlkzm","slide":43,"text":"Bで再読み込みし、同じ操作で不具合が再現しないか確認","textPreview":"Bで再読み込みし、同じ操作で不具合が再現しないか確認","textChars":26,"textLines":1,"bbox":[200,633,1280,66]}
+{"kind":"shape","id":"sh/4vm5sfy1","slide":43,"bbox":[80,745,1440,70]}
+{"kind":"textbox","id":"sh/3ud4juhg","slide":43,"text":"試す → 記録する → 計画を確認する → 修正する → 同じ操作で確かめる","textPreview":"試す → 記録する → 計画を確認する → 修正する → 同じ操作で確かめる","textChars":38,"textLines":1,"bbox":[104,755,1390,50]}
+{"kind":"notes","id":"nt/zyxsni5k","slide":43,"text":""}
+{"kind":"slide","id":"sl/z655ed","slide":44,"title":"フェーズ5｜不具合の原因と改善策を計画","textShapes":8}
+{"kind":"shape","id":"sh/j69s365s","slide":44,"bbox":[70,65,8,64]}
+{"kind":"textbox","id":"sh/47i9wbmd","slide":44,"text":"フェーズ5｜不具合の原因と改善策を計画","textPreview":"フェーズ5｜不具合の原因と改善策を計画","textChars":19,"textLines":1,"bbox":[100,54,1430,90]}
+{"kind":"textbox","id":"sh/58ba5gny","slide":44,"text":"ターミナルA：Claude Codeに入力するプロンプト（全文）","textPreview":"ターミナルA：Claude Codeに入力するプロンプト（全文）","textChars":32,"textLines":1,"bbox":[100,151,1410,60]}
+{"kind":"shape","id":"sh/6tkbyl4j","slide":44,"bbox":[80,838,1440,2]}
+{"kind":"textbox","id":"sh/ruts7q54","slide":44,"text":"手順書：フェーズ5  |  docs/handson-steps.md","textPreview":"手順書：フェーズ5  |  docs/handson-steps.md","textChars":35,"textLines":1,"bbox":[80,852,1340,30]}
+{"kind":"textbox","id":"sh/sv2t0vm9","slide":44,"text":"44","textPreview":"44","textChars":2,"textLines":1,"bbox":[1460,849,65,36]}
+{"kind":"shape","id":"sh/twba90nu","slide":44,"bbox":[90,228,1420,493]}
+{"kind":"textbox","id":"sh/exkb254f","slide":44,"text":"ブラウザでゲームを操作すると、<起きたこと> が発生しました。期待する動作は <期待していたこと> です。","textPreview":"ブラウザでゲームを操作すると、<起きたこと> が発生しました。期待する動作は <期待していたこと> です。","textChars":53,"textLines":1,"bbox":[111,244,1380,97]}
+{"kind":"textbox","id":"sh/fytsbq50","slide":44,"text":"原因を特定して改善策を計画してください。","textPreview":"原因を特定して改善策を計画してください。","textChars":20,"textLines":1,"bbox":[111,351,1380,53]}
+{"kind":"textbox","id":"sh/v69k7u1o","slide":44,"text":"まだファイルは変更しないでください。","textPreview":"まだファイルは変更しないでください。","textChars":18,"textLines":1,"bbox":[111,395,1380,53]}
+{"kind":"textbox","id":"sh/u503ep03","slide":44,"text":"Aで /plan に切り替えてから入力。計画を確認したあとに修正を依頼します。","textPreview":"Aで /plan に切り替えてから入力。計画を確認したあとに修正を依頼します。","textChars":39,"textLines":1,"bbox":[100,738,1400,40]}
+{"kind":"notes","id":"nt/z655ed","slide":44,"text":""}
+{"kind":"slide","id":"sl/m1wvqtk3","slide":45,"title":"フェーズ5｜必須要件を満たし、readyにする","textShapes":13}
+{"kind":"shape","id":"sh/vu1w7y9g","slide":45,"bbox":[70,65,8,64]}
+{"kind":"textbox","id":"sh/1gbmxs7a","slide":45,"text":"フェーズ5｜必須要件を満たし、readyにする","textPreview":"フェーズ5｜必須要件を満たし、readyにする","textChars":23,"textLines":1,"bbox":[100,54,1430,90]}
+{"kind":"textbox","id":"sh/0f2lon6p","slide":45,"text":"最後まで遊べるようになったら、残りの必須要件を確認します","textPreview":"最後まで遊べるようになったら、残りの必須要件を確認します","textChars":28,"textLines":1,"bbox":[100,151,1410,60]}
+{"kind":"shape","id":"sh/ra9kryp8","slide":45,"bbox":[80,838,1440,2]}
+{"kind":"textbox","id":"sh/qp03yt8n","slide":45,"text":"手順書：フェーズ5  |  docs/handson-steps.md","textPreview":"手順書：フェーズ5  |  docs/handson-steps.md","textChars":35,"textLines":1,"bbox":[80,852,1340,30]}
+{"kind":"textbox","id":"sh/dcb2t87y","slide":45,"text":"45","textPreview":"45","textChars":2,"textLines":1,"bbox":[1460,849,65,36]}
+{"kind":"textbox","id":"sh/sb2lk36t","slide":45,"text":"01","textPreview":"01","textChars":2,"textLines":1,"bbox":[100,230,76,50]}
+{"kind":"textbox","id":"sh/b6d432pc","slide":45,"text":"Aへ依頼：未実装の必須要件を一覧にし、上から順に実装する","textPreview":"Aへ依頼：未実装の必須要件を一覧にし、上から順に実装する","textChars":28,"textLines":1,"bbox":[200,230,1280,96]}
+{"kind":"textbox","id":"sh/al43uxor","slide":45,"text":"02","textPreview":"02","textChars":2,"textLines":1,"bbox":[100,338,76,50]}
+{"kind":"textbox","id":"sh/4jax4nqd","slide":45,"text":"実装後にnpm testを実行し、結果を確認する","textPreview":"実装後にnpm testを実行し、結果を確認する","textChars":24,"textLines":1,"bbox":[200,338,1280,96]}
+{"kind":"textbox","id":"sh/5kjydsri","slide":45,"text":"03","textPreview":"03","textChars":2,"textLines":1,"bbox":[100,446,76,50]}
+{"kind":"textbox","id":"sh/ixsf2d87","slide":45,"text":"全必須要件を満たしたら、index.tsのstatusだけを\"ready\"にする","textPreview":"全必須要件を満たしたら、index.tsのstatusだけを\"ready\"にする","textChars":40,"textLines":1,"bbox":[200,446,1280,96]}
+{"kind":"textbox","id":"sh/jy1gbi9s","slide":45,"text":"04","textPreview":"04","textChars":2,"textLines":1,"bbox":[100,554,76,50]}
+{"kind":"textbox","id":"sh/wvax03q1","slide":45,"text":"変更後に再度npm testを実行する","textPreview":"変更後に再度npm testを実行する","textChars":19,"textLines":1,"bbox":[200,554,1280,96]}
+{"kind":"shape","id":"sh/hwjy98rm","slide":45,"bbox":[80,745,1440,70]}
+{"kind":"textbox","id":"sh/utsfyt8v","slide":45,"text":"完了条件：一通りの試遊・無効操作・不具合解消・テスト成功・全必須要件の充足","textPreview":"完了条件：一通りの試遊・無効操作・不具合解消・テスト成功・全必須要件の充足","textChars":37,"textLines":1,"bbox":[104,755,1390,50]}
+{"kind":"notes","id":"nt/m1wvqtk3","slide":45,"text":""}
+{"kind":"slide","id":"sl/71627i","slide":46,"title":"フェーズ5｜残りの必須要件を実装する","textShapes":8}
+{"kind":"shape","id":"sh/m5c3e5on","slide":46,"bbox":[70,65,8,64]}
+{"kind":"textbox","id":"sh/9832pk7e","slide":46,"text":"フェーズ5｜残りの必須要件を実装する","textPreview":"フェーズ5｜残りの必須要件を実装する","textChars":18,"textLines":1,"bbox":[100,54,1430,90]}
+{"kind":"textbox","id":"sh/87ulgf6t","slide":46,"text":"ターミナルA：Claude Codeに入力するプロンプト（全文）","textPreview":"ターミナルA：Claude Codeに入力するプロンプト（全文）","textChars":32,"textLines":1,"bbox":[100,151,1410,60]}
+{"kind":"shape","id":"sh/valkrup4","slide":46,"bbox":[80,838,1440,2]}
+{"kind":"textbox","id":"sh/a9c3ipoj","slide":46,"text":"手順書：フェーズ5  |  docs/handson-steps.md","textPreview":"手順書：フェーズ5  |  docs/handson-steps.md","textChars":35,"textLines":1,"bbox":[80,852,1340,30]}
+{"kind":"textbox","id":"sh/xc32tk7a","slide":46,"text":"46","textPreview":"46","textChars":2,"textLines":1,"bbox":[1460,849,65,36]}
+{"kind":"shape","id":"sh/wbulkz6p","slide":46,"bbox":[90,228,1420,493]}
+{"kind":"textbox","id":"sh/je54vupg","slide":46,"text":"Issue #<Issue番号> の必須要件から、未実装の項目を一覧にしてください。","textPreview":"Issue #<Issue番号> の必須要件から、未実装の項目を一覧にしてください。","textChars":42,"textLines":1,"bbox":[111,244,1380,53]}
+{"kind":"textbox","id":"sh/idw3mpov","slide":46,"text":"一覧を作成したあと、上から順に実装してください。","textPreview":"一覧を作成したあと、上から順に実装してください。","textChars":24,"textLines":1,"bbox":[111,288,1380,53]}
+{"kind":"textbox","id":"sh/w361sbat","slide":46,"text":"実装後に npm test を実行し、結果を報告してください。","textPreview":"実装後に npm test を実行し、結果を報告してください。","textChars":31,"textLines":1,"bbox":[111,351,1380,53]}
+{"kind":"textbox","id":"sh/x4f2lgbe","slide":46,"text":"共通の補助プロンプトです。<Issue番号>を自分の担当Issueに置き換えます。","textPreview":"共通の補助プロンプトです。<Issue番号>を自分の担当Issueに置き換えます。","textChars":41,"textLines":1,"bbox":[100,738,1400,40]}
+{"kind":"notes","id":"nt/71627i","slide":46,"text":""}
+{"kind":"slide","id":"sl/99yj2k","slide":47,"title":"フェーズ5｜statusをreadyへ変更する","textShapes":8}
+{"kind":"shape","id":"sh/cfetczut","slide":47,"bbox":[70,65,8,64]}
+{"kind":"textbox","id":"sh/be5c3udo","slide":47,"text":"フェーズ5｜statusをreadyへ変更する","textPreview":"フェーズ5｜statusをreadyへ変更する","textChars":23,"textLines":1,"bbox":[100,54,1430,90]}
+{"kind":"textbox","id":"sh/qdwbapc3","slide":47,"text":"ターミナルA：Claude Codeに入力するプロンプト（全文）","textPreview":"ターミナルA：Claude Codeに入力するプロンプト（全文）","textChars":32,"textLines":1,"bbox":[100,151,1410,60]}
+{"kind":"shape","id":"sh/pcnu14vi","slide":47,"bbox":[80,838,1440,2]}
+{"kind":"textbox","id":"sh/orut8zux","slide":47,"text":"手順書：フェーズ5  |  docs/handson-steps.md","textPreview":"手順書：フェーズ5  |  docs/handson-steps.md","textChars":35,"textLines":1,"bbox":[80,852,1340,30]}
+{"kind":"textbox","id":"sh/3qlszudc","slide":47,"text":"47","textPreview":"47","textChars":2,"textLines":1,"bbox":[1460,849,65,36]}
+{"kind":"shape","id":"sh/2pcb6pcr","slide":47,"bbox":[90,228,1420,493]}
+{"kind":"textbox","id":"sh/987udovm","slide":47,"text":"src/games/<ゲームID>/index.ts の status を \"ready\" にしてください。","textPreview":"src/games/<ゲームID>/index.ts の status を \"ready\" にしてください。","textChars":54,"textLines":1,"bbox":[111,244,1380,53]}
+{"kind":"textbox","id":"sh/87ytkju1","slide":47,"text":"ほかの項目（id / name / owner / difficulty）は変更しないでください。","textPreview":"ほかの項目（id / name / owner / difficulty）は変更しないでください。","textChars":49,"textLines":1,"bbox":[111,288,1380,53]}
+{"kind":"textbox","id":"sh/upkjah0f","slide":47,"text":"変更後に npm test を実行し、結果を報告してください。","textPreview":"変更後に npm test を実行し、結果を報告してください。","textChars":31,"textLines":1,"bbox":[111,332,1380,53]}
+{"kind":"textbox","id":"sh/vqtk3m10","slide":47,"text":"実際の入力は、担当Issueの該当するコードブロックをコピーしてください。","textPreview":"実際の入力は、担当Issueの該当するコードブロックをコピーしてください。","textChars":37,"textLines":1,"bbox":[100,738,1400,40]}
+{"kind":"notes","id":"nt/99yj2k","slide":47,"text":""}
+{"kind":"slide","id":"sl/k9r75f","slide":48,"title":"フェーズ6｜担当Issueを参照して進める","textShapes":9}
+{"kind":"shape","id":"sh/ul0ba9wb","slide":48,"bbox":[70,65,8,64]}
+{"kind":"textbox","id":"sh/horal4fm","slide":48,"text":"フェーズ6｜担当Issueを参照して進める","textPreview":"フェーズ6｜担当Issueを参照して進める","textChars":21,"textLines":1,"bbox":[100,54,1430,90]}
+{"kind":"textbox","id":"sh/gnitcze1","slide":48,"text":"Issueの「進め方（フェーズ3〜6）」には、担当ゲーム用のプロンプトが用意されています","textPreview":"Issueの「進め方（フェーズ3〜6）」には、担当ゲーム用のプロンプトが用意されています","textChars":44,"textLines":1,"bbox":[100,151,1410,60]}
+{"kind":"shape","id":"sh/7i9sfuxk","slide":48,"bbox":[80,838,1440,2]}
+{"kind":"textbox","id":"sh/6hgr6pwz","slide":48,"text":"手順書：フェーズ6  |  docs/handson-steps.md","textPreview":"手順書：フェーズ6  |  docs/handson-steps.md","textChars":35,"textLines":1,"bbox":[80,852,1340,30]}
+{"kind":"textbox","id":"sh/tkrah4fq","slide":48,"text":"48","textPreview":"48","textChars":2,"textLines":1,"bbox":[1460,849,65,36]}
+{"kind":"shape","id":"sh/sji98ze5","slide":48,"bbox":[118,262,7.2,150]}
+{"kind":"shape","id":"sh/jepsbaxo","slide":48,"bbox":[118,262,120,7.2]}
+{"kind":"shape","id":"sh/itgr2pw3","slide":48,"bbox":[230.8,262,7.2,150]}
+{"kind":"shape","id":"sh/czepkr25","slide":48,"bbox":[118,404.8,120,7.2]}
+{"kind":"shape","id":"sh/d0nqtw3q","slide":48,"bbox":[136,290.8,28.8,28.8]}
+{"kind":"shape","id":"sh/qdc7ihkz","slide":48,"bbox":[176.8,302.8,37.2,6]}
+{"kind":"shape","id":"sh/bel8rmlk","slide":48,"bbox":[136,324.4,28.8,28.8]}
+{"kind":"shape","id":"sh/obupgr2t","slide":48,"bbox":[176.8,336.4,37.2,6]}
+{"kind":"shape","id":"sh/pc3qpc3e","slide":48,"bbox":[136,358,28.8,28.8]}
+{"kind":"shape","id":"sh/29c7ehk3","slide":48,"bbox":[176.8,370,37.2,6]}
+{"kind":"textbox","id":"sh/3al8nmlo","slide":48,"text":"今回、開く見出し","textPreview":"今回、開く見出し","textChars":8,"textLines":1,"bbox":[335,242,1150,60]}
+{"kind":"textbox","id":"sh/87y9sb2d","slide":48,"text":"「5. Pull Request を提出する」\n「必須要件」「完了条件」","textPreview":"「5. Pull Request を提出する」 | 「必須要件」「完了条件」","textChars":36,"textLines":2,"bbox":[335,310,1150,150]}
+{"kind":"textbox","id":"sh/987q1gjy","slide":48,"text":"確認する内容","textPreview":"確認する内容","textChars":6,"textLines":1,"bbox":[335,478,1150,55]}
+{"kind":"textbox","id":"sh/ho3qlgb2","slide":48,"text":"提出用プロンプトの<自分のPR番号>を置き換えます。\n差分・検証結果・未対応事項を確認し、参加者がDraftを解除します。","textPreview":"提出用プロンプトの<自分のPR番号>を置き換えます。 | 差分・検証結果・未対応事項を確認し、参加者がDraftを解除します。","textChars":61,"textLines":2,"bbox":[335,544,1135,135]}
+{"kind":"shape","id":"sh/wnupcbuh","slide":48,"bbox":[80,745,1440,70]}
+{"kind":"textbox","id":"sh/vml8j6tw","slide":48,"text":"Bで gh issue view <Issue番号> --web を実行し、担当Issueを開いてください","textPreview":"Bで gh issue view <Issue番号> --web を実行し、担当Issueを開いてください","textChars":53,"textLines":1,"bbox":[104,755,1390,50]}
+{"kind":"notes","id":"nt/k9r75f","slide":48,"text":""}
+{"kind":"slide","id":"sl/5onypobq","slide":49,"title":"フェーズ6｜verifyで提出前の検証を行う","textShapes":20}
+{"kind":"shape","id":"sh/rup0va5s","slide":49,"bbox":[70,65,8,64]}
+{"kind":"textbox","id":"sh/6987itcr","slide":49,"text":"フェーズ6｜verifyで提出前の検証を行う","textPreview":"フェーズ6｜verifyで提出前の検証を行う","textChars":22,"textLines":1,"bbox":[100,54,1430,90]}
+{"kind":"textbox","id":"sh/7a18rydc","slide":49,"text":"目的：変更範囲・コード・動作・ビルドをまとめて確認する","textPreview":"目的：変更範囲・コード・動作・ビルドをまとめて確認する","textChars":27,"textLines":1,"bbox":[100,151,1410,60]}
+{"kind":"shape","id":"sh/k7qpgjul","slide":49,"bbox":[80,838,1440,2]}
+{"kind":"textbox","id":"sh/58zqpov6","slide":49,"text":"手順書：フェーズ6  |  docs/handson-steps.md","textPreview":"手順書：フェーズ6  |  docs/handson-steps.md","textChars":35,"textLines":1,"bbox":[80,852,1340,30]}
+{"kind":"textbox","id":"sh/il87etcv","slide":49,"text":"49","textPreview":"49","textChars":2,"textLines":1,"bbox":[1460,849,65,36]}
+{"kind":"shape","id":"sh/jmh8nyd0","slide":49,"bbox":[100,238,1400,94]}
+{"kind":"textbox","id":"sh/43u9snu5","slide":49,"text":"npm run verify","textPreview":"npm run verify","textChars":14,"textLines":1,"bbox":[115,250,1370,70]}
+{"kind":"shape","id":"sh/p43q1sva","slide":49,"bbox":[100,435,258,100]}
+{"kind":"textbox","id":"sh/p4z6tcri","slide":49,"text":"範囲チェック","textPreview":"範囲チェック","textChars":6,"textLines":1,"bbox":[112,457,236,50]}
+{"kind":"textbox","id":"sh/436507qx","slide":49,"text":"→","textPreview":"→","textChars":1,"textLines":1,"bbox":[350,453,55,50]}
+{"kind":"shape","id":"sh/3ixor29c","slide":49,"bbox":[387,435,258,100]}
+{"kind":"textbox","id":"sh/2honyx8r","slide":49,"text":"lint","textPreview":"lint","textChars":4,"textLines":1,"bbox":[399,457,236,50]}
+{"kind":"textbox","id":"sh/hgf6pcr6","slide":49,"text":"→","textPreview":"→","textChars":1,"textLines":1,"bbox":[637,453,55,50]}
+{"kind":"shape","id":"sh/gf65w7ql","slide":49,"bbox":[674,435,258,100]}
+{"kind":"textbox","id":"sh/fexon290","slide":49,"text":"型チェック","textPreview":"型チェック","textChars":5,"textLines":1,"bbox":[686,457,236,50]}
+{"kind":"textbox","id":"sh/udonux8v","slide":49,"text":"→","textPreview":"→","textChars":1,"textLines":1,"bbox":[924,453,55,50]}
+{"kind":"shape","id":"sh/1cj61w7q","slide":49,"bbox":[961,435,258,100]}
+{"kind":"textbox","id":"sh/0bap8rq5","slide":49,"text":"テスト","textPreview":"テスト","textChars":3,"textLines":1,"bbox":[973,457,236,50]}
+{"kind":"textbox","id":"sh/krihkz2d","slide":49,"text":"→","textPreview":"→","textChars":1,"textLines":1,"bbox":[1211,453,55,50]}
+{"kind":"shape","id":"sh/lsrit4jy","slide":49,"bbox":[1248,435,258,100]}
+{"kind":"textbox","id":"sh/yp0zipk7","slide":49,"text":"ビルド","textPreview":"ビルド","textChars":3,"textLines":1,"bbox":[1260,457,236,50]}
+{"kind":"textbox","id":"sh/jq90ru1s","slide":49,"text":"担当範囲","textPreview":"担当範囲","textChars":4,"textLines":1,"bbox":[110,567,250,50]}
+{"kind":"textbox","id":"sh/wnihgf2h","slide":49,"text":"記述ルール","textPreview":"記述ルール","textChars":5,"textLines":1,"bbox":[399,567,250,50]}
+{"kind":"textbox","id":"sh/xoripkj2","slide":49,"text":"型の整合","textPreview":"型の整合","textChars":4,"textLines":1,"bbox":[686,567,250,50]}
+{"kind":"textbox","id":"sh/al0zepkb","slide":49,"text":"テスト結果","textPreview":"テスト結果","textChars":5,"textLines":1,"bbox":[973,567,250,50]}
+{"kind":"textbox","id":"sh/bm9gnu1w","slide":49,"text":"配布用生成","textPreview":"配布用生成","textChars":5,"textLines":1,"bbox":[1260,567,250,50]}
+{"kind":"shape","id":"sh/ozyhcf25","slide":49,"bbox":[80,745,1440,70]}
+{"kind":"textbox","id":"sh/907ylkjq","slide":49,"text":"verifyが失敗したらそこで停止し、最初のエラーだけを報告してもらいます","textPreview":"verifyが失敗したらそこで停止し、最初のエラーだけを報告してもらいます","textChars":37,"textLines":1,"bbox":[104,755,1390,50]}
+{"kind":"notes","id":"nt/5onypobq","slide":49,"text":""}
+{"kind":"slide","id":"sl/c7uhcr6t","slide":50,"title":"フェーズ6｜実際の変更に基づいてPRを更新","textShapes":9}
+{"kind":"shape","id":"sh/1graxo3i","slide":50,"bbox":[70,65,8,64]}
+{"kind":"textbox","id":"sh/90vqdczq","slide":50,"text":"フェーズ6｜実際の変更に基づいてPRを更新","textPreview":"フェーズ6｜実際の変更に基づいてPRを更新","textChars":21,"textLines":1,"bbox":[100,54,1430,90]}
+{"kind":"textbox","id":"sh/8zm9k7y5","slide":50,"text":"A：verify成功後、手順書の順序でコミット・push・本文更新を依頼します","textPreview":"A：verify成功後、手順書の順序でコミット・push・本文更新を依頼します","textChars":39,"textLines":1,"bbox":[100,151,1410,60]}
+{"kind":"shape","id":"sh/v2d8fmhw","slide":50,"bbox":[80,838,1440,2]}
+{"kind":"textbox","id":"sh/a14rmhgb","slide":50,"text":"手順書：フェーズ6  |  docs/handson-steps.md","textPreview":"手順書：フェーズ6  |  docs/handson-steps.md","textChars":35,"textLines":1,"bbox":[80,852,1340,30]}
+{"kind":"textbox","id":"sh/xovqhcz2","slide":50,"text":"50","textPreview":"50","textChars":2,"textLines":1,"bbox":[1460,849,65,36]}
+{"kind":"shape","id":"sh/w3m9o7yh","slide":50,"bbox":[100,260,662,5]}
+{"kind":"textbox","id":"sh/jqd8jmhs","slide":50,"text":"変更を送信する","textPreview":"変更を送信する","textChars":7,"textLines":1,"bbox":[100,290,658,70]}
+{"kind":"textbox","id":"sh/ip4rqhgn","slide":50,"text":"担当フォルダだけをgit add\nゲーム実装のコミットを作成\ngit pushを確認・承認","textPreview":"担当フォルダだけをgit add | ゲーム実装のコミットを作成 | git pushを確認・承認","textChars":45,"textLines":3,"bbox":[100,385,652,280]}
+{"kind":"shape","id":"sh/sby90zm1","slide":50,"bbox":[800,260,662,5]}
+{"kind":"textbox","id":"sh/tc7at436","slide":50,"text":"本文を更新する","textPreview":"本文を更新する","textChars":7,"textLines":1,"bbox":[800,290,658,70]}
+{"kind":"textbox","id":"sh/69gry94v","slide":50,"text":"git diff origin/main...HEADを確認\nPRテンプレートに沿って作成\n.pr-body.mdへ保存\ngh pr editの実行を確認・承認","textPreview":"git diff origin/main...HEADを確認 | PRテンプレートに沿って作成 | .pr-body.mdへ保存 | gh pr editの実行を確認・承認","textChars":80,"textLines":4,"bbox":[800,385,652,280]}
+{"kind":"shape","id":"sh/rapsrelg","slide":50,"bbox":[80,745,1440,70]}
+{"kind":"textbox","id":"sh/0fi94jmx","slide":50,"text":"未達の必須要件があれば「発展課題・未対応事項」に明記。AではDraft解除しない","textPreview":"未達の必須要件があれば「発展課題・未対応事項」に明記。AではDraft解除しない","textChars":40,"textLines":1,"bbox":[104,755,1390,50]}
+{"kind":"notes","id":"nt/c7uhcr6t","slide":50,"text":""}
+{"kind":"slide","id":"sl/2exgot","slide":51,"title":"フェーズ6｜提出のプロンプト 1/2","textShapes":14}
+{"kind":"shape","id":"sh/3u58r25o","slide":51,"bbox":[70,65,8,64]}
+{"kind":"textbox","id":"sh/4fep07m9","slide":51,"text":"フェーズ6｜提出のプロンプト 1/2","textPreview":"フェーズ6｜提出のプロンプト 1/2","textChars":18,"textLines":1,"bbox":[100,54,1430,90]}
+{"kind":"textbox","id":"sh/pgnqtcnu","slide":51,"text":"ターミナルA：Claude Codeに入力するプロンプト（全文）","textPreview":"ターミナルA：Claude Codeに入力するプロンプト（全文）","textChars":32,"textLines":1,"bbox":[100,151,1410,60]}
+{"kind":"shape","id":"sh/qhw72h4z","slide":51,"bbox":[80,838,1440,2]}
+{"kind":"textbox","id":"sh/rip8vm5k","slide":51,"text":"手順書：フェーズ6  |  docs/handson-steps.md","textPreview":"手順書：フェーズ6  |  docs/handson-steps.md","textChars":35,"textLines":1,"bbox":[80,852,1340,30]}
+{"kind":"textbox","id":"sh/cjyp4rm5","slide":51,"text":"51","textPreview":"51","textChars":2,"textLines":1,"bbox":[1460,849,65,36]}
+{"kind":"shape","id":"sh/dk7qxwnq","slide":51,"bbox":[90,228,1420,493]}
+{"kind":"textbox","id":"sh/6lc7qd4v","slide":51,"text":"Pull Request を提出します。次を順に実行してください。","textPreview":"Pull Request を提出します。次を順に実行してください。","textChars":33,"textLines":1,"bbox":[111,244,1380,53]}
+{"kind":"textbox","id":"sh/7mloji5g","slide":51,"text":"1. npm run verify","textPreview":"1. npm run verify","textChars":17,"textLines":1,"bbox":[111,307,1380,53]}
+{"kind":"textbox","id":"sh/z61srmtc","slide":51,"text":"2. git add src/games/<ゲームID>","textPreview":"2. git add src/games/<ゲームID>","textChars":28,"textLines":1,"bbox":[111,351,1380,53]}
+{"kind":"textbox","id":"sh/y58bihsr","slide":51,"text":"3. git commit -m \"feat(<ゲームID>): ゲームを実装する\"","textPreview":"3. git commit -m \"feat(<ゲームID>): ゲームを実装する\"","textChars":42,"textLines":1,"bbox":[111,395,1380,53]}
+{"kind":"textbox","id":"sh/l8jatcbi","slide":51,"text":"4. git push","textPreview":"4. git push","textChars":11,"textLines":1,"bbox":[111,439,1380,53]}
+{"kind":"textbox","id":"sh/07atkrax","slide":51,"text":"5. .github/PULL_REQUEST_TEMPLATE.md の形式で、Pull Request の本文を .pr-body.md に書く","textPreview":"5. .github/PULL_REQUEST_TEMPLATE.md の形式で、Pull Request の本文を .pr-body.md に書く","textChars":74,"textLines":1,"bbox":[111,483,1380,97]}
+{"kind":"textbox","id":"sh/b2hsn2tg","slide":51,"text":"6. gh pr edit <自分のPR番号> --body-file .pr-body.md","textPreview":"6. gh pr edit <自分のPR番号> --body-file .pr-body.md","textChars":47,"textLines":1,"bbox":[111,571,1380,53]}
+{"kind":"textbox","id":"sh/qh8bexsv","slide":51,"text":"npm run verify が失敗したら、そこで止めて最初のエラーだけを報告してください。","textPreview":"npm run verify が失敗したら、そこで止めて最初のエラーだけを報告してください。","textChars":46,"textLines":1,"bbox":[111,634,1380,53]}
+{"kind":"textbox","id":"sh/d4zapcb6","slide":51,"text":"複数ページで1つのプロンプトです。全ページの本文をまとめて入力してください。","textPreview":"複数ページで1つのプロンプトです。全ページの本文をまとめて入力してください。","textChars":38,"textLines":1,"bbox":[100,738,1400,40]}
+{"kind":"textbox","id":"sh/c3qtg7al","slide":51,"text":"verify失敗時は停止。push・PR本文更新は承認し、Draft解除はBで参加者が行います。","textPreview":"verify失敗時は停止。push・PR本文更新は承認し、Draft解除はBで参加者が行います。","textChars":48,"textLines":1,"bbox":[100,788,1400,32]}
+{"kind":"notes","id":"nt/2exgot","slide":51,"text":""}
+{"kind":"slide","id":"sl/vmiink","slide":52,"title":"フェーズ6｜提出のプロンプト 2/2","textShapes":9}
+{"kind":"shape","id":"sh/i5sved87","slide":52,"bbox":[70,65,8,64]}
+{"kind":"textbox","id":"sh/5sje9s7i","slide":52,"text":"フェーズ6｜提出のプロンプト 2/2","textPreview":"フェーズ6｜提出のプロンプト 2/2","textChars":18,"textLines":1,"bbox":[100,54,1430,90]}
+{"kind":"textbox","id":"sh/47adgnqx","slide":52,"text":"ターミナルA：Claude Codeに入力するプロンプト（全文）","textPreview":"ターミナルA：Claude Codeに入力するプロンプト（全文）","textChars":32,"textLines":1,"bbox":[100,151,1410,60]}
+{"kind":"shape","id":"sh/ru1wb2po","slide":52,"bbox":[80,838,1440,2]}
+{"kind":"textbox","id":"sh/qtsvix83","slide":52,"text":"手順書：フェーズ6  |  docs/handson-steps.md","textPreview":"手順書：フェーズ6  |  docs/handson-steps.md","textChars":35,"textLines":1,"bbox":[80,852,1340,30]}
+{"kind":"textbox","id":"sh/dw3eds7u","slide":52,"text":"52","textPreview":"52","textChars":2,"textLines":1,"bbox":[1460,849,65,36]}
+{"kind":"shape","id":"sh/svadknq9","slide":52,"bbox":[90,228,1420,493]}
+{"kind":"textbox","id":"sh/7yhczy9k","slide":52,"text":"本文は git diff origin/main...HEAD を確認し、実際の変更内容にもとづいて書いてください。","textPreview":"本文は git diff origin/main...HEAD を確認し、実際の変更内容にもとづいて書いてください。","textChars":58,"textLines":1,"bbox":[111,244,1380,97]}
+{"kind":"textbox","id":"sh/6xov6t8z","slide":52,"text":"満たせていない必須要件があれば、「発展課題・未対応事項」に明記してください。","textPreview":"満たせていない必須要件があれば、「発展課題・未対応事項」に明記してください。","textChars":38,"textLines":1,"bbox":[111,332,1380,53]}
+{"kind":"textbox","id":"sh/k7ypgf2p","slide":52,"text":"gh pr ready は実行しないでください。ターミナルBで実行します。","textPreview":"gh pr ready は実行しないでください。ターミナルBで実行します。","textChars":37,"textLines":1,"bbox":[111,395,1380,53]}
+{"kind":"textbox","id":"sh/58r6p0ja","slide":52,"text":"複数ページで1つのプロンプトです。全ページの本文をまとめて入力してください。","textPreview":"複数ページで1つのプロンプトです。全ページの本文をまとめて入力してください。","textChars":38,"textLines":1,"bbox":[100,738,1400,40]}
+{"kind":"textbox","id":"sh/i5gne5kj","slide":52,"text":"verify失敗時は停止。push・PR本文更新は承認し、Draft解除はBで参加者が行います。","textPreview":"verify失敗時は停止。push・PR本文更新は承認し、Draft解除はBで参加者が行います。","textChars":48,"textLines":1,"bbox":[100,788,1400,32]}
+{"kind":"notes","id":"nt/vmiink","slide":52,"text":""}
+{"kind":"slide","id":"sl/7qto7e10","slide":53,"title":"フェーズ6｜参加者がDraftを解除して提出","textShapes":12}
+{"kind":"shape","id":"sh/vyp03m1w","slide":53,"bbox":[70,65,8,64]}
+{"kind":"textbox","id":"sh/1sfqxsv6","slide":53,"text":"フェーズ6｜参加者がDraftを解除して提出","textPreview":"フェーズ6｜参加者がDraftを解除して提出","textChars":22,"textLines":1,"bbox":[100,54,1430,90]}
+{"kind":"textbox","id":"sh/0r6p4nul","slide":53,"text":"B：提出を判断し、Draftを解除してからCIを確認します","textPreview":"B：提出を判断し、Draftを解除してからCIを確認します","textChars":29,"textLines":1,"bbox":[100,151,1410,60]}
+{"kind":"shape","id":"sh/nux8zidc","slide":53,"bbox":[80,838,1440,2]}
+{"kind":"textbox","id":"sh/2to76dcr","slide":53,"text":"手順書：フェーズ6  |  docs/handson-steps.md","textPreview":"手順書：フェーズ6  |  docs/handson-steps.md","textChars":35,"textLines":1,"bbox":[80,852,1340,30]}
+{"kind":"textbox","id":"sh/9wzq1svi","slide":53,"text":"53","textPreview":"53","textChars":2,"textLines":1,"bbox":[1460,849,65,36]}
+{"kind":"shape","id":"sh/ov6p8nux","slide":53,"bbox":[100,243,1400,139]}
+{"kind":"textbox","id":"sh/3ydonyd8","slide":53,"text":"gh pr ready <自分のPR番号>\ngh pr checks <自分のPR番号> --watch","textPreview":"gh pr ready <自分のPR番号> | gh pr checks <自分のPR番号> --watch","textChars":52,"textLines":2,"bbox":[115,255,1370,115]}
+{"kind":"textbox","id":"sh/ix47utcn","slide":53,"text":"01","textPreview":"01","textChars":2,"textLines":1,"bbox":[100,447,76,50]}
+{"kind":"textbox","id":"sh/8veh8ril","slide":53,"text":"完了条件：npm run verifyが成功している","textPreview":"完了条件：npm run verifyが成功している","textChars":26,"textLines":1,"bbox":[200,447,1280,75]}
+{"kind":"textbox","id":"sh/9wni1wjq","slide":53,"text":"02","textPreview":"02","textChars":2,"textLines":1,"bbox":[100,534,76,50]}
+{"kind":"textbox","id":"sh/mtwz6h0f","slide":53,"text":"完了条件：Draftを解除し、CIのverifyが成功している","textPreview":"完了条件：Draftを解除し、CIのverifyが成功している","textChars":31,"textLines":1,"bbox":[200,534,1280,75]}
+{"kind":"textbox","id":"sh/nu50zm10","slide":53,"text":"03","textPreview":"03","textChars":2,"textLines":1,"bbox":[100,621,76,50]}
+{"kind":"textbox","id":"sh/wzyhcrih","slide":53,"text":"完了条件：講師へPR番号を伝えた","textPreview":"完了条件：講師へPR番号を伝えた","textChars":16,"textLines":1,"bbox":[200,621,1280,75]}
+{"kind":"shape","id":"sh/x07i5wj2","slide":53,"bbox":[80,745,1440,70]}
+{"kind":"textbox","id":"sh/axgza10b","slide":53,"text":"ローカルの検証結果と、GitHub上のCI結果の両方を確認します","textPreview":"ローカルの検証結果と、GitHub上のCI結果の両方を確認します","textChars":32,"textLines":1,"bbox":[104,755,1390,50]}
+{"kind":"notes","id":"nt/7qto7e10","slide":53,"text":""}
+{"kind":"slide","id":"sl/69wfm9o7","slide":54,"title":"フェーズ7｜講師がマージし、公開する","textShapes":9}
+{"kind":"shape","id":"sh/9cjahgry","slide":54,"bbox":[70,65,8,64]}
+{"kind":"textbox","id":"sh/xg7axgf2","slide":54,"text":"フェーズ7｜講師がマージし、公開する","textPreview":"フェーズ7｜講師がマージし、公開する","textChars":18,"textLines":1,"bbox":[100,54,1430,90]}
+{"kind":"textbox","id":"sh/cfyt4beh","slide":54,"text":"目的：各ゲームの変更をmainへ統合し、公開先で結果を確認する","textPreview":"目的：各ゲームの変更をmainへ統合し、公開先で結果を確認する","textChars":31,"textLines":1,"bbox":[100,151,1410,60]}
+{"kind":"shape","id":"sh/napsr6x0","slide":54,"bbox":[80,838,1440,2]}
+{"kind":"textbox","id":"sh/29wby1wf","slide":54,"text":"手順書：フェーズ7  |  docs/handson-steps.md","textPreview":"手順書：フェーズ7  |  docs/handson-steps.md","textChars":35,"textLines":1,"bbox":[80,852,1340,30]}
+{"kind":"textbox","id":"sh/pc7atgf6","slide":54,"text":"54","textPreview":"54","textChars":2,"textLines":1,"bbox":[1460,849,65,36]}
+{"kind":"shape","id":"sh/obyt0bel","slide":54,"bbox":[100,260,662,5]}
+{"kind":"textbox","id":"sh/fm5snmx4","slide":54,"text":"参加者","textPreview":"参加者","textChars":3,"textLines":1,"bbox":[100,290,658,70]}
+{"kind":"textbox","id":"sh/elwbu1wj","slide":54,"text":"BでPRのCIを確認\nverify失敗時は原因を修正\n\nマージは実行しない","textPreview":"BでPRのCIを確認 | verify失敗時は原因を修正 |  | マージは実行しない","textChars":37,"textLines":4,"bbox":[100,385,652,280]}
+{"kind":"shape","id":"sh/wza9cbqp","slide":54,"bbox":[800,260,662,5]}
+{"kind":"textbox","id":"sh/h0jalgra","slide":54,"text":"講師","textPreview":"講師","textChars":2,"textLines":1,"bbox":[800,290,658,70]}
+{"kind":"textbox","id":"sh/uxsra18j","slide":54,"text":"9件のPRを順にmainへマージ\nマージごとに自動デプロイ\n\nGitHub PagesのURLを投影","textPreview":"9件のPRを順にmainへマージ | マージごとに自動デプロイ |  | GitHub PagesのURLを投影","textChars":50,"textLines":4,"bbox":[800,385,652,280]}
+{"kind":"shape","id":"sh/vy1sj694","slide":54,"bbox":[80,745,1440,70]}
+{"kind":"textbox","id":"sh/8ba98bqt","slide":54,"text":"gh pr checks <自分のPR番号> で確認。verify失敗中のPRはマージできません","textPreview":"gh pr checks <自分のPR番号> で確認。verify失敗中のPRはマージできません","textChars":48,"textLines":1,"bbox":[104,755,1390,50]}
+{"kind":"notes","id":"nt/69wfm9o7","slide":54,"text":""}
+{"kind":"slide","id":"sl/6b429k","slide":55,"title":"フェーズ7｜マージ後にmainへ同期する","textShapes":11}
+{"kind":"shape","id":"sh/8v65cr65","slide":55,"bbox":[70,65,8,64]}
+{"kind":"textbox","id":"sh/7uxoj65k","slide":55,"text":"フェーズ7｜マージ後にmainへ同期する","textPreview":"フェーズ7｜マージ後にmainへ同期する","textChars":20,"textLines":1,"bbox":[100,54,1430,90]}
+{"kind":"textbox","id":"sh/6tona1oz","slide":55,"text":"ターミナルA：Claude Codeに入力するプロンプト（全文）","textPreview":"ターミナルA：Claude Codeに入力するプロンプト（全文）","textChars":32,"textLines":1,"bbox":[100,151,1410,60]}
+{"kind":"shape","id":"sh/h0z6pgnm","slide":55,"bbox":[80,838,1440,2]}
+{"kind":"textbox","id":"sh/gzq5gb61","slide":55,"text":"手順書：フェーズ7  |  docs/handson-steps.md","textPreview":"手順書：フェーズ7  |  docs/handson-steps.md","textChars":35,"textLines":1,"bbox":[80,852,1340,30]}
+{"kind":"textbox","id":"sh/fyxon65g","slide":55,"text":"55","textPreview":"55","textChars":2,"textLines":1,"bbox":[1460,849,65,36]}
+{"kind":"shape","id":"sh/uxone1ob","slide":55,"bbox":[90,228,1420,493]}
+{"kind":"textbox","id":"sh/x4v6dcni","slide":55,"text":"私の Pull Request はマージされました。次の3つを順に実行してください。","textPreview":"私の Pull Request はマージされました。次の3つを順に実行してください。","textChars":42,"textLines":1,"bbox":[111,244,1380,53]}
+{"kind":"textbox","id":"sh/w3m5476x","slide":55,"text":"1. git switch main","textPreview":"1. git switch main","textChars":18,"textLines":1,"bbox":[111,307,1380,53]}
+{"kind":"textbox","id":"sh/25sjulcr","slide":55,"text":"2. git pull","textPreview":"2. git pull","textChars":11,"textLines":1,"bbox":[111,351,1380,53]}
+{"kind":"textbox","id":"sh/361k3qdc","slide":55,"text":"3. git log --oneline -5","textPreview":"3. git log --oneline -5","textChars":23,"textLines":1,"bbox":[111,395,1380,53]}
+{"kind":"textbox","id":"sh/ora1wvuh","slide":55,"text":"実行後、私のゲーム（src/games/<ゲームID>）のファイルが main に反映されていることを確認し、結果を1行で報告してください。","textPreview":"実行後、私のゲーム（src/games/<ゲームID>）のファイルが main に反映されていることを確認し、結果を1行で報告してください。","textChars":70,"textLines":1,"bbox":[111,458,1380,97]}
+{"kind":"textbox","id":"sh/psj250v2","slide":55,"text":"新しいブランチは作らないでください。ファイルも変更しないでください。","textPreview":"新しいブランチは作らないでください。ファイルも変更しないでください。","textChars":34,"textLines":1,"bbox":[111,546,1380,53]}
+{"kind":"textbox","id":"sh/qtsjy5cn","slide":55,"text":"担当PRのマージを確認してから入力してください。","textPreview":"担当PRのマージを確認してから入力してください。","textChars":24,"textLines":1,"bbox":[100,738,1400,40]}
+{"kind":"notes","id":"nt/6b429k","slide":55,"text":""}
+{"kind":"slide","id":"sl/l0bepsfm","slide":56,"title":"フェーズ7｜mainへ同期し、公開を確認","textShapes":9}
+{"kind":"shape","id":"sh/c3a94z21","slide":56,"bbox":[70,65,8,64]}
+{"kind":"textbox","id":"sh/uhk36lk7","slide":56,"text":"フェーズ7｜mainへ同期し、公開を確認","textPreview":"フェーズ7｜mainへ同期し、公開を確認","textChars":20,"textLines":1,"bbox":[100,54,1430,90]}
+{"kind":"textbox","id":"sh/vitkzqlc","slide":56,"text":"PRがマージされたあと、Aへmainへの同期を依頼します","textPreview":"PRがマージされたあと、Aへmainへの同期を依頼します","textChars":28,"textLines":1,"bbox":[100,151,1410,60]}
+{"kind":"shape","id":"sh/8fil4b21","slide":56,"bbox":[80,838,1440,2]}
+{"kind":"textbox","id":"sh/tgr2xg3m","slide":56,"text":"手順書：フェーズ7  |  docs/handson-steps.md","textPreview":"手順書：フェーズ7  |  docs/handson-steps.md","textChars":35,"textLines":1,"bbox":[80,852,1340,30]}
+{"kind":"textbox","id":"sh/md0321kv","slide":56,"text":"56","textPreview":"56","textChars":2,"textLines":1,"bbox":[1460,849,65,36]}
+{"kind":"shape","id":"sh/7e9kv6lg","slide":56,"bbox":[100,260,662,5]}
+{"kind":"textbox","id":"sh/kbil0r2p","slide":56,"text":"A：同期を依頼","textPreview":"A：同期を依頼","textChars":7,"textLines":1,"bbox":[100,290,658,70]}
+{"kind":"textbox","id":"sh/lcr2tw3a","slide":56,"text":"git switch main\ngit pull\ngit log --oneline -5\n\n担当ゲームのmainへの反映を確認","textPreview":"git switch main | git pull | git log --oneline -5 |  | 担当ゲームのmainへの反映を確認","textChars":64,"textLines":5,"bbox":[100,385,652,280]}
+{"kind":"shape","id":"sh/lsja143i","slide":56,"bbox":[800,260,662,5]}
+{"kind":"textbox","id":"sh/krat8z2x","slide":56,"text":"B：参加者が確認","textPreview":"B：参加者が確認","textChars":8,"textLines":1,"bbox":[800,290,658,70]}
+{"kind":"textbox","id":"sh/z61szulc","slide":56,"text":"公開URLで担当ゲームを開始\n手元のブラウザもF5で再読み込み\n\n確認後にCtrl + Cで\n開発サーバーを停止","textPreview":"公開URLで担当ゲームを開始 | 手元のブラウザもF5で再読み込み |  | 確認後にCtrl + Cで | 開発サーバーを停止","textChars":56,"textLines":5,"bbox":[800,385,652,280]}
+{"kind":"shape","id":"sh/y5sr69kr","slide":56,"bbox":[80,745,1440,70]}
+{"kind":"textbox","id":"sh/x4jax436","slide":56,"text":"完了条件：PRマージ済み・main反映済み・公開先で開始可能・サーバー停止","textPreview":"完了条件：PRマージ済み・main反映済み・公開先で開始可能・サーバー停止","textChars":37,"textLines":1,"bbox":[104,755,1390,50]}
+{"kind":"notes","id":"nt/l0bepsfm","slide":56,"text":""}
+{"kind":"slide","id":"sl/4vyxknqp","slide":57,"title":"研修で身につける共同開発の進め方","textShapes":11}
+{"kind":"shape","id":"sh/vmpg3m9c","slide":57,"bbox":[70,65,8,64]}
+{"kind":"textbox","id":"sh/kn694nmx","slide":57,"text":"研修で身につける共同開発の進め方","textPreview":"研修で身につける共同開発の進め方","textChars":16,"textLines":1,"bbox":[100,54,1430,90]}
+{"kind":"textbox","id":"sh/lofadsni","slide":57,"text":"自分の担当ゲームを例に、次の3点を説明してみましょう","textPreview":"自分の担当ゲームを例に、次の3点を説明してみましょう","textChars":26,"textLines":1,"bbox":[100,151,1410,60]}
+{"kind":"shape","id":"sh/mpor6x43","slide":57,"bbox":[80,838,1440,2]}
+{"kind":"textbox","id":"sh/7qxsfi5o","slide":57,"text":"Claude Code × GitHub 共同開発ハンズオン","textPreview":"Claude Code × GitHub 共同開発ハンズオン","textChars":30,"textLines":1,"bbox":[80,852,1340,30]}
+{"kind":"textbox","id":"sh/8r698nm9","slide":57,"text":"57","textPreview":"57","textChars":2,"textLines":1,"bbox":[1460,849,65,36]}
+{"kind":"shape","id":"sh/9sfahsnu","slide":57,"bbox":[100,260,428.67,5]}
+{"kind":"textbox","id":"sh/utobax4f","slide":57,"text":"仕様を確認する","textPreview":"仕様を確認する","textChars":7,"textLines":1,"bbox":[100,290,424.67,70]}
+{"kind":"textbox","id":"sh/vuxsj250","slide":57,"text":"何を実装し、\n何を対象外にしましたか\n\nIssueと計画の対応を説明","textPreview":"何を実装し、 | 何を対象外にしましたか |  | Issueと計画の対応を説明","textChars":34,"textLines":4,"bbox":[100,385,418.67,280]}
+{"kind":"shape","id":"sh/ju5gv294","slide":57,"bbox":[566.67,260,428.67,5]}
+{"kind":"textbox","id":"sh/ytwfmx8j","slide":57,"text":"実装を確かめる","textPreview":"実装を確かめる","textChars":7,"textLines":1,"bbox":[566.67,290,424.67,70]}
+{"kind":"textbox","id":"sh/lw7yxcra","slide":57,"text":"AIの変更を、\nどの操作で\n確認しましたか\n\nテストと試遊の役割","textPreview":"AIの変更を、 | どの操作で | 確認しましたか |  | テストと試遊の役割","textChars":32,"textLines":5,"bbox":[566.67,385,418.67,280]}
+{"kind":"shape","id":"sh/kvyxo7qp","slide":57,"bbox":[1033.33,260,428.67,5]}
+{"kind":"textbox","id":"sh/bq5gr298","slide":57,"text":"変更を共有する","textPreview":"変更を共有する","textChars":7,"textLines":1,"bbox":[1033.33,290,424.67,70]}
+{"kind":"textbox","id":"sh/apwfix8n","slide":57,"text":"担当の変更は、\nどの工程で\n公開されましたか\n\nPR・CI・マージの関係","textPreview":"担当の変更は、 | どの工程で | 公開されましたか |  | PR・CI・マージの関係","textChars":36,"textLines":5,"bbox":[1033.33,385,418.67,280]}
+{"kind":"shape","id":"sh/xsnytcry","slide":57,"bbox":[80,745,1440,70]}
+{"kind":"textbox","id":"sh/wrexk7qt","slide":57,"text":"実務でも、実装範囲を決め、計画と動作を確認してから変更を提出する","textPreview":"実務でも、実装範囲を決め、計画と動作を確認してから変更を提出する","textChars":32,"textLines":1,"bbox":[104,755,1390,50]}
+{"kind":"notes","id":"nt/4vyxknqp","slide":57,"text":""}

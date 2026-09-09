@@ -1,0 +1,147 @@
+[
+  {
+    "phase": 1,
+    "title": "環境準備のプロンプト",
+    "body": "環境の準備をします。次の2つを、この順番で実行してください。\n\n1. npm ci\n2. npm run doctor\n\nnpm install は使わないでください（package-lock.json が書き換わると CI が失敗します）。\nnpm run dev は実行しないでください。私が別のターミナルで動かします。\n\nnpm run doctor に ✗ が出た場合は、修正せずに止めてください。\n✗ の行と、その直下にある「→」の行を、そのまま表示してください。",
+    "pieces": [
+      17
+    ]
+  },
+  {
+    "phase": 2,
+    "title": "Issue全文を確認する",
+    "body": "gh issue view <Issue番号> を実行して、出力をそのまま全文表示してください。\n要約・省略・並べ替え・言い換えをしないでください。原文のまま出してください。\n\n最後に、必須要件（チェックボックスの行）の件数だけを教えてください。\n解説や所感は不要です。",
+    "pieces": [
+      21
+    ]
+  },
+  {
+    "phase": 2,
+    "title": "対象外ルールを確認する",
+    "body": "docs/games/<ゲームID>.md を開き、次の2つの見出しに含まれる内容を原文のまま表示してください。\n\n- 「今回は実装しないルール」の表\n- 「時間が足りないときの省略順」\n\n要約しないでください。解釈や補足も足さないでください。原文のまま出してください。",
+    "pieces": [
+      22
+    ]
+  },
+  {
+    "phase": 3,
+    "title": "ブランチ・雛形のプロンプト",
+    "body": "これから <ゲームID> の実装を始めます。次の5つを、この順番で実行してください。\n\n1. git switch main\n2. git pull\n3. git switch -c feature/<ゲームID>\n4. npm run scaffold -- --game <ゲームID>\n5. npm test\n\n実行後、src/games/<ゲームID>/ に生成された5つのファイルについて、\n「ファイル名 … 役割」の形式で1行ずつ、合計5行で説明してください。\n\nファイルは変更せず、まだ実装を始めないでください。",
+    "pieces": [
+      26
+    ]
+  },
+  {
+    "phase": 3,
+    "title": "雛形をコミットする",
+    "body": "コミットの前に git status --short を実行し、変更されたファイルの一覧をそのまま表示してください。\n\nそのうえで、git add の対象は src/games/<ゲームID> だけにして、\n次のメッセージでコミットしてください。\n\n  chore(<ゲームID>): 雛形を追加する\n\nsrc/games/<ゲームID> の外にあるファイルは、1つも add しないでください。",
+    "pieces": [
+      28
+    ]
+  },
+  {
+    "phase": 3,
+    "title": "pushとDraft PRを作成する",
+    "body": "push して、Draft の Pull Request を作ってください。\n\n- push: git push -u origin HEAD\n- PR: gh pr create --draft --title \"<ゲームID> を実装する\" --body \"雛形を置いただけの Draft です。実装はこれから進めます。Closes #<Issue番号>\"\n\n作成した Pull Request の番号を最後に教えてください。\ngh pr ready は実行しないでください。Draft のままにします。",
+    "pieces": [
+      29
+    ]
+  },
+  {
+    "phase": 3,
+    "title": "Closesの番号が違う場合",
+    "body": "Closes の番号が違います。私の Issue は #<Issue番号> です。そこだけ直してもう一度出してください。",
+    "pieces": [
+      30
+    ]
+  },
+  {
+    "phase": 3,
+    "title": "範囲外のaddが原因でCIが失敗した場合",
+    "body": "npm run scope を実行して、範囲外の変更があるか確認してください。\n範囲外があれば、scope の出力に示された git restore のコマンドをそのまま実行して戻してください。\nsrc/games/<ゲームID> の中身は消さないでください。",
+    "pieces": [
+      32
+    ]
+  },
+  {
+    "phase": 4,
+    "title": "実装計画を作成する",
+    "body": "GitHub の Issue #<Issue番号> と docs/games/<ゲームID>.md を読んで、\nsrc/games/<ゲームID>/ にこのゲームをどう実装するか計画を立ててください。\n\n- Issue にも docs/games/<ゲームID>.md にも書かれていないルールは足さないでください。\n- まだコードは書かないでください。ファイルも変更しないでください。",
+    "pieces": [
+      35
+    ]
+  },
+  {
+    "phase": 4,
+    "title": "計画に要件が不足している場合",
+    "body": "必須要件の「<Issue の要件の文言をそのまま貼る>」に対応する項目が計画にありません。\nどの項目で実現するか分かるように、計画へ追記してください。まだ実装はしないでください。",
+    "pieces": [
+      36
+    ]
+  },
+  {
+    "phase": 4,
+    "title": "対象外のルールが含まれる場合",
+    "body": "計画の「<計画の中の1行をそのまま貼る>」は、Issue にも docs/games/<ゲームID>.md にも書かれていないルールです。\n実装対象ではないため、計画から外してください。まだ実装はしないでください。",
+    "pieces": [
+      37
+    ]
+  },
+  {
+    "phase": 4,
+    "title": "確認した計画で実装する",
+    "body": "その計画で実装してください。まず最後まで遊べる状態にすることを優先し、発展課題には手を付けないでください。",
+    "pieces": [
+      38
+    ]
+  },
+  {
+    "phase": 4,
+    "title": "担当外のファイルが変更された場合",
+    "body": "src/games/<ゲームID>/ の外が変更されています。\nその変更を元に戻してから、変更したファイルの一覧をもう一度報告してください。",
+    "pieces": [
+      40
+    ]
+  },
+  {
+    "phase": 5,
+    "title": "不具合の原因と改善策を計画",
+    "body": "ブラウザでゲームを操作すると、<起きたこと> が発生しました。期待する動作は <期待していたこと> です。\n\n原因を特定して改善策を計画してください。\nまだファイルは変更しないでください。",
+    "pieces": [
+      44
+    ]
+  },
+  {
+    "phase": 5,
+    "title": "残りの必須要件を実装する",
+    "body": "Issue #<Issue番号> の必須要件から、未実装の項目を一覧にしてください。\n一覧を作成したあと、上から順に実装してください。\n\n実装後に npm test を実行し、結果を報告してください。",
+    "pieces": [
+      46
+    ]
+  },
+  {
+    "phase": 5,
+    "title": "statusをreadyへ変更する",
+    "body": "src/games/<ゲームID>/index.ts の status を \"ready\" にしてください。\nほかの項目（id / name / owner / difficulty）は変更しないでください。\n変更後に npm test を実行し、結果を報告してください。",
+    "pieces": [
+      47
+    ]
+  },
+  {
+    "phase": 6,
+    "title": "提出のプロンプト",
+    "body": "Pull Request を提出します。次を順に実行してください。\n\n1. npm run verify\n2. git add src/games/<ゲームID>\n3. git commit -m \"feat(<ゲームID>): ゲームを実装する\"\n4. git push\n5. .github/PULL_REQUEST_TEMPLATE.md の形式で、Pull Request の本文を .pr-body.md に書く\n6. gh pr edit <自分のPR番号> --body-file .pr-body.md\n\nnpm run verify が失敗したら、そこで止めて最初のエラーだけを報告してください。\n本文は git diff origin/main...HEAD を確認し、実際の変更内容にもとづいて書いてください。\n満たせていない必須要件があれば、「発展課題・未対応事項」に明記してください。\n\ngh pr ready は実行しないでください。ターミナルBで実行します。",
+    "pieces": [
+      51,
+      52
+    ]
+  },
+  {
+    "phase": 7,
+    "title": "マージ後にmainへ同期する",
+    "body": "私の Pull Request はマージされました。次の3つを順に実行してください。\n\n1. git switch main\n2. git pull\n3. git log --oneline -5\n\n実行後、私のゲーム（src/games/<ゲームID>）のファイルが main に反映されていることを確認し、結果を1行で報告してください。\n新しいブランチは作らないでください。ファイルも変更しないでください。",
+    "pieces": [
+      55
+    ]
+  }
+]

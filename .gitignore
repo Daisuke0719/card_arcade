@@ -13,6 +13,11 @@ coverage/
 .claude/.state/
 .claude/settings.local.json
 
+# 教材ドキュメント（docs/games/ 以外は公開しない）
+/docs/*
+!/docs/games/
+/card_arcade_training_design.md
+
 # 一時ファイル
 .pr-body.md
 *.log
