@@ -9,26 +9,88 @@
  * お手本: src/games/example-game/ExampleGame.tsx
  */
 import { useReducer } from "react";
-import { useCpuTurn } from "@core";
+import { useCpuTurn, rankByScore } from "@core";
 import type { GameComponentProps } from "@core";
-import { ComingSoonPanel, GameShell } from "@ui";
-import { createInitialState, pendingDelayMs, reduce } from "./logic";
+import { GameShell, Hand, DeckPile, ResultModal, Card } from "@ui";
+import {
+  createInitialState,
+  pendingDelayMs,
+  reduce,
+  playablePileIndex,
+} from "./logic";
+import styles from "./SpeedGame.module.css";
 
 export function SpeedGame({ manifest, onExit }: GameComponentProps) {
-  // 乱数と時間は画面側で用意する。logic.ts には持ち込まない。
   const [state, dispatch] = useReducer(reduce, undefined, () =>
     createInitialState(Math.floor(Math.random() * 100000)),
   );
 
-  // pendingDelayMs が数値を返している間だけタイマーが動く
   useCpuTurn(pendingDelayMs(state), () => dispatch({ type: "tick" }));
+
+  const highlightedIds = state.you.hand
+    .filter((card) => playablePileIndex(card, state.piles) !== null)
+    .map((card) => card.id);
+
+  const isFinished = state.phase === "finished";
+
+  const ranking = rankByScore(
+    [
+      {
+        id: "you",
+        name: "あなた",
+        score: state.you.hand.length + state.you.deck.length,
+      },
+      {
+        id: "cpu",
+        name: "CPU",
+        score: state.cpu.hand.length + state.cpu.deck.length,
+      },
+    ],
+    "lower-is-better",
+  );
+
+  const resultTitle =
+    state.winner === "you" ? "あなたの勝ち！" : state.winner === "cpu" ? "CPU の勝ち" : "引き分け";
 
   return (
     <GameShell manifest={manifest} onExit={onExit} onReset={() => dispatch({ type: "reset" })}>
-      {/* TODO: この ComingSoonPanel を消して、ここにゲーム画面を作ってください。
-          @ui の Card / Hand / DeckPile / Button / ScoreBoard などが使えます。 */}
-      <ComingSoonPanel manifest={manifest} />
-      <p>（雛形）山札の残り: {state.deck.length}枚</p>
+      <div className={styles.container}>
+        <div className={styles.cpuArea}>
+          <DeckPile label="CPU の山札" count={state.cpu.deck.length} />
+          <Hand variant="hidden" count={state.cpu.hand.length} />
+        </div>
+
+        <div className={styles.center}>
+          <div className={styles.piles}>
+            <div className={styles.pileSlot}>
+              <span className={styles.pileLabel}>左の台札</span>
+              <Card card={state.piles[0]} face="up" size="lg" />
+            </div>
+            <div className={styles.pileSlot}>
+              <span className={styles.pileLabel}>右の台札</span>
+              <Card card={state.piles[1]} face="up" size="lg" />
+            </div>
+          </div>
+        </div>
+
+        <div className={styles.playerArea}>
+          <DeckPile label="あなたの山札" count={state.you.deck.length} />
+          <Hand
+            cards={state.you.hand}
+            highlightedIds={highlightedIds}
+            onCardClick={(card) => dispatch({ type: "play", side: "you", cardId: card.id })}
+          />
+        </div>
+      </div>
+
+      <ResultModal
+        open={isFinished}
+        title={resultTitle}
+        score={`${state.you.hand.length + state.you.deck.length} 対 ${state.cpu.hand.length + state.cpu.deck.length}`}
+        ranking={ranking}
+        onRetry={() => dispatch({ type: "reset" })}
+        onExit={onExit}
+      />
     </GameShell>
   );
 }
