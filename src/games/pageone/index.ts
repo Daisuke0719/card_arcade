@@ -1,4 +1,3 @@
-// @scaffold:untouched
 import type { GameManifest } from "@core";
 import { PageOneGame } from "./PageOneGame";
 
@@ -17,13 +16,17 @@ export const game: GameManifest = {
   description: "同じマークか同じ数字を出して、手札を先に出し切ります",
   difficulty: "normal",
   owner: "participant-9",
-  status: "coming-soon",
+  status: "ready",
   minPlayers: 4,
   maxPlayers: 4,
   icon: "1️⃣",
   issueNumber: 10,
   howToPlay: [
-    "TODO: 遊び方を3〜6行で書いてください（画面の「遊び方」に表示されます）。",
+    "場札と同じマークか同じ数字のカードを、手札から1枚出します。",
+    "出せるカードがあるときは出します。1枚も無いときだけ山札から引けます。",
+    "引いたカードが出せる場合は、そのまま場に出ます。",
+    "8 を出すと次の人が1回飛ばされ、A を出すともう1枚出せます。",
+    "先に手札を0枚にした人が勝ちです。2位以下は残り枚数の少ない順に決まります。",
   ],
   component: PageOneGame,
 };
