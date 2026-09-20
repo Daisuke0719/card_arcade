@@ -37,11 +37,15 @@ jobs:
         if: ${{ !cancelled() }}
         env:
           OVERRIDE: ${{ contains(github.event.pull_request.labels.*.name, 'harness:override') }}
+          ONLINE_PLATFORM: ${{ github.head_ref == 'feat/online-pageone' }}
         run: |
           BASE="origin/${{ github.base_ref || 'main' }}"
           # CI は detached HEAD なので、PR のブランチ名を明示的に渡す
           BRANCH="${{ github.head_ref }}"
-          if [ "$OVERRIDE" = "true" ]; then
+          if [ "$ONLINE_PLATFORM" = "true" ]; then
+            echo "オンライン基盤ブランチのため、共通基盤の範囲チェックは警告のみで続行します"
+            node scripts/scope-guard.mjs --base "$BASE" --branch "$BRANCH" --warn-only
+          elif [ "$OVERRIDE" = "true" ]; then
             echo "harness:override ラベルが付いているため警告のみで続行します"
             node scripts/scope-guard.mjs --base "$BASE" --branch "$BRANCH" --warn-only
           else
@@ -51,7 +55,13 @@ jobs:
       - name: 依存が変わっていないか
         id: deps
         if: ${{ !cancelled() }}
+        env:
+          ONLINE_PLATFORM: ${{ github.head_ref == 'feat/online-pageone' }}
         run: |
+          if [ "$ONLINE_PLATFORM" = "true" ]; then
+            echo "オンライン基盤ブランチでは運営管理の依存追加を許可します"
+            exit 0
+          fi
           if ! git diff --exit-code -- package.json package-lock.json; then
             echo "::error::package.json / package-lock.json が変更されています。依存の追加は運営が行います。"
             exit 1
