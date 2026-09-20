@@ -1,0 +1,63 @@
+.table {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ca-space-5);
+  flex: 1;
+}
+
+.board {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ca-space-2);
+  padding: var(--ca-space-4);
+  background: var(--ca-bg-felt);
+  border-radius: var(--ca-radius-lg);
+}
+
+.suitRow {
+  display: flex;
+  align-items: center;
+  gap: var(--ca-space-2);
+}
+
+.suitLabel {
+  width: 1.5em;
+  font-size: var(--ca-text-lg);
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.slots {
+  display: flex;
+  gap: var(--ca-space-1);
+  flex-wrap: wrap;
+}
+
+.players {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ca-space-3);
+}
+
+.otherHands {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--ca-space-4);
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: var(--ca-space-3);
+}
+
+.passInfo {
+  font-size: var(--ca-text-sm);
+  color: var(--ca-text-muted);
+}
+
+.panels {
+  display: flex;
+  gap: var(--ca-space-4);
+  flex-wrap: wrap;
+}
