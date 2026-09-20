@@ -29,3 +29,11 @@ Thumbs.db
 ehthumbs.db
 Desktop.ini
 .DS_Store
+
+# オンライン開発のローカル設定・生成物
+.dev.vars*
+.wrangler/
+.wrangler-dist/
+.wrangler-log/
+.cache/
+!/docs/online-handson.md

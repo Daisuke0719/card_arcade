@@ -32,6 +32,7 @@ export type {
   StorageKey,
   Suit,
   OwnerId,
+  ServerGameAdapter,
   TurnState,
 } from "./types";
 
@@ -110,3 +111,5 @@ export { assertNever, initialSession, sessionReducer, useGameSession } from "./g
 export { useCountdown, useCpuTurn, useElapsedMs } from "./hooks";
 
 export { card, hand, joker } from "./testing";
+export { defineOnlineGame } from "./online";
+
