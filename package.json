@@ -23,6 +23,10 @@
     "role": "node scripts/role.mjs",
     "doctor": "node scripts/doctor.mjs",
     "status": "node scripts/status.mjs",
+    "online:registry": "node scripts/generate-online-registry.mjs",
+    "online:dev": "wrangler dev",
+    "online:deploy:staging": "wrangler deploy --env staging",
+    "online:deploy:production": "wrangler deploy --env production",
     "prepare": "node scripts/install-git-hooks.mjs"
   },
   "dependencies": {
@@ -30,7 +34,10 @@
     "react-dom": "^19.2.8"
   },
   "devDependencies": {
+    "@cloudflare/vitest-plugin": "^1.1.13",
+    "@cloudflare/workers-types": "^5.20260920.1",
     "@eslint/js": "^10.0.1",
+    "@playwright/test": "^1.63.0",
     "@testing-library/jest-dom": "^7.0.1",
     "@testing-library/react": "^16.3.3",
     "@testing-library/user-event": "^14.6.6",
@@ -48,6 +55,7 @@
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.68.0",
     "vite": "^8.2.2",
-    "vitest": "^4.1.11"
+    "vitest": "^4.1.11",
+    "wrangler": "^4.135.0"
   }
 }

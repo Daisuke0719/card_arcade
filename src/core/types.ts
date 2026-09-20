@@ -153,6 +153,20 @@ export type GameStatus = "coming-soon" | "ready";
  */
 export type OwnerId = string;
 
+/** オンライン対戦にゲーム固有ルールを接続する契約。 */
+export type ServerGameAdapter<TState, TAction> = {
+  readonly gameId: string;
+  readonly createInitialState: (seed: number, players: readonly Player[]) => TState;
+  readonly validateAction: (
+    state: TState,
+    action: TAction,
+    playerId: PlayerId,
+  ) => { readonly ok: boolean; readonly reason?: string };
+  readonly reduce: (state: TState, action: TAction, playerId?: PlayerId) => TState;
+  readonly isFinished: (state: TState) => boolean;
+  readonly toPublicState: (state: TState, viewerId: PlayerId) => unknown;
+};
+
 export type GameComponentProps = {
   readonly manifest: GameManifest;
   /** アーケード一覧へ戻る。GameShell が使う。 */
@@ -181,3 +195,4 @@ export type GameManifest = {
   readonly issueNumber?: number;
   readonly component: ComponentType<GameComponentProps>;
 };
+
