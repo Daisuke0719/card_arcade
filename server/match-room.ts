@@ -12,6 +12,7 @@ type Room = {
   status: RoomStatus; revision: number; players: Seat[]; state: unknown;
   result: GameResult | null; processed: string[]; createdAt: number;
   startedAt: number | null; finishedAt: number | null; touchedAt: number;
+  matchId?: string;
   syncVersion: number; syncedVersion: number;
 };
 type Attachment = { playerId?: string; expiresAt: number; count: number; window: number };
@@ -20,6 +21,7 @@ export class MatchRoom extends DurableObject<Env> {
   constructor(ctx: DurableObjectState, env: Env) {
     super(ctx, env);
     this.ctx.storage.sql.exec('CREATE TABLE IF NOT EXISTS room (id INTEGER PRIMARY KEY, data TEXT NOT NULL)');
+    this.ctx.storage.sql.exec('CREATE TABLE IF NOT EXISTS completed_matches (id TEXT PRIMARY KEY, data TEXT NOT NULL)');
     this.ctx.setWebSocketAutoResponse(new WebSocketRequestResponsePair('ping', 'pong'));
   }
   private load(): Room | null {
@@ -135,9 +137,22 @@ export class MatchRoom extends DurableObject<Env> {
     const dedupe = `${actor}:${actionId}`;
     if (room.processed.includes(dedupe)) { this.send(ws, { type: 'action_accepted', actionId, revision: room.revision }); this.send(ws, { type: 'room_state', ...this.snapshot(room, actor) }); return; }
     if (room.revision !== msg.expectedRevision) { reject('画面を最新状態に更新しました。もう一度操作してください'); return; }
-    if (room.status === 'closed' || room.status === 'finished') { reject('試合は終了しています'); return; }
+    if (room.status === 'closed' || (room.status === 'finished' && msg.type !== 'rematch' && msg.type !== 'leave')) { reject('試合は終了しています'); return; }
     let sync = false;
-    if (msg.type === 'start') {
+    if (msg.type === 'rematch') {
+      if (room.status !== 'finished') { reject('試合終了後に再戦できます'); return; }
+      if (room.hostId !== actor) { reject('ルーム作成者が再戦を開始してください'); return; }
+      if (room.players.length < games[room.gameId].minPlayers || room.players.some(p => !this.connected(p.id))) {
+        reject('全員が接続してから再戦してください'); return;
+      }
+      const nextState = games[room.gameId].create(crypto.getRandomValues(new Uint32Array(1))[0], room.players);
+      // 再戦で前の結果が消えないよう、同じSQLiteに保存してalarmでD1へ再送する。
+      this.ctx.storage.sql.exec('INSERT OR REPLACE INTO completed_matches (id,data) VALUES (?,?)',
+        room.matchId ?? room.roomId, JSON.stringify(room));
+      room.matchId = crypto.randomUUID();
+      room.state = nextState; room.result = null; room.finishedAt = null;
+      room.status = 'playing'; room.createdAt = Date.now(); room.startedAt = Date.now(); sync = true;
+    } else if (msg.type === 'start') {
       if (room.status !== 'waiting' || room.hostId !== actor || room.players.length < games[room.gameId].minPlayers || room.players.some(p => !this.connected(p.id))) { reject('ホストが、全員の接続後に開始してください'); return; }
       room.state = games[room.gameId].create(crypto.getRandomValues(new Uint32Array(1))[0], room.players);
       room.status = 'playing'; room.startedAt = Date.now(); sync = true;
@@ -146,6 +161,9 @@ export class MatchRoom extends DurableObject<Env> {
         room.players = room.players.filter(p => p.id !== actor);
         if (room.hostId === actor) room.hostId = room.players[0]?.id ?? '';
         if (!room.players.length) room.status = 'closed';
+      } else if (room.status === 'finished') {
+        // 結果と参加者は履歴として残す。退出したルームでは再戦しない。
+        room.status = 'closed';
       } else this.abort(room, '参加者が退出したため試合を終了しました');
       sync = true;
     } else if (msg.type === 'action') {
@@ -201,17 +219,25 @@ export class MatchRoom extends DurableObject<Env> {
         this.ctx.storage.sql.exec('UPDATE room SET data=? WHERE id=1', JSON.stringify(room));
       } catch { console.error(JSON.stringify({ event: 'result_sync_failed', roomId: room.roomId })); }
     }
+    for (const row of this.ctx.storage.sql.exec<{ id: string; data: string }>('SELECT id,data FROM completed_matches').toArray()) {
+      try {
+        await this.syncD1(JSON.parse(row.data) as Room);
+        this.ctx.storage.sql.exec('DELETE FROM completed_matches WHERE id=?', row.id);
+      } catch { console.error(JSON.stringify({ event: 'completed_match_sync_failed', matchId: row.id })); }
+    }
+    const pendingResults = this.ctx.storage.sql.exec('SELECT id FROM completed_matches LIMIT 1').toArray().length > 0;
     // 接続の期限、再接続猶予、D1の再試行を再起動後も処理する。
-    if (room.syncVersion !== room.syncedVersion || room.status === 'waiting' || room.status === 'playing' || this.ctx.getWebSockets().some(ws => ws.readyState === 1)) await this.ctx.storage.setAlarm(Date.now() + 30_000);
+    if (pendingResults || room.syncVersion !== room.syncedVersion || room.status === 'waiting' || room.status === 'playing' || this.ctx.getWebSockets().some(ws => ws.readyState === 1)) await this.ctx.storage.setAlarm(Date.now() + 30_000);
   }
   private async syncD1(room: Room): Promise<void> {
+    const matchId = room.matchId ?? room.roomId;
     const statements = [this.env.DB.prepare('INSERT INTO matches (id,game_id,status,rules_version,max_players,created_by,created_at,started_at,finished_at) VALUES (?,?,?,?,?,?,?,?,?) ON CONFLICT(id) DO UPDATE SET status=excluded.status,started_at=excluded.started_at,finished_at=excluded.finished_at')
-      .bind(room.roomId, room.gameId, room.status, 'v1', room.maxPlayers, room.hostId, room.createdAt, room.startedAt, room.finishedAt)];
+      .bind(matchId, room.gameId, room.status, 'v1', room.maxPlayers, room.hostId, room.createdAt, room.startedAt, room.finishedAt)];
     room.players.forEach((p, seat) => {
       statements.push(this.env.DB.prepare('INSERT INTO users (id,display_name,created_at,last_seen_at) VALUES (?,?,?,?) ON CONFLICT(id) DO UPDATE SET last_seen_at=excluded.last_seen_at').bind(p.id, p.name, room.createdAt, Date.now()));
-      statements.push(this.env.DB.prepare('INSERT INTO match_players (match_id,player_id,seat,display_name,joined_at,result) VALUES (?,?,?,?,?,?) ON CONFLICT(match_id,player_id) DO UPDATE SET result=excluded.result').bind(room.roomId, p.id, seat, p.name, room.createdAt, room.result ? JSON.stringify(room.result) : null));
+      statements.push(this.env.DB.prepare('INSERT INTO match_players (match_id,player_id,seat,display_name,joined_at,result) VALUES (?,?,?,?,?,?) ON CONFLICT(match_id,player_id) DO UPDATE SET result=excluded.result').bind(matchId, p.id, seat, p.name, room.createdAt, room.result ? JSON.stringify(room.result) : null));
     });
-    statements.push(this.env.DB.prepare('INSERT OR IGNORE INTO match_events (match_id,revision,player_id,action_type,created_at) VALUES (?,?,?,?,?)').bind(room.roomId, room.revision, null, room.status, Date.now()));
+    statements.push(this.env.DB.prepare('INSERT OR IGNORE INTO match_events (match_id,revision,player_id,action_type,created_at) VALUES (?,?,?,?,?)').bind(matchId, room.revision, null, room.status, Date.now()));
     await this.env.DB.batch(statements);
   }
 }

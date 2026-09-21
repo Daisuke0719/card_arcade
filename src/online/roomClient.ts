@@ -54,6 +54,13 @@ export class RoomClient<TState, TAction> {
     const actionId = crypto.randomUUID(); this.send({ type: "start", actionId, expectedRevision: this.snapshot.revision }); return actionId;
   }
 
+  rematch(): string | null {
+    if (!this.socket || this.socket.readyState !== WebSocket.OPEN) return null;
+    const actionId = crypto.randomUUID();
+    this.send({ type: "rematch", actionId, expectedRevision: this.snapshot.revision });
+    return actionId;
+  }
+
   leave(): void {
     this.closedByUser = true;
     this.send({ type: "leave", actionId: crypto.randomUUID(), expectedRevision: this.snapshot.revision });

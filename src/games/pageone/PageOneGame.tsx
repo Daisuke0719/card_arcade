@@ -8,7 +8,7 @@
 import { useReducer } from "react";
 import { useCpuTurn } from "@core";
 import type { GameComponentProps } from "@core";
-import { Button, DeckPile, GameShell, Hand, LogPanel, ResultModal, ScoreBoard } from "@ui";
+import { GameShell, ResultModal, ScoreBoard } from "@ui";
 import {
   HUMAN_ID,
   createInitialState,
@@ -20,7 +20,7 @@ import {
   pendingDelayMs,
   reduce,
 } from "./logic";
-import styles from "./PageOneGame.module.css";
+import { PageOneTable } from "./PageOneTable";
 
 export function PageOneGame({ manifest, onExit }: GameComponentProps) {
   // 乱数と時間は画面側で用意する。logic.ts には持ち込まない。
@@ -72,51 +72,14 @@ export function PageOneGame({ manifest, onExit }: GameComponentProps) {
       onReset={() => dispatch({ type: "reset" })}
       headerRight={<ScoreBoard entries={scoreEntries} title="残り枚数" />}
     >
-      <div className={styles.table}>
-        <div className={styles.opponents}>
-          {opponents.map((player) => (
-            <Hand
-              key={player.id}
-              variant="hidden"
-              count={handOf(state, player.id).length}
-              label={player.name}
-            />
-          ))}
-        </div>
-
-        <div className={styles.piles}>
-          <DeckPile count={state.field.length} top={top} face="up" label="場札" size="lg" />
-          <DeckPile
-            count={state.deck.length}
-            face="down"
-            label="山札"
-            size="lg"
-            highlighted={canDraw}
-            disabled={!canDraw}
-            onClick={() => dispatch({ type: "draw" })}
-          />
-        </div>
-
-        <p className={styles.turn}>{turnMessage}</p>
-        <p className={styles.message}>{hintMessage}</p>
-
-        <div className={styles.you}>
-          <Hand
-            cards={yourHand}
-            label="あなたの手札"
-            disabledIds={disabledIds}
-            onCardClick={(card) => dispatch({ type: "play", cardId: card.id })}
-            emptyText="手札はありません"
-          />
-          <Button onClick={() => dispatch({ type: "draw" })} disabled={!canDraw}>
-            山札から引く
-          </Button>
-        </div>
-
-        <div className={styles.log}>
-          <LogPanel entries={state.log} max={6} />
-        </div>
-      </div>
+      <PageOneTable
+        opponents={opponents.map(player => ({ id: player.id, name: player.name, handCount: handOf(state, player.id).length }))}
+        field={state.field} deckCount={state.deck.length} hand={yourHand}
+        disabledIds={disabledIds} canDraw={canDraw} turnMessage={turnMessage}
+        hintMessage={hintMessage} log={state.log}
+        onPlay={cardId => dispatch({ type: "play", cardId })}
+        onDraw={() => dispatch({ type: "draw" })}
+      />
 
       <ResultModal
         open={finished}
