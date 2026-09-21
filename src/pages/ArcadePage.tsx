@@ -45,7 +45,6 @@ export function ArcadePage() {
       ) : null}
 
       <section>
-        <p><a href="#/online/pageone">ページワンをオンラインで遊ぶ</a></p>
         <h2 className={styles.sectionTitle}>参加者のゲーム</h2>
         {participantGames.length === 0 ? (
           <p className={styles.lead}>

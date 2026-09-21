@@ -7,7 +7,11 @@ import { issueSession, verifySession } from './auth';
 export { MatchRoom };
 
 function cors(request: Request, response: Response, env: Env): Response {
-  const origin = request.headers.get('origin'); const allowed = env.ALLOWED_ORIGINS.split(',').map(v => v.trim()).filter(Boolean);
+  const origin = request.headers.get('origin');
+  // ALLOWED_ORIGINS は本番で上書きする。未設定時は公開サイトと
+  // ローカル開発だけを許可し、任意のOriginを反射しない。
+  const configured = (env.ALLOWED_ORIGINS ?? '').split(',').map(v => v.trim()).filter(Boolean);
+  const allowed = configured.length > 0 ? configured : ['https://daisuke0719.github.io', 'http://localhost:5173'];
   const headers = new Headers(response.headers);
   if (origin && allowed.includes(origin)) headers.set('access-control-allow-origin', origin);
   headers.set('access-control-allow-credentials', 'true'); headers.set('vary', 'Origin');
