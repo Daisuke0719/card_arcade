@@ -8,6 +8,7 @@ import endpoints from "../../config/online-endpoints.json";
 import styles from "./OnlineLobbyPage.module.css";
 
 const API_URL = import.meta.env.VITE_ONLINE_API_URL ?? endpoints.staging;
+const onlineManifest = { ...pageOneManifest, minPlayers: 2 };
 type OnlineView = {
   myHand?: PlayingCard[];
   field?: PlayingCard[];
@@ -31,7 +32,7 @@ export function OnlineLobbyPage({ gameId, onExit }: { gameId: string; onExit: ()
   const table = state ? <PageOneTable opponents={state.opponents ?? []} field={state.field ?? []} deckCount={state.deckCount ?? 0} hand={state.myHand ?? []} disabledIds={(state.myHand ?? []).map((card) => card.id).filter((id) => !canAct || state.currentPlayerId !== session.playerId || !(state.playableIds ?? []).includes(id))} canDraw={Boolean(state.canDraw) && canAct} canDeclare={Boolean(state.canDeclare) && canAct} turnMessage={state.currentPlayerId === session.playerId ? "あなたの番です" : match.snapshot.status === "finished" ? "決着しました" : "相手の番です"} hintMessage={state.currentPlayerId === session.playerId ? "場札と同じマークか同じ数字のカードを選んでください" : "相手が考えています"} log={state.log ?? []} onPlay={(cardId) => match.sendAction({ type: "play_card", cardId })} onDraw={() => match.sendAction({ type: "draw_card" })} onDeclare={() => match.sendAction({ type: "call_page_one" })} /> : null;
   if (state) {
     const scoreEntries = [{ id: session.playerId, name: name || "あなた", detail: `残り${state.myHand?.length ?? 0}枚`, isCurrent: match.snapshot.status !== "finished" && state.currentPlayerId === session.playerId, isFinished: state.winnerId === session.playerId }, ...(state.opponents ?? []).map((player) => ({ id: player.id, name: player.name, detail: `残り${player.handCount}枚`, isCurrent: match.snapshot.status !== "finished" && state.currentPlayerId === player.id, isFinished: state.winnerId === player.id }))];
-    return <GameShell manifest={pageOneManifest} onExit={() => { match.leave(); setRoom(null); onExit(); }} onReset={match.snapshot.status === "finished" && match.snapshot.hostId === session.playerId ? () => match.rematch() : undefined} headerRight={<ScoreBoard entries={scoreEntries} title="残り枚数" />}>
+    return <GameShell manifest={onlineManifest} onExit={() => { match.leave(); setRoom(null); onExit(); }} onReset={match.snapshot.status === "finished" && match.snapshot.hostId === session.playerId ? () => match.rematch() : undefined} headerRight={<ScoreBoard entries={scoreEntries} title="残り枚数" />}>
       {table}
       {match.lastMessage?.type === "action_rejected" ? <p className={styles.error} role="alert">{match.lastMessage.reason}</p> : null}
     </GameShell>;
