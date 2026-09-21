@@ -63,6 +63,14 @@ export class MatchRoom extends DurableObject<Env> {
       state: null, result: null, processed: [], createdAt: now, touchedAt: now, startedAt: null, finishedAt: null, syncVersion: 0, syncedVersion: 0 };
     this.save(room, true); return this.snapshot(room, session.playerId);
   }
+  // RPC does not preserve custom Error subclasses or their status fields.
+  joinResult(session: Session): { ok: true; snapshot: OnlineMatchSnapshot } | { ok: false; status: number; error: string } {
+    try { return { ok: true, snapshot: this.join(session) }; }
+    catch (error) {
+      if (error instanceof HttpError) return { ok: false, status: error.status, error: error.message };
+      throw error;
+    }
+  }
   join(session: Session): OnlineMatchSnapshot {
     const room = this.required();
     if (room.status === 'closed') throw new HttpError(410, 'ルームは終了しました');

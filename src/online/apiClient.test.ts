@@ -17,6 +17,14 @@ describe("online API client", () => {
   it("classifies an unreachable API separately from an HTTP error", async () => {
     vi.stubGlobal("fetch", vi.fn().mockRejectedValue(new TypeError("Failed to fetch")));
     await expect(createSession("https://api.example", "ゲスト")).rejects.toBeInstanceOf(OnlineApiError);
-    await expect(createSession("https://api.example", "ゲスト")).rejects.toMatchObject({ kind: "cors" });
+    await expect(createSession("https://api.example", "ゲスト")).rejects.toMatchObject({ kind: "connection" });
+  });
+
+  it("normalizes room codes without changing what the user typed", async () => {
+    const fetchMock = vi.fn().mockImplementation(() => new Response(JSON.stringify({ roomId: "ab12cd34", token: "t", websocketPath: "/v1/rooms/ab12cd34/ws" }), { status: 200 }));
+    vi.stubGlobal("fetch", fetchMock);
+    await createRoom("https://api.example", { token: "t", playerId: "p" });
+    await import("./apiClient").then(({ joinRoom }) => joinRoom("https://api.example", { token: "t", playerId: "p" }, " AB12CD34 "));
+    expect(fetchMock.mock.calls[1][0]).toBe("https://api.example/v1/rooms/ab12cd34/join");
   });
 });
