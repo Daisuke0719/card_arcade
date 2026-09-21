@@ -1,8 +1,9 @@
 name: Deploy to GitHub Pages
 
 on:
-  push:
-    branches: [main]
+  workflow_run:
+    workflows: ["Deploy online Worker"]
+    types: [completed]
   workflow_dispatch:
 
 permissions:
@@ -20,18 +21,21 @@ concurrency:
 
 jobs:
   build:
+    if: ${{ github.event_name == 'workflow_dispatch' || (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.event == 'push') }}
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.head_sha || github.sha }}
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
           cache: npm
       - run: npm ci --prefer-offline --no-audit --fund=false
+      - name: オンラインAPI URLを設定
+        run: echo "VITE_ONLINE_API_URL=$(node -p \"JSON.parse(require('fs').readFileSync('config/online-endpoints.json', 'utf8')).staging\")" >> "$GITHUB_ENV"
       - run: npm run build
-        env:
-          VITE_ONLINE_API_URL: https://card-arcade-online-staging.card-arcade.workers.dev
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

@@ -1,7 +1,18 @@
 name: Deploy online Worker
 
 on:
+  push:
+    branches: [main]
   workflow_dispatch:
+    inputs:
+      environment:
+        description: デプロイ先環境
+        required: true
+        default: staging
+        type: choice
+        options:
+          - staging
+          - production
 
 permissions:
   contents: read
@@ -9,6 +20,8 @@ permissions:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    env:
+      DEPLOY_ENV: ${{ github.event_name == 'push' && 'staging' || inputs.environment }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -17,7 +30,27 @@ jobs:
           cache: npm
       - run: npm ci --prefer-offline --no-audit --fund=false
       - run: npm run online:registry
-      - run: npx wrangler deploy --env staging
+      - name: オンラインWorker設定を検証
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          SESSION_SECRET: ${{ secrets.SESSION_SECRET }}
+          ALLOWED_ORIGINS: ${{ secrets.ALLOWED_ORIGINS }}
+        run: node scripts/validate-online-env.mjs
+      - run: npx wrangler deploy --env "$DEPLOY_ENV"
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      - name: Worker Secretを反映
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          SESSION_SECRET: ${{ secrets.SESSION_SECRET }}
+          ALLOWED_ORIGINS: ${{ secrets.ALLOWED_ORIGINS }}
+        run: |
+          printf '%s' "$SESSION_SECRET" | npx wrangler secret put SESSION_SECRET --env "$DEPLOY_ENV"
+          printf '%s' "$ALLOWED_ORIGINS" | npx wrangler secret put ALLOWED_ORIGINS --env "$DEPLOY_ENV"
+      - name: Workerヘルスチェック
+        run: |
+          API_URL=$(node -p "JSON.parse(require('fs').readFileSync('config/online-endpoints.json', 'utf8'))[process.env.DEPLOY_ENV]")
+          curl --fail-with-body --retry 5 --retry-delay 3 --max-time 20 "$API_URL/health"
