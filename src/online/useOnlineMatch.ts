@@ -19,6 +19,7 @@ export function useOnlineMatch<TState, TAction>(options: Omit<ConstructorParamet
 
   const sendAction = useCallback((action: TAction) => clientRef.current?.sendAction(action) ?? null, []);
   const start = useCallback(() => clientRef.current?.start() ?? null, []);
+  const rematch = useCallback(() => clientRef.current?.rematch() ?? null, []);
   const leave = useCallback(() => clientRef.current?.leave(), []);
-  return { status, snapshot, lastMessage, sendAction, start, leave };
+  return { status, snapshot, lastMessage, sendAction, start, rematch, leave };
 }

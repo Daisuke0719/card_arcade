@@ -5,6 +5,7 @@ export type PublicPlayer = Player & { readonly connected: boolean };
 export type ClientMessage<A = unknown> =
   | { type: 'authenticate'; token: string }
   | { type: 'action'; actionId: string; expectedRevision: number; action: A }
+  | { type: 'rematch'; actionId: string; expectedRevision: number }
   | { type: 'start'; actionId: string; expectedRevision: number }
   | { type: 'leave'; actionId: string; expectedRevision: number };
 export type OnlineMatchSnapshot<S = unknown> = {
