@@ -34,7 +34,9 @@ jobs:
           cache: npm
       - run: npm ci --prefer-offline --no-audit --fund=false
       - name: オンラインAPI URLを設定
-        run: echo "VITE_ONLINE_API_URL=$(node -p \"JSON.parse(require('fs').readFileSync('config/online-endpoints.json', 'utf8')).staging\")" >> "$GITHUB_ENV"
+        run: |
+          API_URL=$(node -p 'JSON.parse(require("fs").readFileSync("config/online-endpoints.json", "utf8")).staging')
+          echo "VITE_ONLINE_API_URL=$API_URL" >> "$GITHUB_ENV"
       - run: npm run build
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
