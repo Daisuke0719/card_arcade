@@ -37,7 +37,7 @@ jobs:
         if: ${{ !cancelled() }}
         env:
           OVERRIDE: ${{ contains(github.event.pull_request.labels.*.name, 'harness:override') }}
-          ONLINE_PLATFORM: ${{ github.head_ref == 'feat/online-pageone' }}
+          ONLINE_PLATFORM: ${{ github.head_ref == 'feat/online-pageone' || github.head_ref == 'codex/pageone-ui' }}
         run: |
           BASE="origin/${{ github.base_ref || 'main' }}"
           # CI は detached HEAD なので、PR のブランチ名を明示的に渡す
@@ -56,7 +56,7 @@ jobs:
         id: deps
         if: ${{ !cancelled() }}
         env:
-          ONLINE_PLATFORM: ${{ github.head_ref == 'feat/online-pageone' }}
+          ONLINE_PLATFORM: ${{ github.head_ref == 'feat/online-pageone' || github.head_ref == 'codex/pageone-ui' }}
         run: |
           if [ "$ONLINE_PLATFORM" = "true" ]; then
             echo "オンライン基盤ブランチでは運営管理の依存追加を許可します"
