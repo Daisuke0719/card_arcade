@@ -38,7 +38,7 @@ export default { async fetch(request: Request, env: Env): Promise<Response> {
       return cors(request, out({ ...snapshot, websocketPath: `/v1/rooms/${roomId}/ws`, token: request.headers.get('authorization')?.replace(/^Bearer\s+/i, '') ?? '' }, 201), env);
     }
     if (path[0] !== 'v1' || path[1] !== 'rooms' || !path[2]) throw new HttpError(404, 'APIが見つかりません');
-    const session = await auth(request, env); const roomId = path[2];
+    const session = await auth(request, env); const roomId = decodeURIComponent(path[2]).trim().toLowerCase();
     if (path.length === 3 && request.method === 'POST') {
       const body = await readBody(request); const gameId = typeof body.gameId === 'string' ? body.gameId : 'pageone'; const game = games[gameId];
       if (!game) throw new HttpError(400, '対応していないゲームです');
@@ -47,7 +47,9 @@ export default { async fetch(request: Request, env: Env): Promise<Response> {
       return cors(request, out({ ...snapshot, websocketPath: `/v1/rooms/${roomId}/ws`, token: request.headers.get('authorization')?.replace(/^Bearer\s+/i, '') ?? '' }, 201), env);
     }
     if (path.length === 4 && path[3] === 'join' && request.method === 'POST') {
-      const room = env.MATCH_ROOM.getByName(`match:${roomId}`); const snapshot = await room.join(session);
+      const room = env.MATCH_ROOM.getByName(`match:${roomId}`); const result = await room.joinResult(session);
+      if (!result.ok) throw new HttpError(result.status, result.error);
+      const snapshot = result.snapshot;
       return cors(request, out({ ...snapshot, websocketPath: `/v1/rooms/${roomId}/ws`, token: request.headers.get('authorization')?.replace(/^Bearer\s+/i, '') ?? '' }), env);
     }
     if (path.length === 4 && path[3] === 'ws' && request.method === 'GET') {
