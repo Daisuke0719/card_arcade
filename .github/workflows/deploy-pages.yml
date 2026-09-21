@@ -29,9 +29,9 @@ jobs:
           node-version: "22"
           cache: npm
       - run: npm ci --prefer-offline --no-audit --fund=false
+      - name: オンラインAPI URLを設定
+        run: echo "VITE_ONLINE_API_URL=$(node -p \"JSON.parse(require('fs').readFileSync('config/online-endpoints.json', 'utf8')).staging\")" >> "$GITHUB_ENV"
       - run: npm run build
-        env:
-          VITE_ONLINE_API_URL: https://card-arcade-online-staging.card-arcade.workers.dev
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

@@ -1,0 +1,4 @@
+{
+  "staging": "https://card-arcade-online-staging.card-arcade.workers.dev",
+  "production": "https://card-arcade-online-production.card-arcade.workers.dev"
+}
