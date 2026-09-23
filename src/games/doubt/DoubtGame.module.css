@@ -1,0 +1,48 @@
+.table {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ca-space-4);
+  flex: 1;
+}
+
+.status {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--ca-space-3);
+  color: var(--ca-text);
+}
+
+.status p { margin: 0; }
+
+.rank {
+  font-size: var(--ca-text-lg);
+}
+
+.rank strong {
+  margin-left: var(--ca-space-2);
+  color: var(--ca-accent);
+  font-size: var(--ca-text-2xl);
+}
+
+.piles, .opponents, .actions, .reveal > div {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--ca-space-3);
+}
+
+.lastPlay {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ca-space-2);
+  color: var(--ca-text-muted);
+}
+
+.reveal {
+  padding: var(--ca-space-3);
+  border-radius: var(--ca-radius-md);
+  background: var(--ca-surface-raised);
+}
+
+.reveal p { margin-top: 0; }
