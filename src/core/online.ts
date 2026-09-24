@@ -7,7 +7,18 @@ export type OnlineGameDefinition<S, A> = ServerGameAdapter<S, A> & {
   readonly maxPlayers: number;
   readonly parseAction: (value: unknown) => A | null;
   readonly getResult: (state: S) => GameResult;
+  /**
+   * 時間が経ったら自動で進める処理があるとき、何ms後に tick を呼ぶかを返す。
+   * CPU版の pendingDelayMs と同じ考え方で、不要なときは null を返す。
+   * 例: 神経衰弱でめくった2枚を数秒見せてから裏に戻す。
+   */
+  readonly pendingDelayMs?: (state: S) => number | null;
+  /** pendingDelayMs の時間が経ったときにサーバーが呼ぶ。状態を1段階進めて返す。 */
+  readonly tick?: (state: S) => S;
 };
+
+/** サーバーが待つ時間の上限。これより長い値は切り詰める。 */
+export const MAX_PENDING_DELAY_MS = 60_000;
 
 export function defineOnlineGame<S, A>(game: OnlineGameDefinition<S, A>) { return game; }
 
@@ -77,5 +88,17 @@ export function serverGame<S, A>(game: OnlineGameDefinition<S, A>) {
       return { ok: true as const, state: next, finished: game.isFinished(next), result: game.getResult(next) };
     },
     view: (state: unknown, viewerId: string) => game.toPublicState(state as S, viewerId),
+    /** 自動処理までの待ち時間。tick が無いゲーム、または不要なときは null。 */
+    delay: (state: unknown): number | null => {
+      if (!game.tick || !game.pendingDelayMs) return null;
+      const ms = game.pendingDelayMs(state as S);
+      if (ms === null || !Number.isFinite(ms)) return null;
+      return Math.min(Math.max(0, ms), MAX_PENDING_DELAY_MS);
+    },
+    tick: (state: unknown) => {
+      if (!game.tick) return null;
+      const next = game.tick(state as S);
+      return { state: next, finished: game.isFinished(next), result: game.getResult(next) };
+    },
   };
 }
