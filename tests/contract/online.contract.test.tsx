@@ -75,6 +75,31 @@ describe("オンライン対戦の入口", () => {
     expect(screen.getByText(/オンライン対戦に対応していません/)).toBeInTheDocument();
   });
 
+  it("再読み込み後は保存したルームへ戻り、名前入力に戻らない", () => {
+    if (!onlineGame) return;
+    const id = onlineGame.manifest.id;
+    class FakeWebSocket extends EventTarget {
+      static OPEN = 1;
+      readyState = 0;
+      send() {}
+      close() {}
+    }
+    vi.stubGlobal("WebSocket", FakeWebSocket);
+    sessionStorage.setItem("card-arcade:online:" + id, JSON.stringify({
+      name: "たろう",
+      session: { token: "t", playerId: "p1" },
+      room: { roomId: "ab12cd34", token: "t", websocketPath: "/v1/rooms/ab12cd34/ws" },
+    }));
+    try {
+      render(<OnlineLobbyPage gameId={id} onExit={() => {}} />);
+      expect(screen.queryByLabelText("あなたの名前")).not.toBeInTheDocument();
+      expect(screen.getByText("ab12cd34")).toBeInTheDocument();
+    } finally {
+      sessionStorage.clear();
+      vi.unstubAllGlobals();
+    }
+  });
+
   it("ロビーは manifest.online の人数を表示する", () => {
     if (!onlineGame?.manifest.online) return;
     const { minPlayers, maxPlayers } = onlineGame.manifest.online;
