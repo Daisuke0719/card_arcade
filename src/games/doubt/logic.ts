@@ -13,7 +13,7 @@ import {
   rankByFinishOrder,
   shuffle,
 } from "@core";
-import type { PlayerId, PlayingCard, Rank, Ranking, Rng, TurnState } from "@core";
+import type { Player, PlayerId, PlayingCard, Rank, Ranking, Rng, TurnState } from "@core";
 import { choosePlay, shouldDoubt } from "./cpu";
 
 export const REVEAL_DELAY_MS = 1200;
@@ -51,16 +51,35 @@ export type PublicPlayer = {
   readonly id: PlayerId;
   readonly name: string;
   readonly cardCount: number;
-  readonly isFinished: boolean;
+  readonly isYou: boolean;
+  /** 上がった順位（1始まり）。まだ上がっていなければ null。 */
+  readonly finishOrder: number | null;
 };
-export type PublicState = {
-  readonly you: readonly PlayingCard[];
-  readonly opponents: readonly PublicPlayer[];
-  readonly pileCount: number;
+/** 直前に出された組。中身のカードは公開しない。 */
+export type PublicPlay = {
+  readonly playerId: PlayerId;
   readonly declaredRank: Rank;
-  readonly lastPlayCount: number;
+  readonly count: number;
+};
+/** ダウトで公開された直前の組。revealing の間だけ公開する。 */
+export type PublicReveal = {
+  readonly doubterId: PlayerId | null;
+  readonly takerId: PlayerId | null;
+  readonly cards: readonly PlayingCard[];
+};
+/** 盤面に渡す公開状態。CPU版とオンライン版で同じ形を使う。 */
+export type DoubtView = {
+  readonly myHand: readonly PlayingCard[];
+  /** 席順。閲覧者本人も含む。 */
+  readonly players: readonly PublicPlayer[];
+  readonly declaredRank: Rank;
+  readonly pileCount: number;
   readonly phase: Phase;
-  readonly currentId: PlayerId;
+  /** いま操作する人。ダウトの判断中は判断する人、それ以外は手番の人。 */
+  readonly actorId: PlayerId;
+  readonly lastPlay: PublicPlay | null;
+  readonly reveal: PublicReveal | null;
+  readonly log: readonly string[];
 };
 
 function isCpu(state: DoubtState, id: PlayerId): boolean {
@@ -115,10 +134,25 @@ function closeNoDoubt(state: DoubtState): DoubtState {
   };
 }
 
+export const MIN_PLAYERS = 2;
+export const MAX_PLAYERS = 4;
+
+/** CPU対戦の初期状態。あなたと CPU3人に13枚ずつ配る。 */
 export function createInitialState(seed: number = 1): DoubtState {
+  return createStateForPlayers(seed, createSoloVsCpu(3));
+}
+
+/**
+ * 参加者を指定して初期状態を作る。52枚を参加者全員に配り切り、先頭の人から始める。
+ * 人数が 2〜4 人でない、または ID が重複しているときは例外にする。
+ */
+export function createStateForPlayers(seed: number, players: readonly Player[]): DoubtState {
+  const ids = new Set(players.map((player) => player.id));
+  if (players.length < MIN_PLAYERS || players.length > MAX_PLAYERS || ids.size !== players.length) {
+    throw new Error(`${MIN_PLAYERS}〜${MAX_PLAYERS}人の異なるプレイヤーが必要です`);
+  }
   const deck = shuffle(createDeck(), createRng(seed));
-  const players = createSoloVsCpu(3);
-  const { hands: dealt } = deal(deck, players.length, 13);
+  const { hands: dealt } = deal(deck, players.length);
   const hands = Object.fromEntries(players.map((player, i) => [player.id, dealt[i] ?? []])) as Record<PlayerId, readonly PlayingCard[]>;
   return {
     turn: createTurnState(players), hands, pile: [], declaredRank: "A", lastPlay: null,
@@ -180,16 +214,30 @@ export function resolveDoubt(state: DoubtState, doubterId: PlayerId): DoubtState
   };
 }
 
-export function toPublicState(state: DoubtState, viewerId: PlayerId): PublicState {
+/**
+ * viewerId から見た公開状態を作る。
+ * 他の人の手札と場札の中身は含めず、直前の組のカードはダウトで公開されている間だけ含める。
+ */
+export function toPublicState(state: DoubtState, viewerId: PlayerId): DoubtView {
+  const play = state.lastPlay;
   return {
-    you: state.hands[viewerId] ?? [],
-    opponents: state.turn.players.filter((player) => player.id !== viewerId).map((player) => ({
-      id: player.id, name: player.name, cardCount: state.hands[player.id]?.length ?? 0,
-      isFinished: isFinished(state.turn, player.id),
-    })),
-    pileCount: state.pile.length, declaredRank: state.declaredRank,
-    lastPlayCount: state.lastPlay?.cards.length ?? 0, phase: state.phase,
-    currentId: state.phase === "doubt-decision" ? (state.deciderId ?? "") : state.turn.currentId,
+    myHand: state.hands[viewerId] ?? [],
+    players: state.turn.players.map((player) => {
+      const finishedIndex = state.turn.finishedIds.indexOf(player.id);
+      return {
+        id: player.id, name: player.name, cardCount: state.hands[player.id]?.length ?? 0,
+        isYou: player.id === viewerId, finishOrder: finishedIndex >= 0 ? finishedIndex + 1 : null,
+      };
+    }),
+    declaredRank: state.declaredRank,
+    pileCount: state.pile.length,
+    phase: state.phase,
+    actorId: state.phase === "doubt-decision" ? (state.deciderId ?? "") : state.turn.currentId,
+    lastPlay: play ? { playerId: play.playerId, declaredRank: play.declaredRank, count: play.cards.length } : null,
+    reveal: state.phase === "revealing" && play
+      ? { doubterId: state.doubterId, takerId: state.takerId, cards: play.cards }
+      : null,
+    log: state.log,
   };
 }
 
@@ -203,11 +251,9 @@ export function pendingDelayMs(state: DoubtState): number | null {
 function startPlay(state: DoubtState, playerId: PlayerId, cardIds: readonly string[]): DoubtState {
   if (state.phase !== "playing" || playerId !== state.turn.currentId) return state;
   const hand = state.hands[playerId] ?? [];
-  const ids = [...new Set(cardIds)];
-  if (ids.length < 1 || ids.length > MAX_PLAY_CARDS || ids.length !== cardIds.length) return state;
-  const cards = ids.map((id) => hand.find((card) => card.id === id));
-  if (cards.some((card) => !card)) return state;
-  const played = cards as PlayingCard[];
+  if (playProblem(hand, cardIds) !== null) return state;
+  const ids = [...cardIds];
+  const played = ids.map((id) => hand.find((card) => card.id === id)) as PlayingCard[];
   const remaining = hand.filter((card) => !ids.includes(card.id));
   const hands = { ...state.hands, [playerId]: remaining };
   const lastPlay = { playerId, declaredRank: state.declaredRank, cards: played };
@@ -236,15 +282,35 @@ export function getRanking(state: DoubtState): Ranking {
 }
 
 /** 人間がボタンで指示できる操作。 */
-type HumanAction = Exclude<DoubtAction, { type: "reset" } | { type: "tick" }>;
+export type PlayerAction = Exclude<DoubtAction, { type: "reset" } | { type: "tick" }>;
 
-/** 人間の操作を処理する。手番でないときやダウトを聞かれていないときは何も変えない。 */
-function reduceHumanAction(state: DoubtState, action: HumanAction): DoubtState {
+/**
+ * playerId の人の操作を処理する。手番でないときやダウトを聞かれていないときは何も変えない。
+ * CPU対戦ではあなた、オンライン対戦では操作した参加者を渡す。
+ */
+export function applyPlayerAction(state: DoubtState, playerId: PlayerId, action: PlayerAction): DoubtState {
+  if (state.phase === "finished") return state;
   if (action.type === "play") {
-    return state.turn.currentId === HUMAN_ID ? startPlay(state, HUMAN_ID, action.cardIds) : state;
+    return state.turn.currentId === playerId ? startPlay(state, playerId, action.cardIds) : state;
   }
-  if (state.phase !== "doubt-decision" || state.deciderId !== HUMAN_ID) return state;
-  return action.type === "doubt" ? resolveDoubt(state, HUMAN_ID) : declineDoubt(state);
+  if (state.phase !== "doubt-decision" || state.deciderId !== playerId) return state;
+  return action.type === "doubt" ? resolveDoubt(state, playerId) : declineDoubt(state);
+}
+
+/** ダウトの結果を見せ終えたら次へ進める。公開中でなければ何も変えない。 */
+export function finishRevealIfDone(state: DoubtState): DoubtState {
+  return state.phase === "revealing" ? finishReveal(state) : state;
+}
+
+/**
+ * 出そうとしているカードが合法かを調べる。問題があれば理由を、なければ null を返す。
+ * 手番や場面の確認は含めない。
+ */
+export function playProblem(hand: readonly PlayingCard[], cardIds: readonly string[]): string | null {
+  if (cardIds.length < 1 || cardIds.length > MAX_PLAY_CARDS) return `1〜${MAX_PLAY_CARDS}枚を選んでください`;
+  if (new Set(cardIds).size !== cardIds.length) return "同じカードを重ねて選べません";
+  if (cardIds.some((id) => !hand.some((card) => card.id === id))) return "手札にないカードは出せません";
+  return null;
 }
 
 /** 公開の演出を終え、引き取った人の次の人から再開する。 */
@@ -287,7 +353,7 @@ export function reduce(state: DoubtState, action: DoubtAction): DoubtState {
   if (action.type === "reset") return createInitialState(action.seed ?? state.seed + 1);
   if (state.phase === "finished") return state;
   if (action.type === "tick") return reduceTick(state);
-  return reduceHumanAction(state, action);
+  return applyPlayerAction(state, HUMAN_ID, action);
 }
 
 export function isGameOver(state: DoubtState): boolean {

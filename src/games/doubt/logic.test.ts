@@ -80,11 +80,31 @@ describe("ダウトの判定", () => {
   });
 
   it("toPublicState に他人の手札が含まれない", () => {
-    const result = toPublicState(createInitialState(9), "you");
-    expect(result.you).toHaveLength(13);
-    expect(result.opponents).toHaveLength(3);
-    expect(result.opponents.every((player) => !("hand" in player) && !("cards" in player))).toBe(true);
+    const state = createInitialState(9);
+    const result = toPublicState(state, "you");
+    expect(result.myHand).toHaveLength(13);
+    expect(result.players).toHaveLength(4);
+    expect(result.players.every((player) => !("hand" in player) && !("cards" in player))).toBe(true);
     expect(result).not.toHaveProperty("hands");
+    const json = JSON.stringify(result);
+    for (const other of state.hands["cpu-1"]) expect(json).not.toContain(`"${other.id}"`);
+  });
+
+  it("判断中の公開状態には出したカードの中身が含まれない", () => {
+    const state = decisionState(card("spades", "2"));
+    const result = toPublicState(state, "you");
+    expect(result.lastPlay).toEqual({ playerId: "cpu-1", declaredRank: "A", count: 1 });
+    expect(result.reveal).toBeNull();
+    expect(result.pileCount).toBe(2);
+    expect(JSON.stringify(result)).not.toContain('"spades-2"');
+  });
+
+  it("ダウトで公開中は直前の組だけを公開状態に含める", () => {
+    const result = toPublicState(resolveDoubt(decisionState(card("spades", "2")), "you"), "you");
+    expect(result.reveal?.cards.map((c) => c.id)).toEqual(["spades-2"]);
+    expect(result.reveal?.doubterId).toBe("you");
+    expect(result.reveal?.takerId).toBe("cpu-1");
+    expect(JSON.stringify(result)).not.toContain('"hearts-5"');
   });
 
   it("4人に13枚ずつ配り、あなたから始める", () => {
