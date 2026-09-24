@@ -72,13 +72,21 @@ function playerName(turn: TurnState, id: PlayerId): string {
   return turn.players.find((player) => player.id === id)?.name ?? id;
 }
 
+/**
+ * 次にダウトを聞く人。出した人の左隣から一人ずつ進み、一周したら undefined を返す。
+ * 出した人を起点にした並びで数えるため、同じ人に二度聞くことはない。
+ */
 function nextDoubter(state: DoubtState, fromId: PlayerId): PlayerId | undefined {
   const players = state.turn.players;
-  const start = players.findIndex((player) => player.id === fromId);
-  if (start < 0) return undefined;
-  for (let step = 1; step < players.length; step += 1) {
-    const player = players[(start + step) % players.length];
-    if (player.id !== state.lastPlay?.playerId && !isFinished(state.turn, player.id)) return player.id;
+  const playedId = state.lastPlay?.playerId;
+  if (playedId === undefined) return undefined;
+  const origin = players.findIndex((player) => player.id === playedId);
+  const from = players.findIndex((player) => player.id === fromId);
+  if (origin < 0 || from < 0) return undefined;
+  const asked = (from - origin + players.length) % players.length;
+  for (let step = asked + 1; step < players.length; step += 1) {
+    const player = players[(origin + step) % players.length];
+    if (!isFinished(state.turn, player.id)) return player.id;
   }
   return undefined;
 }

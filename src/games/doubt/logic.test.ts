@@ -29,6 +29,22 @@ function decisionState(playCard: ReturnType<typeof card>, declaredRank: Rank = "
   };
 }
 
+/** CPU が出したあとの判断中の状態。出した人と判断者を指定できる。 */
+function roundState(deciderId: string, actor = "cpu-1", declaredRank: Rank = "5") {
+  const initial = createInitialState(31);
+  const played = card("spades", "5");
+  return {
+    ...initial,
+    turn: { ...initial.turn, currentId: actor },
+    hands: { ...initial.hands, [actor]: initial.hands[actor].slice(1) },
+    pile: [played],
+    declaredRank,
+    lastPlay: { playerId: actor, declaredRank, cards: [played] },
+    phase: "doubt-decision" as const,
+    deciderId,
+  };
+}
+
 describe("ダウトの判定", () => {
   it("宣言と実体が一致していればダウトは外れ", () => {
     expect(isBluff([card("spades", "A"), card("hearts", "A")], "A")).toBe(false);
@@ -107,5 +123,23 @@ describe("ダウトの判定", () => {
     const played = reduce(state, { type: "play", cardIds: ["clubs-9"] });
     expect(played.phase).toBe("doubt-decision");
     expect(played.deciderId).toBe("cpu-2");
+  });
+
+  it("見送りが一周したら宣言が1つ進んで次の人の手番になる", () => {
+    const state = roundState("you");
+    const result = reduce(state, { type: "pass" });
+    expect(result.phase).toBe("playing");
+    expect(result.deciderId).toBeNull();
+    expect(result.declaredRank).toBe("6");
+    expect(result.turn.currentId).toBe("cpu-2");
+    expect(result.pile).toHaveLength(1);
+  });
+
+  it("まだ聞いていない人が残っていれば見送りで次の人に移る", () => {
+    const state = roundState("you", "cpu-3");
+    const result = reduce(state, { type: "pass" });
+    expect(result.phase).toBe("doubt-decision");
+    expect(result.deciderId).toBe("cpu-1");
+    expect(result.declaredRank).toBe("5");
   });
 });
