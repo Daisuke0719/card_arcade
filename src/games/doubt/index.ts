@@ -1,5 +1,8 @@
+import { defineOnlineView } from "@core";
 import type { GameManifest } from "@core";
 import { DoubtGame } from "./DoubtGame";
+import { DoubtOnlineView } from "./DoubtOnlineView";
+import { onlineAdapter } from "./onlineAdapter";
 
 export const game: GameManifest = {
   id: "doubt",
@@ -20,4 +23,5 @@ export const game: GameManifest = {
     "誰もダウトしなければ宣言を次のランクへ進め、手札を先に出し切った順に順位が決まります。",
   ],
   component: DoubtGame,
+  online: defineOnlineView(onlineAdapter, DoubtOnlineView),
 };
