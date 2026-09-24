@@ -35,9 +35,11 @@
 - WebSocket、revision、actionIdの処理
 - 同じルームでの再戦
 - 共通オンラインクライアントと接続状態表示
-- `ServerGameAdapter` / `defineOnlineGame` の契約
+- `ServerGameAdapter` / `defineOnlineGame` / `defineOnlineView` / `OnlineGameViewProps` の契約
+- `manifest.online` を登録したゲームに表示するCPU対戦／オンライン対戦の入口
+- 再読み込み後に同じプレイヤーとしてルームへ戻る処理
 - Worker、Durable Objects、D1
-- ゲームごとのオンラインIssueと公開画面の入口
+- ゲームごとのオンラインIssue
 - CloudflareのSecret、デプロイ、Pagesとの接続
 
 共通基盤に不足がある場合は、参加者が共通ファイルを変更せず、講師へ不足内容と利用例を報告します。
@@ -134,8 +136,8 @@ CPU版のルールと操作感は維持し、オンライン処理はまだ実�
 ```text
 次に、計画したオンライン用アダプターとテストを実装してください。
 
-運営のテンプレートと @core の defineOnlineGame を使い、
-onlineAdapter.ts から onlineAdapter を公開してください。
+src/games/pageone/onlineAdapter.ts を手本にして @core の defineOnlineGame を使い、
+src/games/<ゲームID>/onlineAdapter.ts から onlineAdapter を公開してください。
 minPlayers、maxPlayers、parseAction、getResult も実装してください。
 
 要件：
@@ -155,21 +157,26 @@ revision、actionId、再接続処理は作り直さないでください。
 ## Step 5｜共通画面へ接続する
 
 ```text
-オンライン用アダプターを、運営のオンライン画面契約へ接続してください。
+オンライン用アダプターを、共通ロビーへ接続してください。
 
-CPU版とオンライン版は同じ画面コンポーネントを使い、
+src/games/pageone/PageOneOnlineView.tsx と src/games/pageone/index.ts を手本にして、
+次の2つを実装してください。
+1. @core の OnlineGameViewProps を受け取るオンライン対戦画面を src/games/<ゲームID>/ に作る
+2. index.ts の manifest に online: defineOnlineView(onlineAdapter, オンライン対戦画面) を追加する
+
+CPU版とオンライン版は同じ GameShell と同じ盤面コンポーネントを使い、
 オンライン専用の別パネルで包み直さないでください。
 
 要件：
-- ゲーム入口からCPU対戦／オンライン対戦を選べる
-- 共通のルーム作成・参加・待機画面を使う
-- サーバー公開状態を共通ゲーム画面へ渡す
-- 操作は共通クライアント経由で送信する
+- props の view（サーバーの公開状態）だけを盤面へ渡す
+- 操作は props の sendAction で送信する
 - サーバーから届く前に手札や勝敗を確定しない
-- 接続中・切断中・終了後の不適切な操作を無効にする
-- 拒否理由を表示する
-- 終了後は共通の同室再戦を使う
+- canAct が false の間は操作を無効にする
+- GameShell の onReset と ResultModal の onRetry には props の onRematch を渡す
 - 再戦後に前の試合結果を残さない
+
+ゲームの入口、ルーム作成・参加・待機画面、接続状態と拒否理由の表示、
+再読み込み後の復帰は共通ロビーが行うため、担当フォルダでは作らないでください。
 
 実装と関連テストを実行してください。
 未確認事項は「確認済み」とせず分けて報告してください。
