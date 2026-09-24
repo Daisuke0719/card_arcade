@@ -1,5 +1,8 @@
+import { defineOnlineView } from "@core";
 import type { GameManifest } from "@core";
+import { onlineAdapter } from "./onlineAdapter";
 import { PageOneGame } from "./PageOneGame";
+import { PageOneOnlineView } from "./PageOneOnlineView";
 
 /**
  * ゲームの公開情報。アーケードがこのファイルを自動で見つけて一覧に並べます。
@@ -29,4 +32,5 @@ export const game: GameManifest = {
     "先に手札を0枚にした人が勝ちです。2位以下は残り枚数の少ない順に決まります。",
   ],
   component: PageOneGame,
+  online: defineOnlineView(onlineAdapter, PageOneOnlineView),
 };

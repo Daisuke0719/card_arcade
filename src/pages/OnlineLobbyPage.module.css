@@ -27,8 +27,6 @@
 .waiting { display: grid; gap: 8px; margin-top: 24px; padding: 20px; border-radius: var(--ca-radius-md); background: var(--ca-bg); color: var(--ca-text-muted); }
 .waiting strong { color: var(--ca-text); }
 .waiting .primary { justify-self: start; margin-top: 8px; }
-.turn { margin-top: 28px; color: var(--ca-accent); font-weight: 700; }
-.field, .hand { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
-.hand { padding-top: 20px; border-top: 1px solid var(--ca-border); }
-.result { margin-top: 20px; color: var(--ca-success, #35d49a); font-weight: 700; }
+.statusBar { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; padding: 8px 16px; border-bottom: 1px solid var(--ca-border); background: var(--ca-surface); color: var(--ca-text-muted); }
+.statusBar .error { margin-top: 0; }
 @media (max-width: 600px) { .panel { padding: 22px; } .roomHeader { display: block; } .code { margin-top: 16px; } .joinRow { display: grid; } }

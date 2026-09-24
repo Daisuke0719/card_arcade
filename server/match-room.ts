@@ -14,6 +14,8 @@ type Room = {
   startedAt: number | null; finishedAt: number | null; touchedAt: number;
   matchId?: string;
   syncVersion: number; syncedVersion: number;
+  /** ゲームの pendingDelayMs による自動処理の予定時刻。予定がなければ null。 */
+  tickAt?: number | null;
 };
 type Attachment = { playerId?: string; expiresAt: number; count: number; window: number };
 
@@ -44,6 +46,22 @@ export class MatchRoom extends DurableObject<Env> {
       status: room.status, maxPlayers: room.maxPlayers, result: room.result,
       players: room.players.map(p => ({ id: p.id, name: p.name, kind: 'human', connected: this.connected(p.id) })),
       state: room.state ? games[room.gameId].view(room.state, playerId) : null };
+  }
+  /** ゲームが時間経過による処理を必要とするなら、その時刻を記録する。 */
+  private schedule(room: Room): void {
+    const delay = room.status === 'playing' && room.state !== null ? games[room.gameId].delay(room.state) : null;
+    room.tickAt = delay === null ? null : Date.now() + delay;
+  }
+  /** 予定時刻を過ぎていれば tick を1回適用する。適用したら true。 */
+  private applyTick(room: Room, now: number): boolean {
+    if (room.status !== 'playing' || room.tickAt === null || room.tickAt === undefined || room.tickAt > now) return false;
+    const ticked = games[room.gameId].tick(room.state);
+    if (!ticked) { room.tickAt = null; return false; }
+    room.state = ticked.state;
+    if (ticked.finished) { room.status = 'finished'; room.result = ticked.result; room.finishedAt = now; }
+    this.schedule(room);
+    room.revision++; room.touchedAt = now;
+    return true;
   }
   private send(ws: WebSocket, message: ServerMessage): void {
     if (ws.readyState === 1) { try { ws.send(JSON.stringify(message)); } catch { ws.close(1011, 'send failed'); } }
@@ -173,6 +191,7 @@ export class MatchRoom extends DurableObject<Env> {
       room.state = applied.state;
       if (applied.finished) { room.status = 'finished'; room.result = applied.result; room.finishedAt = Date.now(); sync = true; }
     } else { reject('未知の操作です'); return; }
+    this.schedule(room);
     room.revision++; room.touchedAt = Date.now(); room.processed = [...room.processed, dedupe].slice(-256);
     // 同期SQL書き込みが完了した後にのみ成功応答する。
     this.save(room, sync);
@@ -194,6 +213,7 @@ export class MatchRoom extends DurableObject<Env> {
   override async alarm(): Promise<void> {
     let room = this.load(); if (!room) return;
     const now = Date.now();
+    if (this.applyTick(room, now)) { this.save(room, room.status === 'finished'); this.broadcast(room); }
     for (const ws of this.ctx.getWebSockets()) {
       if ((ws.deserializeAttachment() as Attachment).expiresAt <= now) ws.close(4001, 'session expired');
     }
@@ -227,7 +247,10 @@ export class MatchRoom extends DurableObject<Env> {
     }
     const pendingResults = this.ctx.storage.sql.exec('SELECT id FROM completed_matches LIMIT 1').toArray().length > 0;
     // 接続の期限、再接続猶予、D1の再試行を再起動後も処理する。
-    if (pendingResults || room.syncVersion !== room.syncedVersion || room.status === 'waiting' || room.status === 'playing' || this.ctx.getWebSockets().some(ws => ws.readyState === 1)) await this.ctx.storage.setAlarm(Date.now() + 30_000);
+    if (pendingResults || room.syncVersion !== room.syncedVersion || room.status === 'waiting' || room.status === 'playing' || this.ctx.getWebSockets().some(ws => ws.readyState === 1)) {
+      // 自動処理の予定があれば、30秒ごとの見回りより先にその時刻で起きる。
+      await this.ctx.storage.setAlarm(Math.min(Date.now() + 30_000, room.tickAt ?? Infinity));
+    }
   }
   private async syncD1(room: Room): Promise<void> {
     const matchId = room.matchId ?? room.roomId;

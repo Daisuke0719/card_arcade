@@ -111,5 +111,11 @@ export { assertNever, initialSession, sessionReducer, useGameSession } from "./g
 export { useCountdown, useCpuTurn, useElapsedMs } from "./hooks";
 
 export { card, hand, joker } from "./testing";
-export { defineOnlineGame } from "./online";
+export { defineOnlineGame, defineOnlineView } from "./online";
+export type {
+  OnlineGameDefinition,
+  OnlineGameEntry,
+  OnlineGameViewProps,
+  OnlinePlayer,
+} from "./online";
 
