@@ -18,3 +18,7 @@
 ## 実装メモ
 
 `logic.ts` に役判定、比較、初期化、交換と状態遷移をまとめています。交換後は短い showdown 表示を挟み、`useCpuTurn` の tick で結果画面へ移ります。CPUの交換判断は乱数を使わない `chooseDiscardIds` です。
+
+画面は `PokerScreen.tsx` にまとめ、CPU版（`PokerGame.tsx`）とオンライン版（`PokerOnlineView.tsx`）の両方から公開状態 `PokerView` を渡して使います。CPU版は `toCpuView` でローカル状態を変換し、オンライン版はサーバーが `onlineAdapter.ts` の `toPublicState` で作った状態をそのまま表示します。
+
+オンライン対戦は2人とも人間で、手番の順番はありません。それぞれが一度だけ交換し、2人とも交換を終えた時点でサーバーが役を比べて試合を終えます。相手の手札は決着まで公開状態に含めず、山札は枚数だけを渡します。

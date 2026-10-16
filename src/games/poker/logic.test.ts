@@ -1,6 +1,6 @@
 import { hand } from "@core";
 import { describe, expect, it } from "vitest";
-import { compareHands, createInitialState, evaluateHand, reduce } from "./logic";
+import { compareHands, createInitialState, evaluateHand, reduce, replaceCards, toCpuView } from "./logic";
 import { chooseDiscardIds } from "./cpu";
 
 describe("poker hand evaluation", () => {
@@ -79,5 +79,30 @@ describe("poker exchange", () => {
     expect(result.phase).toBe("showdown");
     expect(result.exchanged["cpu-1"]).toBeGreaterThan(0);
     expect(result.deck.length).toBe(initial.deck.length - result.exchanged["cpu-1"]);
+  });
+});
+
+describe("poker shared helpers", () => {
+  it("replaceCards は選んだカードを捨て、山札の上から同じ枚数を補充する", () => {
+    const current = hand("spades-A", "hearts-K", "clubs-9", "diamonds-6", "spades-2");
+    const deck = hand("clubs-2", "clubs-3", "clubs-4");
+    const result = replaceCards(current, deck, ["hearts-K", "spades-2"]);
+    expect(result.hand.map(c => c.id)).toEqual(["spades-A", "clubs-9", "diamonds-6", "clubs-2", "clubs-3"]);
+    expect(result.deck.map(c => c.id)).toEqual(["clubs-4"]);
+    expect(result.discarded).toBe(2);
+  });
+  it("CPU版の公開状態は決着までCPUの手札を含めない", () => {
+    const initial = createInitialState(9);
+    const before = toCpuView(initial);
+    expect(before.me.cards).toEqual(initial.hands.you);
+    expect(before.opponent).toMatchObject({ cards: null, cardCount: 5, exchangedCount: null, handRank: null });
+
+    const showdown = reduce(initial, { type: "exchange", cardIds: [] });
+    expect(toCpuView(showdown).opponent.cards).toBeNull();
+    expect(toCpuView(showdown).opponent.exchangedCount).toBe(showdown.exchanged["cpu-1"]);
+
+    const finished = toCpuView(reduce(showdown, { type: "tick" }));
+    expect(finished.opponent.cards).toEqual(showdown.hands["cpu-1"]);
+    expect(finished.opponent.handRank).toBe(showdown.values!["cpu-1"].rank);
   });
 });
