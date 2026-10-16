@@ -141,6 +141,13 @@
     }
   ],
   "protectedPaths": [
+    "server/**",
+    "wrangler.jsonc",
+    "migrations/**",
+    "src/online/**",
+    "src/core/online.ts",
+    "src/core/server.ts",
+    "tests/server/**",
     "src/core/**",
     "src/components/**",
     "src/app/**",

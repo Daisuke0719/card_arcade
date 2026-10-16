@@ -1,0 +1,99 @@
+{
+	"$schema": "./node_modules/wrangler/config-schema.json",
+	"name": "card-arcade-online",
+	"main": "./server/index.ts",
+	"compatibility_date": "2026-09-20",
+	"compatibility_flags": [
+		"web_socket_auto_reply_to_close"
+	],
+	"observability": {
+		"enabled": true,
+		"traces": {
+			"enabled": true
+		}
+	},
+	"durable_objects": {
+		"bindings": [
+			{
+				"name": "MATCH_ROOM",
+				"class_name": "MatchRoom"
+			}
+		]
+	},
+	"d1_databases": [
+		{
+			"binding": "DB",
+			"database_name": "card-arcade",
+			"database_id": "local-card-arcade"
+		}
+	],
+	"migrations": [
+		{
+			"tag": "v1",
+			"new_sqlite_classes": [
+				"MatchRoom"
+			]
+		}
+	],
+	"env": {
+		"staging": {
+			"name": "card-arcade-online-staging",
+			"account_id": "63466dcac97520d6ce98a276548713a7",
+			"durable_objects": {
+				"bindings": [
+					{
+						"name": "MATCH_ROOM",
+						"class_name": "MatchRoom"
+					}
+				]
+			},
+			"d1_databases": [
+				{
+					"binding": "DB",
+					"database_name": "card-arcade-staging",
+					"database_id": "3414e32a-140c-4c43-8f36-d3a3c32f0329"
+				},
+				{
+					"binding": "card_arcade_staging",
+					"database_name": "card-arcade-staging",
+					"database_id": "3414e32a-140c-4c43-8f36-d3a3c32f0329",
+					"remote": true
+				}
+			],
+			"migrations": [
+				{
+					"tag": "v1",
+					"new_sqlite_classes": [
+						"MatchRoom"
+					]
+				}
+			]
+		},
+		"production": {
+			"name": "card-arcade-online-production",
+			"durable_objects": {
+				"bindings": [
+					{
+						"name": "MATCH_ROOM",
+						"class_name": "MatchRoom"
+					}
+				]
+			},
+			"d1_databases": [
+				{
+					"binding": "DB",
+					"database_name": "card-arcade-production",
+					"database_id": "local-card-arcade-production"
+				}
+			],
+			"migrations": [
+				{
+					"tag": "v1",
+					"new_sqlite_classes": [
+						"MatchRoom"
+					]
+				}
+			]
+		}
+	}
+}

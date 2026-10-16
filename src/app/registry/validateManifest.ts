@@ -1,4 +1,4 @@
-import type { GameManifest } from "@core";
+import type { GameManifest, OnlineGameEntry } from "@core";
 import { isKnownOwner } from "./harnessConfig";
 
 const DIFFICULTIES = ["easy", "normal", "hard"];
@@ -69,13 +69,40 @@ export function validateManifest(folder: string, value: unknown): string[] {
     problems.push("howToPlay に遊び方を1行以上書いてください");
   }
 
-  const component: unknown = manifest.component;
-  const isComponent =
-    typeof component === "function" ||
-    (typeof component === "object" && component !== null && "$$typeof" in component);
-  if (!isComponent) {
+  if (!isReactComponent(manifest.component)) {
     problems.push("component に React コンポーネントを指定してください");
   }
 
+  if (manifest.online !== undefined) {
+    problems.push(...validateOnline(manifest.id, manifest.online));
+  }
+
+  return problems;
+}
+
+function isReactComponent(value: unknown): boolean {
+  return (
+    typeof value === "function" ||
+    (typeof value === "object" && value !== null && "$$typeof" in value)
+  );
+}
+
+function validateOnline(id: unknown, value: unknown): string[] {
+  if (!value || typeof value !== "object") {
+    return ["online には defineOnlineView(onlineAdapter, オンライン画面) の戻り値を指定してください"];
+  }
+  const online = value as Partial<OnlineGameEntry>;
+  const problems: string[] = [];
+  if (online.gameId !== id) {
+    problems.push("online の gameId が manifest の id と一致していません（onlineAdapter の gameId を確認してください）");
+  }
+  const min = online.minPlayers;
+  const max = online.maxPlayers;
+  if (typeof min !== "number" || typeof max !== "number" || !(min >= 2 && min <= max && max <= 6)) {
+    problems.push("オンライン対戦の人数は 2 <= minPlayers <= maxPlayers <= 6 にしてください");
+  }
+  if (!isReactComponent(online.component)) {
+    problems.push("online にオンライン対戦画面の React コンポーネントを指定してください");
+  }
   return problems;
 }
