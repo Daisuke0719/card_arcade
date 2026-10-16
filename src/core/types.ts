@@ -1,4 +1,5 @@
 import type { ComponentType } from "react";
+import type { OnlineGameEntry } from "./online";
 
 /* ============================================================
  * カード
@@ -194,5 +195,10 @@ export type GameManifest = {
   /** 担当 Issue の番号。タイルから Issue へリンクする。 */
   readonly issueNumber?: number;
   readonly component: ComponentType<GameComponentProps>;
+  /**
+   * オンライン対戦に対応したら defineOnlineView の戻り値を登録する。
+   * 登録すると、ゲームの入口で CPU 対戦とオンライン対戦を選べるようになる。
+   */
+  readonly online?: OnlineGameEntry;
 };
 
