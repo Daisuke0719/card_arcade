@@ -1,6 +1,8 @@
-// @scaffold:untouched
+import { defineOnlineView } from "@core";
 import type { GameManifest } from "@core";
 import { BabanukiGame } from "./BabanukiGame";
+import { BabanukiOnlineView } from "./BabanukiOnlineView";
+import { onlineAdapter } from "./onlineAdapter";
 
 /**
  * ゲームの公開情報。アーケードがこのファイルを自動で見つけて一覧に並べます。
@@ -30,4 +32,5 @@ export const game: GameManifest = {
     "最後まで残った1人がジョーカーを持つことになり、最下位になります。",
   ],
   component: BabanukiGame,
+  online: defineOnlineView(onlineAdapter, BabanukiOnlineView),
 };
