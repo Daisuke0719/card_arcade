@@ -1,5 +1,8 @@
+import { defineOnlineView } from "@core";
 import type { GameManifest } from "@core";
+import { onlineAdapter } from "./onlineAdapter";
 import { PokerGame } from "./PokerGame";
+import { PokerOnlineView } from "./PokerOnlineView";
 
 export const game: GameManifest = {
   id: "poker",
@@ -19,4 +22,5 @@ export const game: GameManifest = {
     "交換後は役の強さで勝負します。同じ役は役を構成する数字で比べます。",
   ],
   component: PokerGame,
+  online: defineOnlineView(onlineAdapter, PokerOnlineView),
 };

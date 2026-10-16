@@ -125,6 +125,42 @@ export function compareHands(a: HandValue, b: HandValue): number {
   return 0;
 }
 
+/** 画面に渡す1人分の席。CPU版とオンライン版で同じ形を使う。 */
+export type PokerSeatView = {
+  readonly id: PlayerId;
+  readonly name: string;
+  /** 見せてよいときだけ中身を入れる。伏せている間は null。 */
+  readonly cards: readonly PlayingCard[] | null;
+  readonly cardCount: number;
+  /** 交換した枚数。まだ交換していない、または表示しない間は null。 */
+  readonly exchangedCount: number | null;
+  /** 判定後に公開する役。それまでは null。 */
+  readonly handRank: HandRank | null;
+};
+
+/** 画面に渡す公開状態。CPU版はローカル状態から、オンライン版はサーバーが作る。 */
+export type PokerView = {
+  readonly phase: Phase;
+  readonly me: PokerSeatView;
+  readonly opponent: PokerSeatView;
+  readonly deckCount: number;
+  /** 勝った人。決着前と引き分けでは null。 */
+  readonly winnerId: PlayerId | null;
+};
+
+/** 手札から指定したカードを捨て、同じ枚数を山札の上から補充する。 */
+export function replaceCards(
+  hand: readonly PlayingCard[],
+  deck: readonly PlayingCard[],
+  discardIds: readonly CardId[],
+): { readonly hand: PlayingCard[]; readonly deck: PlayingCard[]; readonly discarded: number } {
+  const selected = new Set(discardIds);
+  const keep = hand.filter(card => !selected.has(card.id));
+  const discarded = hand.length - keep.length;
+  const { cards, rest } = drawMany(deck, discarded);
+  return { hand: [...keep, ...cards], deck: [...rest], discarded };
+}
+
 export function createInitialState(seed = 1): PokerState {
   const deck = shuffle(createDeck(), createRng(seed));
   const players = createSoloVsCpu(1);
@@ -142,26 +178,17 @@ export function createInitialState(seed = 1): PokerState {
 
 export function exchange(state: PokerState, selectedIds: readonly CardId[]): PokerState {
   if (state.phase !== "exchanging") return state;
-  const selected = new Set(selectedIds);
-  const youDiscard = state.hands[YOU].filter(card => selected.has(card.id));
-  const cpuDiscardIds = new Set(chooseDiscardIds(state.hands[CPU]));
-  const cpuDiscard = state.hands[CPU].filter(card => cpuDiscardIds.has(card.id));
-  const youKeep = state.hands[YOU].filter(card => !selected.has(card.id));
-  const cpuKeep = state.hands[CPU].filter(card => !cpuDiscardIds.has(card.id));
-  const { cards: replacements, rest: deck } = drawMany(state.deck, youDiscard.length + cpuDiscard.length);
-  const youDrawn = replacements.slice(0, youDiscard.length);
-  const cpuDrawn = replacements.slice(youDiscard.length);
-  const hands = {
-    [YOU]: [...youKeep, ...youDrawn],
-    [CPU]: [...cpuKeep, ...cpuDrawn],
-  };
+  // プレイヤーが先に山札から補充し、続けて CPU が補充する。
+  const you = replaceCards(state.hands[YOU], state.deck, selectedIds);
+  const cpu = replaceCards(state.hands[CPU], you.deck, chooseDiscardIds(state.hands[CPU]));
+  const hands = { [YOU]: you.hand, [CPU]: cpu.hand };
   const values = { [YOU]: evaluateHand(hands[YOU]), [CPU]: evaluateHand(hands[CPU]) };
   const comparison = compareHands(values[YOU], values[CPU]);
   return {
     ...state,
-    deck,
+    deck: cpu.deck,
     hands,
-    exchanged: { [YOU]: youDiscard.length, [CPU]: cpuDiscard.length },
+    exchanged: { [YOU]: you.discarded, [CPU]: cpu.discarded },
     phase: "showdown",
     values,
     outcome: comparison > 0 ? "you" : comparison < 0 ? "cpu" : "draw",
@@ -202,4 +229,25 @@ export function pendingDelayMs(state: PokerState): number | null {
 
 export function isGameOver(state: PokerState): boolean {
   return state.phase === "finished";
+}
+
+/** CPU版のローカル状態を、オンライン版と同じ公開状態の形に変える。 */
+export function toCpuView(state: PokerState): PokerView {
+  const exchangedShown = state.phase !== "exchanging";
+  const finished = state.phase === "finished";
+  const seat = (id: PlayerId, name: string, revealCards: boolean): PokerSeatView => ({
+    id,
+    name,
+    cards: revealCards ? state.hands[id] : null,
+    cardCount: state.hands[id].length,
+    exchangedCount: exchangedShown ? state.exchanged[id] : null,
+    handRank: finished && state.values ? state.values[id].rank : null,
+  });
+  return {
+    phase: state.phase,
+    me: seat(YOU, "あなた", true),
+    opponent: seat(CPU, "CPU 1", finished),
+    deckCount: state.deck.length,
+    winnerId: state.outcome === "you" ? YOU : state.outcome === "cpu" ? CPU : null,
+  };
 }
