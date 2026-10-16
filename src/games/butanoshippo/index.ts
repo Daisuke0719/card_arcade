@@ -1,5 +1,8 @@
+import { defineOnlineView } from "@core";
 import type { GameManifest } from "@core";
 import { ButanoshippoGame } from "./ButanoshippoGame";
+import { ButanoshippoOnlineView } from "./ButanoshippoOnlineView";
+import { onlineAdapter } from "./onlineAdapter";
 
 export const game: GameManifest = {
   id: "butanoshippo",
@@ -18,4 +21,5 @@ export const game: GameManifest = {
     "輪のカードがなくなったら終了です。引き取った枚数が少ない順に順位が決まります。",
   ],
   component: ButanoshippoGame,
+  online: defineOnlineView(onlineAdapter, ButanoshippoOnlineView),
 };

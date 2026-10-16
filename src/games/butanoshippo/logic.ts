@@ -12,7 +12,7 @@ import {
   sameRank,
   shuffle,
 } from "@core";
-import type { PlayerId, PlayingCard, Ranking, TurnState } from "@core";
+import type { Player, PlayerId, PlayingCard, Ranking, TurnState } from "@core";
 
 /** CPU が1枚めくるまでの待ち時間。 */
 export const CPU_INTERVAL_MS = 900;
@@ -40,8 +40,8 @@ function isCpuTurn(state: ButanoshippoState): boolean {
   return state.turn.players.find((player) => player.id === state.turn.currentId)?.kind === "cpu";
 }
 
-export function createInitialState(seed = 1): ButanoshippoState {
-  const players = createSoloVsCpu(3);
+/** 参加者を指定して最初の状態を作る。CPU 版もオンライン版もここを通る。 */
+export function createGameState(seed: number, players: readonly Player[]): ButanoshippoState {
   return {
     ring: shuffle(createDeck(), createRng(seed)),
     pile: [],
@@ -51,6 +51,10 @@ export function createInitialState(seed = 1): ButanoshippoState {
     lastCollectorId: null,
     seed,
   };
+}
+
+export function createInitialState(seed = 1): ButanoshippoState {
+  return createGameState(seed, createSoloVsCpu(3));
 }
 
 export function isMatch(prev: PlayingCard | undefined, next: PlayingCard): boolean {
