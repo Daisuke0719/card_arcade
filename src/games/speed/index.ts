@@ -1,6 +1,9 @@
 // @scaffold:untouched
+import { defineOnlineView } from "@core";
 import type { GameManifest } from "@core";
 import { SpeedGame } from "./SpeedGame";
+import { SpeedOnlineView } from "./SpeedOnlineView";
+import { onlineAdapter } from "./onlineAdapter";
 
 /**
  * ゲームの公開情報。アーケードがこのファイルを自動で見つけて一覧に並べます。
@@ -30,4 +33,5 @@ export const game: GameManifest = {
     "どちらも出せなくなったら、山札から1枚ずつ新しい台札に置いて続けます。",
   ],
   component: SpeedGame,
+  online: defineOnlineView(onlineAdapter, SpeedOnlineView),
 };

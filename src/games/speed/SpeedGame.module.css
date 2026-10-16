@@ -15,6 +15,7 @@
 
 .center {
   display: flex;
+  flex-direction: column;
   gap: var(--ca-spacing-lg);
   justify-content: center;
   align-items: center;

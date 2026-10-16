@@ -13,7 +13,7 @@
  * お手本: src/games/example-game/logic.test.ts
  */
 import { card } from "@core";
-import { canPlay, createInitialState, playablePileIndex, reduce } from "./logic";
+import { canPlay, createInitialState, playablePileIndex, reduce, refillPiles } from "./logic";
 
 describe("スピード", () => {
   it("1つ違いのカードは出せる", () => {
@@ -70,5 +70,30 @@ describe("スピード", () => {
 
     const next = reduce(state, { type: "play", side: "you", cardId: unplayableCard.id });
     expect(next).toBe(state);
+  });
+});
+
+describe("スピード: 両者詰みでの決着", () => {
+  const stuck = (youHand: string[], cpuHand: string[]) => {
+    const base = createInitialState(1);
+    return {
+      ...base,
+      you: { hand: youHand.map((r) => card("clubs", r as never)), deck: [] },
+      cpu: { hand: cpuHand.map((r) => card("hearts", r as never)), deck: [] },
+      piles: [card("spades", "7"), card("diamonds", "J")] as const,
+    };
+  };
+
+  it("残り枚数が少ないほうが勝つ", () => {
+    const next = refillPiles(stuck(["2"], ["3", "4"]));
+    expect(next.phase).toBe("finished");
+    expect(next.winner).toBe("you");
+    expect(refillPiles(stuck(["2", "3"], ["4"])).winner).toBe("cpu");
+  });
+
+  it("残り枚数が同じなら引き分けになる", () => {
+    const next = refillPiles(stuck(["2"], ["3"]));
+    expect(next.phase).toBe("finished");
+    expect(next.winner).toBe("draw");
   });
 });

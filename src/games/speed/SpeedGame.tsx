@@ -11,14 +11,13 @@
 import { useReducer } from "react";
 import { useCpuTurn, rankByScore } from "@core";
 import type { GameComponentProps } from "@core";
-import { GameShell, Hand, DeckPile, ResultModal, Card } from "@ui";
 import {
   createInitialState,
   pendingDelayMs,
   reduce,
   playablePileIndex,
 } from "./logic";
-import styles from "./SpeedGame.module.css";
+import { SpeedBoard } from "./SpeedBoard";
 
 export function SpeedGame({ manifest, onExit }: GameComponentProps) {
   const [state, dispatch] = useReducer(reduce, undefined, () =>
@@ -53,44 +52,24 @@ export function SpeedGame({ manifest, onExit }: GameComponentProps) {
     state.winner === "you" ? "あなたの勝ち！" : state.winner === "cpu" ? "CPU の勝ち" : "引き分け";
 
   return (
-    <GameShell manifest={manifest} onExit={onExit} onReset={() => dispatch({ type: "reset" })}>
-      <div className={styles.container}>
-        <div className={styles.cpuArea}>
-          <DeckPile label="CPU の山札" count={state.cpu.deck.length} />
-          <Hand variant="hidden" count={state.cpu.hand.length} />
-        </div>
-
-        <div className={styles.center}>
-          <div className={styles.piles}>
-            <div className={styles.pileSlot}>
-              <span className={styles.pileLabel}>左の台札</span>
-              <Card card={state.piles[0]} face="up" size="lg" />
-            </div>
-            <div className={styles.pileSlot}>
-              <span className={styles.pileLabel}>右の台札</span>
-              <Card card={state.piles[1]} face="up" size="lg" />
-            </div>
-          </div>
-        </div>
-
-        <div className={styles.playerArea}>
-          <DeckPile label="あなたの山札" count={state.you.deck.length} />
-          <Hand
-            cards={state.you.hand}
-            highlightedIds={highlightedIds}
-            onCardClick={(card) => dispatch({ type: "play", side: "you", cardId: card.id })}
-          />
-        </div>
-      </div>
-
-      <ResultModal
-        open={isFinished}
-        title={resultTitle}
-        score={`${state.you.hand.length + state.you.deck.length} 対 ${state.cpu.hand.length + state.cpu.deck.length}`}
-        ranking={ranking}
-        onRetry={() => dispatch({ type: "reset" })}
-        onExit={onExit}
-      />
-    </GameShell>
+    <SpeedBoard
+      manifest={manifest}
+      onExit={onExit}
+      onReset={() => dispatch({ type: "reset" })}
+      opponentName="CPU"
+      opponentDeckCount={state.cpu.deck.length}
+      opponentHandCount={state.cpu.hand.length}
+      piles={state.piles}
+      myName="あなた"
+      myDeckCount={state.you.deck.length}
+      myHand={state.you.hand}
+      highlightedIds={highlightedIds}
+      onPlay={(cardId) => dispatch({ type: "play", side: "you", cardId })}
+      finished={isFinished}
+      resultTitle={resultTitle}
+      resultScore={`${state.you.hand.length + state.you.deck.length} 対 ${state.cpu.hand.length + state.cpu.deck.length}`}
+      ranking={ranking}
+      onRetry={() => dispatch({ type: "reset" })}
+    />
   );
 }

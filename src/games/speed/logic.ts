@@ -64,13 +64,26 @@ export function hasPlayableCard(side: SpeedSide, piles: Piles): boolean {
   return side.hand.some((card) => playablePileIndex(card, piles) !== null);
 }
 
+/** 残り枚数（手札 + 山札）。 */
+export function remainingCount(side: SpeedSide): number {
+  return side.hand.length + side.deck.length;
+}
+
+/** 両者詰みで終わるときの勝者。残り枚数が少ないほうの勝ちで、同数なら引き分け。 */
+export function winnerByRemaining(state: SpeedState): Side | "draw" {
+  const you = remainingCount(state.you);
+  const cpu = remainingCount(state.cpu);
+  if (you === cpu) return "draw";
+  return you < cpu ? "you" : "cpu";
+}
+
 /** 両者が詰んだとき、各自の山札から1枚ずつ台札に足す。足せなければ finished にする。 */
 export function refillPiles(state: SpeedState): SpeedState {
   const youHasDeck = state.you.deck.length > 0;
   const cpuHasDeck = state.cpu.deck.length > 0;
 
   if (!youHasDeck && !cpuHasDeck) {
-    return { ...state, phase: "finished" };
+    return { ...state, phase: "finished", winner: winnerByRemaining(state) };
   }
 
   const newPiles: Piles = [
