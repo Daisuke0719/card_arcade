@@ -3,6 +3,7 @@ import { useCallback, useSyncExternalStore } from "react";
 export type Route =
   | { readonly name: "arcade" }
   | { readonly name: "game"; readonly id: string }
+  | { readonly name: "online"; readonly id: string }
   | { readonly name: "not-found"; readonly hash: string };
 
 /**
@@ -18,6 +19,8 @@ export function parseHash(hash: string): Route {
 
   const match = /^\/games\/([a-z0-9-]+)\/?$/.exec(path);
   if (match) return { name: "game", id: match[1] };
+  const online = /^\/online\/([a-z0-9-]+)\/?$/.exec(path);
+  if (online) return { name: "online", id: online[1] };
 
   return { name: "not-found", hash: path };
 }
@@ -28,6 +31,8 @@ export function toHash(route: Route): string {
       return "#/";
     case "game":
       return "#/games/" + route.id;
+    case "online":
+      return "#/online/" + route.id;
     default:
       return "#" + route.hash;
   }

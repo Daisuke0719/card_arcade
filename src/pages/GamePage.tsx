@@ -1,5 +1,6 @@
 import { GameErrorBoundary } from "../app/GameErrorBoundary";
 import { getGame } from "../app/registry/loadGames";
+import { GameModePage } from "./GameModePage";
 import { NotFoundPage } from "./NotFoundPage";
 
 export type GamePageProps = {
@@ -20,7 +21,11 @@ export function GamePage({ id, onExit }: GamePageProps) {
 
   return (
     <GameErrorBoundary gameName={manifest.name} onExit={onExit}>
-      <GameComponent manifest={manifest} onExit={onExit} />
+      {manifest.online ? (
+        <GameModePage manifest={manifest} onExit={onExit} />
+      ) : (
+        <GameComponent manifest={manifest} onExit={onExit} />
+      )}
     </GameErrorBoundary>
   );
 }
